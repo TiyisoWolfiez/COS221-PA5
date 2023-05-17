@@ -4,7 +4,7 @@ A winery website for tourists to view and make use of when trying to browse a se
 # Setup
 
 # Packages and frameworks used
-1. <a href="https://getbootstrap.com/">Bootsrap</a>
+1. <a href="https://getbootstrap.com/">Bootstrap</a>
 
 # Development timeline 2023
 ## Week of 15/5 - 21/5
