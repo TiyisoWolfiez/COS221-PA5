@@ -1,0 +1,61 @@
+/**IMPORT FONT HERE*/
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --black-1000: rgb(0, 0, 0);
+    --black-1000-20: rgba(0, 0, 0, 0.199);
+    --gray-1000: rgb(122, 122, 122);
+    --gray-300-30: rgba(88, 88, 88, 0.336);
+    --white-1000: rgb(255, 255, 255);
+    --app-theme-col: rgb(116, 240, 116);
+    --app-theme-col-saturated: rgb(86, 247, 86);
+    --regular-f: 400;
+    --medium-f: 500;
+    --semibold-f: 600;
+    --bold-f: 700;
+    --extrabold-f: 800;
+}
+
+body{
+    background: var(--app-theme-col);
+    font-family: 'Wix Madefor Display', sans-serif;
+}
+
+.box-area{
+    width: 60vw;
+    box-shadow: 5px 5px 15px 7px var(--black-1000-20);
+}
+
+.img-class{
+    margin-left: -12px;
+    width: 340px;
+    height: auto;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+    padding-bottom: 0px;
+}
+
+.login-btn{
+    background: var(--app-theme-col);
+    transition: transform 0.3s ease-in-out;
+}
+
+.login-btn:active{
+    transform: scale(0.97);
+}
+
+.login-btn:hover{
+    background: var(--app-theme-col-saturated);
+}
+
+.no-account-btn{
+    border: 1px solid var(--gray-300-30);
+}
+
+.no-account-btn:active{
+    transform: scale(0.97);
+}
