@@ -1,0 +1,51 @@
+/**IMPORT FONT HERE*/
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --black-1000: rgb(0, 0, 0);
+    --black-1000-20: rgba(0, 0, 0, 0.199);
+    --gray-1000: rgb(122, 122, 122);
+    --gray-300-30: rgba(88, 88, 88, 0.336);
+    --white-1000: rgb(255, 255, 255);
+    --white-700: rgb(233, 233, 233);
+    --app-theme-col: rgb(116, 240, 116);
+    --app-theme-col-saturated: rgb(86, 247, 86);
+    --regular-f: 400;
+    --medium-f: 500;
+    --semibold-f: 600;
+    --bold-f: 700;
+    --extrabold-f: 800;
+}
+
+body{
+    background: var(--white-1000);
+    font-family: 'Wix Madefor Display', sans-serif;
+    color: var(--white-700) !important;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.navbar-bg-col{
+    background: var(--app-theme-col);
+}
+
+.filter-buttons{
+    transition: transform 0.3s ease-in-out;
+}
+
+.filter-buttons:hover{
+    background: var(--white-1000) !important;
+}
+
+.filter-buttons:active{
+    transform: scale(0.97);
+}
+
+.footer{
+    background-color: rgb(34, 34, 34);
+    color: var(--white-1000) !important;
+}
+
+a{
+    text-decoration: none;
+}

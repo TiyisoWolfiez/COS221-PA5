@@ -1,0 +1,46 @@
+/*CHECK IN global.css for what variables are available for use*/
+
+.filter-buttons{
+    transition: transform 0.3s ease-in-out;
+}
+
+.filter-buttons:hover{
+    background: var(--white-1000) !important;
+}
+
+.filter-buttons:active{
+    transform: scale(0.97);
+}
+
+.website-container{
+    height: calc(100vh - 130px);
+}
+
+.card-item{
+    box-shadow: 5px 5px 25px 5px var(--black-1000-20);
+    transition: transform 0.4s ease-in-out;
+    margin: 1rem;
+}
+
+.card-item:hover{
+    transform: scale(1.02);
+}
+
+.card-item:active{
+    transform: scale(0.98);
+}
+
+.card-img-top{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-container{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: calc(100% * (200 / 300));
+}

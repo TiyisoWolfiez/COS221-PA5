@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Styles/global.css">
     <link rel="stylesheet" href="../Styles/home.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/svg+xml" href="../Assets/wine-glass-solid.svg" />
-    <title>Winery SA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Winery SA | Home</title>
 </head>
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+    <nav class="navbar navbar-noscroll navbar-expand-lg fixed-top navbar-light">
         <div class="container">
-          <a class="navbar-brand d-flex" href="#">
+          <a class="navbar-brand d-flex" href="index.html">
             <i class="fa-solid fa-wine-glass pe-3" style="color: #414141; font-size: 2rem;"></i>
             <h3 class="me-5" style="color: #414141;">Winery SA</h3>
         </a>
@@ -30,17 +32,15 @@
             <i class="fas fa-bars"></i>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" />
-            <i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;"></i>
             <ul class="navbar-nav ms-auto align-items-center">
               <li class="nav-item">
-                <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a>
+                <a class="nav-link mx-2" href="wines.html"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-store pe-2"></i>wineries</a>
+                <a class="nav-link mx-2" href="wineries.html"><i class="fa-solid fa-store pe-2"></i>wineries</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-user-gear pe-2"></i>admin</a><!--will only show for admin users-->
+                <a class="nav-link mx-2" href="admin.html"><i class="fa-solid fa-user-gear pe-2"></i>admin</a><!--will only show for admin users-->
               </li>
               <li class="nav-item ms-3 border rounded-2">
                 <!--<a class="btn btn-black btn-rounded" href="login.html">Login/Signup</a> -->
@@ -54,370 +54,201 @@
         </div>
     </nav>
     <!-- navbar -->
-    <nav style="height: 70px;"></nav><!--buffer for navbar-->
-    <nav style="height: 60px;">
-      <div class="ms-auto align-items-center d-flex" style="height: 60px;">
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">
-          <i class="fa-solid fa-filter pe-2"></i>filters
-        </div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">red wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">white wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">champagne</div>
-      </div>
-    </nav>
-    <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto">
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://media.istockphoto.com/id/978754758/photo/vineyard-sunset.jpg?s=612x612&w=0&k=20&c=xvJZ_Ldp_n_Ev0LjaNY_vgrLvdB_dBrT8SdRfPn6zd0=" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://res.akamaized.net/domain/image/upload/t_web/c_crop,h_393,w_627,x_150,y_53/v1631241636/118115-56_ama7b5.jpg" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://parissiswinery.com/wp-content/uploads/2022/01/parissis_winery_skiathos_greece-1.jpg" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://images.squarespace-cdn.com/content/v1/5c3cdd80c258b408c8f871c9/1637010787400-UYMKKSY0BO52T540YXK6/D1BDE42D-EAE9-4588-BC33-2C17E0CA8895_1_105_c.jpeg?format=2500w" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://marylandwine.com/wp-content/uploads/2016/07/mdwine-winery-640x360.jpg" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://cdn.shopify.com/s/files/1/0475/7743/2217/files/home-hill-winery-2021-FB_00ce056b-cc75-4f40-968c-50cbb09f402b.jpg?v=1623201223" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://bplakecc.wpenginepowered.com/wp-content/uploads/2023/04/32431807_web1_230420-SUM-Sumac-closing-SUMMERLAND_1.jpg" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-      <div class="card card-item rounded-2" style="width: 18rem;">
-        <div class="img-container">
-          <img class="card-img-top" src="https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/temecula/97aabe43407fcaa7e2c42ffe0db13936cf1f49f5aa290eed11c4055f5ffaaeac_06b79738-8707-40c7-a731-58ba4bcd799e.jpg" alt="Card image cap">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hatfield</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Rating: 4.5★</li>
-          <li class="list-group-item">Open Days: Mon - Fri</li>
-          <li class="list-group-item">Open times: 8am - 4pm</li>
-        </ul>
-      </div>
-    </nav>
-      
-  
-    <!-- Footer -->
-    <footer class="text-center text-lg-start text-muted footer">
-      <!-- Section: Social media -->
-      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
-        <!-- Left -->
 
-        <!-- Right -->
-        <div>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-facebook-f" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-twitter" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-google" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-instagram" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-linkedin" style="color: var(--app-theme-col);"></i>
-          </a>
-        </div>
-        <!-- Right -->
-      </section>
-      <!-- Section: Social media -->
+    <div class="landing-page-container">
+        <h1>Welcome to <br> Winery SA <i class="fa-solid fa-wine-glass pe-3" style="font-size: 5rem;"></i></h1>
+        <h3>Guiding you to the finest wines in South Africa</h3>
 
-      <!-- Section: Links  -->
-      <section class="">
-        <div class="container text-center text-md-start mt-5">
-          <!-- Grid row -->
-          <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fa-solid fa-wine-glass me-3" style="color: var(--app-theme-col);"></i>Winery SA
-              </h6>
-              <p>
-                Serving tourists the best wineries and wines in SA since 1908
-              </p>
+        <h4>scroll down</h4>
+        <i class="fa-solid fa-chevron-down" onclick="document.getElementById('home-page-content').scrollIntoView({behavior: 'smooth'});"></i>
+    </div>
+
+    <div class="home-page-content" id="home-page-content">
+        <div class="card mb-3 card-info-container" style="max-width: 540px; height: 200px; max-height: 200px; overflow: hidden;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img class="card-img-top " src="https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
             </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                Wines
-              </h6>
-              <p>
-                <a href="#!" class="text-reset">Cabernet Sauvigno</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Merlot</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Airén</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Tempranillo</a>
-              </p>
+        </div>
+        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
             </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                Wineries
-              </h6>
-              <p>
-                <a href="#!" class="text-reset">Hatfield</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Kruger park</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Kgalagadi</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Stellenbosch</a>
-              </p>
+        </div>
+        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
             </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-              <p><i class="fas fa-home me-3" style="color: var(--app-theme-col);"></i> Cape Town, CT 10012, SA</p>
-              <p>
-                <i class="fas fa-envelope me-3" style="color: var(--app-theme-col);"></i>
-                winerysa@business.com
-              </p>
-              <p><i class="fas fa-phone me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 88</p>
-              <p><i class="fas fa-print me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 89</p>
+        </div>
+        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1491924778227-f225b115dd5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
             </div>
-            <!-- Grid column -->
+        </div>
+    </div>
+
+<!-- Footer -->
+<footer class="text-center text-lg-start text-muted footer">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
+
+      <!-- Right -->
+      <div>
+        <a href="https://www.facebook.com/" class="me-4 link-secondary">
+          <i class="fab fa-facebook-f" style="color: var(--app-theme-col);"></i>
+        </a>
+        <a href="https://twitter.com/" class="me-4 link-secondary">
+          <i class="fab fa-twitter" style="color: var(--app-theme-col);"></i>
+        </a>
+        <a href="https://www.google.com/" class="me-4 link-secondary">
+          <i class="fab fa-google" style="color: var(--app-theme-col);"></i>
+        </a>
+        <a href="https://www.instagram.com/" class="me-4 link-secondary">
+          <i class="fab fa-instagram" style="color: var(--app-theme-col);"></i>
+        </a>
+        <a href="https://za.linkedin.com/" class="me-4 link-secondary">
+          <i class="fab fa-linkedin" style="color: var(--app-theme-col);"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fa-solid fa-wine-glass me-3" style="color: var(--app-theme-col);"></i>Winery SA
+            </h6>
+            <p>
+              Serving tourists the best wineries and wines in SA since 1908
+            </p>
           </div>
-          <!-- Grid row -->
-        </div>
-      </section>
-      <!-- Section: Links  -->
+          <!-- Grid column -->
 
-      <!-- Copyright -->
-      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2023 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Winery SA all rights reserved</a>
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Wines
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Cabernet Sauvigno</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Merlot</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Airén</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Tempranillo</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Wineries
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Hatfield</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Kruger park</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Kgalagadi</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Stellenbosch</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3" style="color: var(--app-theme-col);"></i> Cape Town, CT 10012, SA</p>
+            <p>
+              <i class="fas fa-envelope me-3" style="color: var(--app-theme-col);"></i>
+              winerysa@business.com
+            </p>
+            <p><i class="fas fa-phone me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Winery SA all rights reserved</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+  <script>
+    const navEl = document.querySelector(".navbar-noscroll");
+
+    window.addEventListener("scroll", () => {
+        if(window.scrollY > 300)navEl.classList.add("navbar-scroll");
+        else navEl.classList.remove("navbar-scroll");
+    });
+  </script>
 </body>
 </html>
-
-
-
-<!-- card.//
-      <div class="card">
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Brands </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <form>
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Mersedes Benz
-                </span>
-              </label>
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Nissan Altima
-                </span>
-              </label>  
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Another Brand
-                </span>
-              </label>  
-            </form>
-      
-            </div>
-          </div>
-        </article> 
-        
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Choose type </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                First hand items
-              </span>
-            </label>
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                Brand new items
-              </span>
-            </label>
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                Some other option
-              </span>
-            </label>
-            </div> 
-          </div>
-        </article> 
-      </div> card.// 
-      
-      <div class="card">
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Range input </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Min</label>
-              <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
-            </div>
-            <div class="form-group col-md-6 text-right">
-              <label>Max</label>
-              <input type="number" class="form-control" placeholder="$1,0000">
-            </div>
-            </div>
-            </div> 
-          </div>
-        </article>
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Selection </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">52</span>
-                  <input type="checkbox" class="custom-control-input" id="Check1">
-                  <label class="custom-control-label" for="Check1">Samsung</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">132</span>
-                  <input type="checkbox" class="custom-control-input" id="Check2">
-                 <label class="custom-control-label" for="Check2">Black berry</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">17</span>
-                  <input type="checkbox" class="custom-control-input" id="Check3">
-                  <label class="custom-control-label" for="Check3">Samsung</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">7</span>
-                  <input type="checkbox" class="custom-control-input" id="Check4">
-                  <label class="custom-control-label" for="Check4">Other Brand</label>
-              </div> 
-            </div> 
-          </div>
-        </article> 
-      </div>  -->
