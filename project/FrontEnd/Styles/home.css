@@ -57,6 +57,21 @@ body{
     transform: scale(0.98);
 }
 
+.card-img-top{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-container{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: calc(100% * (200 / 300));
+}
+
 .footer{
     background-color: rgb(34, 34, 34);
     color: var(--white-1000) !important;
