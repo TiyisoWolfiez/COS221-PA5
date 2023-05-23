@@ -110,7 +110,7 @@ const validateSignUp = function(){
         document.getElementById("name").value = "";
         document.getElementById("password").value = "";
     }
-    return false;
+    return false;//TODO: once we have a backend, change this to "return true"
 };
 
 
@@ -138,6 +138,6 @@ const validateLogin = function(){
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
     }
-    return false;
+    return false;//TODO: once we have a backend, change this to "return true"
 
 };
