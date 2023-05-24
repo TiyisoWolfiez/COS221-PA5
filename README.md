@@ -11,6 +11,17 @@ home page: https://winerysa.netlify.app/pages/
 # Packages and frameworks used
 1. <a href="https://getbootstrap.com/">Bootstrap</a>
 
+# Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 # Development timeline 2023
 ## Week of 15/5 - 21/5
  1. Group meetup for discussions and planning
