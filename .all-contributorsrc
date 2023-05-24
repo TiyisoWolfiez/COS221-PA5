@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "waveyboym",
+      "name": "Michael",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93211335?v=4",
+      "profile": "https://waveyboym.github.io",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "COS221-PA5",
+  "projectOwner": "waveyboym"
+}
