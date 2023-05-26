@@ -58,7 +58,7 @@
     <nav style="height: 70px;"></nav><!--buffer for navbar-->
     <nav style="height: 60px;">
       <div class="ms-auto align-items-center d-flex filter-tab" style="height: 60px;">
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i class="fa-solid fa-filter pe-2"></i>filters
         </div>
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">red wine</div>
@@ -180,8 +180,48 @@
         </ul>
       </div>
     </nav>
+
+    <!-- filter tab -->
+    <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">Filter wineries</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="text-dark">Price ranges</h6>
+            <label for="customRange1" class="form-label text-dark">Min price for wines sold at winery: $2000</label>
+            <input type="range" class="form-range" id="customRange2">
+            <label for="customRange1" class="form-label text-dark">Max price for wines sold at winery: $5000</label>
+            <input type="range" class="form-range" id="customRange1">
+
+            <h6 class="text-dark">Wine types</h6>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label text-dark" for="inlineCheckbox1">All</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label text-dark" for="inlineCheckbox2">Red</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">White</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Champagne</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn" style="background-color: var(--app-theme-col);">Update filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
       
-  
     <!-- Footer -->
     <footer class="text-center text-lg-start text-muted footer">
       <!-- Section: Social media -->
@@ -304,121 +344,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-<!-- card.//
-      <div class="card">
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Brands </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <form>
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Mersedes Benz
-                </span>
-              </label>
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Nissan Altima
-                </span>
-              </label>  
-              <label class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <span class="form-check-label">
-                  Another Brand
-                </span>
-              </label>  
-            </form>
-      
-            </div>
-          </div>
-        </article> 
-        
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Choose type </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                First hand items
-              </span>
-            </label>
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                Brand new items
-              </span>
-            </label>
-            <label class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-              <span class="form-check-label">
-                Some other option
-              </span>
-            </label>
-            </div> 
-          </div>
-        </article> 
-      </div> card.// 
-      
-      <div class="card">
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Range input </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-            <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Min</label>
-              <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
-            </div>
-            <div class="form-group col-md-6 text-right">
-              <label>Max</label>
-              <input type="number" class="form-control" placeholder="$1,0000">
-            </div>
-            </div>
-            </div> 
-          </div>
-        </article>
-        <article class="card-group-item">
-          <header class="card-header">
-            <h6 class="title">Selection </h6>
-          </header>
-          <div class="filter-content">
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">52</span>
-                  <input type="checkbox" class="custom-control-input" id="Check1">
-                  <label class="custom-control-label" for="Check1">Samsung</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">132</span>
-                  <input type="checkbox" class="custom-control-input" id="Check2">
-                 <label class="custom-control-label" for="Check2">Black berry</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">17</span>
-                  <input type="checkbox" class="custom-control-input" id="Check3">
-                  <label class="custom-control-label" for="Check3">Samsung</label>
-              </div> 
-      
-              <div class="custom-control custom-checkbox">
-                <span class="float-right badge badge-light round">7</span>
-                  <input type="checkbox" class="custom-control-input" id="Check4">
-                  <label class="custom-control-label" for="Check4">Other Brand</label>
-              </div> 
-            </div> 
-          </div>
-        </article> 
-      </div>  -->
