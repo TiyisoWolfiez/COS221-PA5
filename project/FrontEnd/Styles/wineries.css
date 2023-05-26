@@ -14,6 +14,8 @@
 
 .website-container{
     height: calc(100vh - 130px);
+    overflow-y: scroll;
+    width: 99vw;
 }
 
 @media screen and (min-width:1600px){
