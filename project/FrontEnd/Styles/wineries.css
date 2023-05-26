@@ -16,6 +16,34 @@
     height: calc(100vh - 130px);
 }
 
+@media screen and (min-width:1600px){
+    .filter-tab{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2000px){
+    .filter-tab{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .card-item{
     box-shadow: 5px 5px 25px 5px var(--black-1000-20);
     transition: transform 0.4s ease-in-out;
