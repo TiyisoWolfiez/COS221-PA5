@@ -1,1 +1,0 @@
-Please add the files for loggin out a user from the website
