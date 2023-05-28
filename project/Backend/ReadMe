@@ -1,0 +1,43 @@
+Here's a list of all the functions the API needs to do and the corresponding JS, please add whatever else needs to be done:
+Once something is working add an X to the end of the point so we know not to work on it anymore.
+
+API:
+-Can get winery data
+    -All 
+    -All sorted by location
+    -All south african (if user is foreign)
+    -All foreign (if user is southAfrican)
+    -All sorted by distance away from user
+-Can get wine data
+	-All
+    -Filtered by a given Appellation, Varietal, Colour, Carbonation, Sweetness, Country
+    -Sorted by price, rating, alcohol content, vintage, year_bottled
+    -Both filtered and sorted 
+-Can get user data
+-Can get review data
+-Can return whether login credentials were correct
+-Can return whether admin key was correct
+-Can return list of all appellations
+-Can return list of all varietals
+-Can return list of all countries
+-Can return a winery’s site, address, location
+-Can return all the wines of a specific winery
+-Can return a winery given a wine
+-Update winery information
+-Update wine information, delete wines, insert wines
+-Insert new users, delete users
+-Update user’s username
+
+I think we should add some sort of key to alter, insert, delete statements for security - I was thinking just the manager’s password/ the admin key?
+
+
+JS:
+-Implement buttons
+-Pages populated from API on page load
+-When filters applied in winery, contacts API and populates page
+-When filters applied in wine, contacts API and populates page
+-Populates single wine page (wine info + reviews)
+-Populates view winery page
+-Populates winery management page
+-Populates admin management page
+-Contacts API for login and signup
