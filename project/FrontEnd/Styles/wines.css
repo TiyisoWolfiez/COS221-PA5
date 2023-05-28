@@ -14,6 +14,36 @@
 
 .website-container{
     height: calc(100vh - 130px);
+    overflow-y: scroll;
+    width: 99vw;
+}
+
+@media screen and (min-width:1600px){
+    .filter-tab{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2000px){
+    .filter-tab{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .card-item{
