@@ -1,13 +1,5 @@
 /*CHECK IN global.css for what variables are available for use*/
 
-.navbar-noscroll{
-    transition: all 0.5s ease-in-out;
-}
-
-.navbar-scroll{
-    background: var(--app-theme-col);
-}
-
 .landing-page-container{
     background-image: url("../Assets/landing-page\ img.jpg");
     background-position: center;
