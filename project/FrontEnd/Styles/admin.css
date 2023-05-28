@@ -1,0 +1,96 @@
+/*CHECK IN global.css for what variables are available for use*/
+
+.main-admin-container{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.at-a-glance-cards{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 80px;
+}
+
+.at-a-glance-card{
+    width: calc(80vw / 4);
+    transition: transform 0.5s ease-in-out;
+    box-shadow:  9px 9px 24px #d7d7d777,
+             -9px -9px 24px #e9e9e962;
+}
+
+.at-a-glance-card:hover{
+    transform: scale(1.03);
+}
+
+.card-icon-and-count{
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+
+.navigation-tabs-for-list{
+    margin-top: 15px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btns-click{
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: var(--app-theme-col) !important;
+    border-radius: 10px !important;
+    border: none !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.btns-click:hover{
+    opacity: 0.9;
+}
+
+.btns-click:active{
+    transform: scale(0.99);
+}
+
+.divider{
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 1px;
+    background: rgba(128, 128, 128, 0.685);
+    height: 50px;
+}
+
+.container-of-data{
+    margin-top: 5px;
+}
+
+.list-group{
+    height: 45vh;
+    overflow-y: auto;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.action-btns{
+    display: flex;
+    max-width: 50px !important;
+}
+
+.action-btn{
+    transition: transform 0.3s ease-in-out;
+}
+
+.action-btn:hover{
+    transform: scale(1.05);
+}
+
+.action-btn:active{
+    transform: scale(0.95);
+}
+
+.invisible-row-col{
+    opacity: 0 !important;
+}
