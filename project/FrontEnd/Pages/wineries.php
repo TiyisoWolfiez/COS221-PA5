@@ -160,6 +160,7 @@
             <label for="customRange1" class="form-label text-dark">Max price for wines sold at winery: $5000</label>
             <input type="range" class="form-range" id="customRange1">
 
+            <div class="filter-modal-buffer"></div>
             <h6 class="text-dark">Locations</h6>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -197,7 +198,8 @@
               <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option9">
               <label class="form-check-label text-dark" for="inlineCheckbox3">Bloemfontein</label>
             </div>
-            <label for="enteredLocation">Enter a location in South Africa</label>
+            <div class="filter-modal-buffer"></div>
+            <h6 class="text-dark enteredLocation">Enter a location in South Africa</h6>
             <input type="text" class="form-control" id="enteredLocation" placeholder="Enter location here">
           </div>
           <div class="modal-footer">

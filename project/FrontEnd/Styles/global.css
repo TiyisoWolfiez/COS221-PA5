@@ -29,6 +29,14 @@ body{
     background: var(--app-theme-col);
 }
 
+.navbar-noscroll{
+    transition: all 0.5s ease-in-out;
+}
+
+.navbar-scroll{
+    background: var(--app-theme-col);
+}
+
 .filter-buttons{
     transition: transform 0.3s ease-in-out;
 }
