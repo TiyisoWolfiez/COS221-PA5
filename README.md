@@ -1,6 +1,6 @@
 # COS221-PA5
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 A winery website for tourists to view and make use of when trying to browse a selection of wines in South Africa
 
@@ -25,6 +25,7 @@ home page: https://winerysa.netlify.app/pages/
       <td align="center" valign="top" width="14.28%"><a href="https://waveyboym.github.io"><img src="https://avatars.githubusercontent.com/u/93211335?v=4?s=100" width="100px;" alt="Michael"/><br /><sub><b>Michael</b></sub></a><br /><a href="#design-waveyboym" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/JMPastoll"><img src="https://avatars.githubusercontent.com/u/130366358?v=4?s=100" width="100px;" alt="JMPastoll"/><br /><sub><b>JMPastoll</b></sub></a><br /><a href="#data-JMPastoll" title="Data">🔣</a> <a href="#ideas-JMPastoll" title="Ideas, Planning, & Feedback">🤔</a> <a href="#research-JMPastoll" title="Research">🔬</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/NicholasJHarvey"><img src="https://avatars.githubusercontent.com/u/43268664?v=4?s=100" width="100px;" alt="NicholasJHarvey"/><br /><sub><b>NicholasJHarvey</b></sub></a><br /><a href="https://github.com/waveyboym/COS221-PA5/commits?author=NicholasJHarvey" title="Code">💻</a> <a href="https://github.com/waveyboym/COS221-PA5/issues?q=author%3ANicholasJHarvey" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/TiyisoWolfiez"><img src="https://avatars.githubusercontent.com/u/110611386?v=4?s=100" width="100px;" alt="TiyisoWolfiez"/><br /><sub><b>TiyisoWolfiez</b></sub></a><br /><a href="https://github.com/waveyboym/COS221-PA5/commits?author=TiyisoWolfiez" title="Code">💻</a> <a href="#content-TiyisoWolfiez" title="Content">🖋</a></td>
     </tr>
   </tbody>
 </table>
