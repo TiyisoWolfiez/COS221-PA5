@@ -14,6 +14,8 @@ enum REQUESTYPE: string
 {
     case REGISTER = 'REGISTER';
     case LOGIN = 'LOGIN';
+    case GET_WINERIES = 'GET_WINERIES';
+    case GET_WINE = 'GET_WINE';
     /**Add more cases */
 }
 
@@ -63,6 +65,17 @@ class Api extends config{
         }
 
         //continued
+
+        $conn = $this->connectToDatabase;
+        $stmt = $conn->query('SELECT COUNT AS rows FROM USER WHERE Username = "'. $UserEmail .'" AND Password ="'. $UserPassword .'"');
+        $row = $stmt->(PDO::FETCH_ASSOC);
+
+        if($row.rows != 0){
+            return array("status" => "success");
+        }
+        else{
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::NULLUSER));
+        }
     }
 
     public function registerUser(){
