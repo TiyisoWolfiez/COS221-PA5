@@ -46,6 +46,18 @@
         "code",
         "content"
       ]
+    },
+    {
+      "login": "u22528492",
+      "name": "Jaden Moodley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/130374095?v=4",
+      "profile": "https://github.com/u22528492",
+      "contributions": [
+        "code",
+        "content",
+        "design",
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
