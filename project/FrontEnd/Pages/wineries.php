@@ -12,58 +12,21 @@
     <title>Winery SA | Wineries</title>
 </head>
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-bg-col navbar-expand-lg fixed-top navbar-light">
-        <div class="container">
-          <a class="navbar-brand d-flex" href="index.html">
-            <i class="fa-solid fa-wine-glass pe-3" style="color: #414141; font-size: 2rem;"></i>
-            <h3 class="me-5" style="color: #414141;">Winery SA</h3>
-        </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" />
-            <i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;"></i>
-            <ul class="navbar-nav ms-auto align-items-center">
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="wines.html"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="wineries.html"><i class="fa-solid fa-store pe-2"></i>wineries</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="admin.html"><i class="fa-solid fa-user-gear pe-2"></i>admin</a><!--will only show for admin users-->
-              </li>
-              <li class="nav-item ms-3 border rounded-2">
-                <!--<a class="btn btn-black btn-rounded" href="login.html">Login/Signup</a> -->
-                <div class="btn btn-black btn-rounded"><i class="fa-regular fa-user pe-2"></i>username</div><!--will only show for logged in users-->
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-    <!-- navbar -->
+    <?php include "../Components/Navbar.php";?>
     <nav style="height: 70px;"></nav><!--buffer for navbar-->
     <nav style="height: 60px;">
       <div class="ms-auto align-items-center d-flex filter-tab" style="height: 60px;">
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i class="fa-solid fa-filter pe-2"></i>filters
         </div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">red wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">white wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">champagne</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Cape Town</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Port Elizabeth</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Durban</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Johannesburg</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Pretoria</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">East London</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Pietermaritzburg</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bloemfontein</div>
       </div>
     </nav>
     <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto">
@@ -182,6 +145,7 @@
     </nav>
 
     <!-- filter tab -->
+    <!-- filter tab -->
     <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -196,23 +160,47 @@
             <label for="customRange1" class="form-label text-dark">Max price for wines sold at winery: $5000</label>
             <input type="range" class="form-range" id="customRange1">
 
-            <h6 class="text-dark">Wine types</h6>
+            <div class="filter-modal-buffer"></div>
+            <h6 class="text-dark">Locations</h6>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
               <label class="form-check-label text-dark" for="inlineCheckbox1">All</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-              <label class="form-check-label text-dark" for="inlineCheckbox2">Red</label>
+              <label class="form-check-label text-dark" for="inlineCheckbox2">Cape Town</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-              <label class="form-check-label text-dark" for="inlineCheckbox3">White</label>
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Port Elizabeth</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-              <label class="form-check-label text-dark" for="inlineCheckbox3">Champagne</label>
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Durban</label>
             </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Johannesburg</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Pretoria</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">East London</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Pietermaritzburg</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option9">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Bloemfontein</label>
+            </div>
+            <div class="filter-modal-buffer"></div>
+            <h6 class="text-dark enteredLocation">Enter a location in South Africa</h6>
+            <input type="text" class="form-control" id="enteredLocation" placeholder="Enter location here">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -221,125 +209,7 @@
         </div>
       </div>
     </div>
-      
-    <!-- Footer -->
-    <footer class="text-center text-lg-start text-muted footer">
-      <!-- Section: Social media -->
-      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
-        <!-- Left -->
-
-        <!-- Right -->
-        <div>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-facebook-f" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-twitter" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-google" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-instagram" style="color: var(--app-theme-col);"></i>
-          </a>
-          <a href="" class="me-4 link-secondary">
-            <i class="fab fa-linkedin" style="color: var(--app-theme-col);"></i>
-          </a>
-        </div>
-        <!-- Right -->
-      </section>
-      <!-- Section: Social media -->
-
-      <!-- Section: Links  -->
-      <section class="">
-        <div class="container text-center text-md-start mt-5">
-          <!-- Grid row -->
-          <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fa-solid fa-wine-glass me-3" style="color: var(--app-theme-col);"></i>Winery SA
-              </h6>
-              <p>
-                Serving tourists the best wineries and wines in SA since 1908
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                Wines
-              </h6>
-              <p>
-                <a href="#!" class="text-reset">Cabernet Sauvigno</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Merlot</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Airén</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Tempranillo</a>
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                Wineries
-              </h6>
-              <p>
-                <a href="#!" class="text-reset">Hatfield</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Kruger park</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Kgalagadi</a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">Stellenbosch</a>
-              </p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-              <p><i class="fas fa-home me-3" style="color: var(--app-theme-col);"></i> Cape Town, CT 10012, SA</p>
-              <p>
-                <i class="fas fa-envelope me-3" style="color: var(--app-theme-col);"></i>
-                winerysa@business.com
-              </p>
-              <p><i class="fas fa-phone me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 88</p>
-              <p><i class="fas fa-print me-3" style="color: var(--app-theme-col);"></i> + 01 234 567 89</p>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </div>
-      </section>
-      <!-- Section: Links  -->
-
-      <!-- Copyright -->
-      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2023 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Winery SA all rights reserved</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+    <?php include "../Components/Footer.php";?>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
 </body>

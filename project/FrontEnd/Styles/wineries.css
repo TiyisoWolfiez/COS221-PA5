@@ -74,3 +74,7 @@
     height: 0;
     padding-top: calc(100% * (200 / 300));
 }
+
+.filter-modal-buffer{
+    margin-top: 30px;
+}

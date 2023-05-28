@@ -6,55 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../Styles/global.css">
-    <link rel="stylesheet" href="../Styles/admin.css">
+    <link rel="stylesheet" href="../Styles/manager.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/svg+xml" href="../Assets/wine-glass-solid.svg" />
-    <title>Winery SA | Admin</title>
+    <title>Winery SA | Manager</title>
 </head>
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-bg-col navbar-expand-lg fixed-top navbar-light">
-        <div class="container">
-          <a class="navbar-brand d-flex" href="index.html">
-            <i class="fa-solid fa-wine-glass pe-3" style="color: #414141; font-size: 2rem;"></i>
-            <h3 class="me-5" style="color: #414141;">Winery SA</h3>
-        </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" />
-            <i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;"></i>
-            <ul class="navbar-nav ms-auto align-items-center">
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="wines.html"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="wineries.html"><i class="fa-solid fa-store pe-2"></i>wineries</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="admin.html"><i class="fa-solid fa-user-gear pe-2"></i>admin</a><!--will only show for admin users-->
-              </li>
-              <li class="nav-item ms-3 border rounded-2">
-                <!--<a class="btn btn-black btn-rounded" href="login.html">Login/Signup</a> -->
-                <div class="btn btn-black btn-rounded"><i class="fa-regular fa-user pe-2"></i>username</div><!--will only show for logged in users-->
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="#!"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-    <!-- navbar -->
+    <?php include "../Components/Navbar.php";?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">
         <div class="card at-a-glance-card">
