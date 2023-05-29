@@ -19,6 +19,8 @@ enum REQUESTYPE: string
     case GET_APPELLATION = 'GET_APPELLATION';
     case GET_VARIETAL = 'GET_VARIETAL';
     case GET_COUNTRY = 'GET_COUNTRY';
+    case SEARCH_WINERY = 'SEARCH_WINERY';
+    case SEARCH_WINE = 'SEARCH_WINE';
     
     /**Add more cases */
 }
@@ -107,14 +109,6 @@ class Api extends config{
         }
     }
 
-    public function getAppellations(){
-        $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare("SELECT appellation FROM wine GROUP BY appellation");
-        $stmt->execute();
-        $data = json_encode($stmt->fetchAll());
-        return $this->constructResponseObject($data, "success");
-    }
-
     public function getVarietals(){
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT varietal FROM wine GROUP BY varietal");
@@ -150,7 +144,8 @@ class Api extends config{
         //FILTERS
         $filterchecks = array('appellation'=>false, 'varietal'=>false, 'colour'=>false, 'carbonation'=>false, 'sweetness'=>false, 'country'=>false);
         $WHERE_CLAUSES = array();
-        $JOIN = "";
+        $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
+            
         if(isset($USERREQUEST->filters)){
             $filters = $USERREQUEST->filters;
             
@@ -164,14 +159,14 @@ class Api extends config{
 
             if(isset($filters->country)){
                 $WHERE_CLAUSES[] = "region.country = :country";
-                $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
             }
         }
         $WHERE = implode(" AND ", $WHERE_CLAUSES);
 
         //Statement
+        $FIELDS = "wine_name, varietal, carbonation, sweetness, colour, vintage, year_bottled, wine_imageURL, pointScore, currency, price_amount, alcohol_percentage, winery_name, location.address AS address, region.region_name AS region region.country AS country";
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare("SELECT * FROM WINES $JOIN $WHERE $ORDERBY");
+        $stmt = $conn->prepare("SELECT $FIELDS FROM wine $JOIN $WHERE $ORDERBY");
 
         //bindings
         if($sort == true){
@@ -185,12 +180,24 @@ class Api extends config{
 
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
-        return constructResponseObject($data, "success");
+        return $this->constructResponseObject($data, "success");
   
     }
 
     public function searchWine($name){
-        return null;
+        $FIELDS = "wine_name, varietal, carbonation, sweetness, colour, vintage, year_bottled, wine_imageURL, pointScore, currency, price_amount, alcohol_percentage, winery_name, location.address AS address, region.region_name AS region region.country AS country";
+        $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
+        
+        $name = strtolower($name);
+        $name = "%" . $name . "%";
+
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT $FIELDS FROM wine $JOIN WHERE LOWER(wine_name) LIKE :name");
+        $stmt.bindParam(':name', $name);
+
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return $this->constructResponseObject($data, "success");
     }
 
     public function getWineries($req_info){
@@ -202,19 +209,53 @@ class Api extends config{
         //     -All sorted by distance away from user
 
         if(isset($req_info->location)){
+
+            $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, location.address AS address, region.region_name AS region, region.country AS country";
             //ORDER BY distance using lat and long
+            //calculate distance using haversine (for a sphere not ellipsoid, but good enough for our purposes):
+            //d = 2r arcsine (SQRT( POW(SIN( (lat1 -lat2)/2 ), 2 ) + COS(lat1)*COS(lat2)*  POW(SIN( (long1 -long2)/2) ));
+            $radius = 6357.5;
+            $distance = "2*".$radius."*ASIN( SQRT( POW(SIN( (:lat1 - :lat2)/2 ), 2 ) + COS(:lat1)*COS(:lat2) * POW(SIN( (:long1 - :long2)/2 ), 2 ))";
+            
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery.locationID = location.locationID JOIN region ON location.regionID = region.regionID ORDER BY $distance");
+            $stmt.bindParam(':lat1', $req_info->location->latitude);
+            $lat2 = "location.latitude";
+            $stmt.bindParam(':lat2', $lat2);
+            $stmt.bindParam(':long1', $req_info->location->longitude);
+            $long2 = "location.longitude";
+            $stmt.bindParam(':long2', $long2);
+
+            $stmt->execute();
+            $data = json_encode($stmt->fetchAll());
+            return $this->constructResponseObject($data, "success");
         }
-        if($req_info->SouthAfrican == true){
-            //where country NOT SA
+        else if(isset($req_info->SouthAfrican) && $req_info->SouthAfrican == true){
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery.locationID = location.locationID WHERE location.country NOT LIKE 'South Africa'");
+            $stmt->execute();
+            $data = json_encode($stmt->fetchAll());
+            return $this->constructResponseObject($data, "success");
         }
         else{
-            //where country is SA
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery.locationID = location.locationID WHERE location.country LIKE 'South Africa'");
+            $stmt->execute();
+            $data = json_encode($stmt->fetchAll());
+            return $this->constructResponseObject($data, "success");
         }
+        
     }
     
 
     public function searchWinery($name){
-        return null;
+        $name = strtolower($name);
+        $name = "%" . $name . "%";
+
+        $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, location.address AS address, region.region_name AS region, region.country AS country";
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery.locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE LOWER(winery_name) LIKE :name");
+        $stmt.bindParam(':name', $name);
     }
 
     /**
