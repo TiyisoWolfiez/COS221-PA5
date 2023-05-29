@@ -41,3 +41,19 @@ JS:
 -Populates winery management page
 -Populates admin management page
 -Contacts API for login and signup
+
+Jaide:
+Sort and filter for for wine database and winery database
+
+Jaden :
+Login functionality for api(mainly) as well if you can help Jaide with filter and sort for wines page
+
+Michael :
+Insert funcionality that admin can do to the databse
+Implementation when search for winery in index page,
+
+Andinda:
+JS for editing data by admin,
+Js filter button on wines and winery page, as well as implementing restructure(may need your help michael)
+
+
