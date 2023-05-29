@@ -106,21 +106,13 @@ class Api extends config{
             return $this->constructResponseObject($this->createError(ERRORTYPES::USERNAMETAKEN), "error");
         }
     }
-    
-    public function getWines(){
-
-    }
-
-    public function getWineries(){
-
-    }
 
     public function getAppellations(){
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT appellation FROM wine GROUP BY appellation");
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
-        return constructResponseObject($data, "success");
+        return $this->constructResponseObject($data, "success");
     }
 
     public function getVarietals(){
@@ -128,7 +120,7 @@ class Api extends config{
         $stmt = $conn->prepare("SELECT varietal FROM wine GROUP BY varietal");
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
-        return constructResponseObject($data, "success");
+        return $this->constructResponseObject($data, "success");
     }
 
     public function getCountries(){
@@ -136,7 +128,7 @@ class Api extends config{
         $stmt = $conn->prepare("SELECT country FROM country");
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
-        return constructResponseObject($data, "success");
+        return $this->constructResponseObject($data, "success");
     }
 
     public function getWines($USERREQUEST){
@@ -163,10 +155,10 @@ class Api extends config{
             $filters = $USERREQUEST->filters;
             
             for($i = 0; $i < sizeof($filterchecks) - 1; $i++){ //sizeof - 1 to exlude country
-                $current = array_keys($filterchecks)[i];
+                $current = array_keys($filterchecks)[$i];
                 if(isset($filters->$current)){
                     $WHERE_CLAUSES[] = "$current = :$current";
-                    $filterchecks[i] = true;
+                    $filterchecks[$i] = true;
                 }
             }
 
@@ -186,8 +178,8 @@ class Api extends config{
             $stmt.bindParam(':order', $USERREQUEST->sort);
         }
         for($i = 0; $i < sizeof($filterchecks); $i++){
-            if(array_values($filterchecks)[i] == true){
-                $stmt.bindParam(":" . array_keys($filterchecks)[i], $filters->array_keys($filterchecks)[i]); 
+            if(array_values($filterchecks)[$i] == true){
+                $stmt.bindParam(":" . array_keys($filterchecks)[$i], $filters->array_keys($filterchecks)[$i]); 
             }
         }
 
@@ -198,7 +190,7 @@ class Api extends config{
     }
 
     public function searchWine($name){
-
+        return null;
     }
 
     public function getWineries($req_info){
@@ -222,7 +214,7 @@ class Api extends config{
     
 
     public function searchWinery($name){
-
+        return null;
     }
 
     /**
@@ -294,8 +286,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $res = $apiconfig->getCountries();
         echo $res;
     }
-    else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES){
-        $res = $apiconfig->getCountries($USERREQUEST);
+    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINERY){
+        $res = $apiconfig->searchWinery($USERREQUEST->$name);
+        echo $res;
+    }
+    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINE){
+        $res = $apiconfig->searchWine($USERREQUEST->$name);
         echo $res;
     }
     
