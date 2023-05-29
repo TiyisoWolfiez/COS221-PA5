@@ -66,15 +66,15 @@ class Api extends config{
 
         //continued
 
-        $conn = $this->connectToDatabase;
-        $stmt = $conn->query('SELECT COUNT AS rows FROM USER WHERE Username = "'. $UserEmail .'" AND Password ="'. $UserPassword .'"');
-        $row = $stmt->(PDO::FETCH_ASSOC);
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('SELECT Username FROM USER WHERE Username = ? AND Password = ?');
+        $success = $stmt->execute(array($UserEmail, $UserPassword));
 
-        if($row.rows != 0){
-            return array("status" => "success");
+        if($success && $stmt->rowCount() != 0){
+            return $this->constructResponseObject("", "success");
         }
         else{
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::NULLUSER));
+            return $this->constructResponseObject($this->createError(ERRORTYPES::NULLUSER), "error");
         }
     }
 
