@@ -16,7 +16,6 @@ enum REQUESTYPE: string
     case LOGIN = 'LOGIN';
     case GET_WINERIES = 'GET_WINERIES';
     case GET_WINE = 'GET_WINE';
-    case GET_APPELLATION = 'GET_APPELLATION';
     case GET_VARIETAL = 'GET_VARIETAL';
     case GET_COUNTRY = 'GET_COUNTRY';
     case SEARCH_WINERY = 'SEARCH_WINERY';
@@ -36,6 +35,7 @@ enum ERRORTYPES: int
     case WRONGPASSWORD = 4;//Wrong password
     case USERNAMETAKEN = 5;//Username is unavailable
     case INCORRECTSORT = 6;//unsupported sort parameter given
+    case NONAME = 7;//no name given for search
     /**Add more cases */
 }
 
@@ -142,7 +142,7 @@ class Api extends config{
         }
 
         //FILTERS
-        $filterchecks = array('appellation'=>false, 'varietal'=>false, 'colour'=>false, 'carbonation'=>false, 'sweetness'=>false, 'country'=>false);
+        $filterchecks = array('varietal'=>false, 'colour'=>false, 'carbonation'=>false, 'sweetness'=>false, 'country'=>false);
         $WHERE_CLAUSES = array();
         $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
             
@@ -185,6 +185,11 @@ class Api extends config{
     }
 
     public function searchWine($name){
+
+        if(!isset($name)){
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::NONAME));
+        }
+
         $FIELDS = "wine_name, varietal, carbonation, sweetness, colour, vintage, year_bottled, wine_imageURL, pointScore, currency, price_amount, alcohol_percentage, winery_name, location.address AS address, region.region_name AS region region.country AS country";
         $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
         
@@ -201,16 +206,10 @@ class Api extends config{
     }
 
     public function getWineries($req_info){
-        // -Can get winery data
-        //     -All 
-        //     -All sorted by location
-        //     -All south african (if user is foreign)
-        //     -All foreign (if user is southAfrican)
-        //     -All sorted by distance away from user
 
         if(isset($req_info->location)){
 
-            $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, location.address AS address, region.region_name AS region, region.country AS country";
+            $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, location.address AS address, longitude, lattitude, region.region_name AS region, region.country AS country";
             //ORDER BY distance using lat and long
             //calculate distance using haversine (for a sphere not ellipsoid, but good enough for our purposes):
             //d = 2r arcsine (SQRT( POW(SIN( (lat1 -lat2)/2 ), 2 ) + COS(lat1)*COS(lat2)*  POW(SIN( (long1 -long2)/2) ));
@@ -249,13 +248,22 @@ class Api extends config{
     
 
     public function searchWinery($name){
+
+        if(!isset($name)){
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::NONAME));
+        }
+
         $name = strtolower($name);
         $name = "%" . $name . "%";
 
-        $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, location.address AS address, region.region_name AS region, region.country AS country";
+        $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, longitude, lattitude, location.address AS address, region.region_name AS region, region.country AS country";
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery.locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE LOWER(winery_name) LIKE :name");
         $stmt.bindParam(':name', $name);
+        
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return $this->constructResponseObject($data, "success");
     }
 
     /**
@@ -270,6 +278,7 @@ class Api extends config{
         else if($errortype == ERRORTYPES::WRONGPASSWORD)return "The password for this account is wrong";
         else if($errortype == ERRORTYPES::USERNAMETAKEN)return "Username is unavailable";
         else if($errortype == ERRORTYPES::INCORRECTSORT)return "Given sort value is not supported";
+        else if($errortype == ERRORTYPES::NONAME)return "Name is a required field";
     }
     
     /**
@@ -313,10 +322,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINE){
         $res = $apiconfig->getWines($USERREQUEST);
-        echo $res;
-    }
-    else if($USERREQUEST->type == REQUESTYPE::GET_APPELLATION){
-        $res = $apiconfig->getAppellations();
         echo $res;
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_VARIETAL){
