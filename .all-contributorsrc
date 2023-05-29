@@ -13,7 +13,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/93211335?v=4",
       "profile": "https://waveyboym.github.io",
       "contributions": [
-        "design"
+        "design",
+        "projectManagement",
+        "maintenance",
+        "infra",
+        "doc",
+        "code",
+        "bug"
       ]
     },
     {
