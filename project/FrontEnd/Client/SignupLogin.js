@@ -86,7 +86,10 @@ const validateSignUp = function(){
         if(nameAndSurnameReg.test(getSurname)){//surname is valid
             if(getEmail.match(regexEmail)){//email valid
                 if(passWordReg.test(getPassword)){//password valid
-                    return true;
+                    //add backend code here
+
+                    //end backend code here
+                    return false;
                 }
                 else{
                     document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and have upper and lowercase letters with symbols( eg: %#&)";
@@ -110,7 +113,7 @@ const validateSignUp = function(){
         document.getElementById("name").value = "";
         document.getElementById("password").value = "";
     }
-    return false;//TODO: once we have a backend, change this to "return true"
+    return false;
 };
 
 
@@ -126,6 +129,7 @@ const validateLogin = function(){
     
     if(getEmail.match(regexEmail)){//email valid
         if(passWordReg.test(getPassword)){//password valid
+            //add backend code here
             //json to be sent to api
             var json = {'type': 'LOGIN', 'data': {'email': getEmail, 'password': getPassword}};
             var req = new XMLHttpRequest;
@@ -148,8 +152,8 @@ const validateLogin = function(){
 
             req.open('POST', '../../Backend/Api/Api.php');
             req.send(JSON.stringify(json));
-            
-            return true;
+            //end backend code here
+            return false;
         }
         else{
             document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and have upper and lowercase letters with symbols( eg: %#&)";
