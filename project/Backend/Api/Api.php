@@ -2,7 +2,7 @@
 /**
 *@file Config.php
 *@class config
-*@authors Michael, Add your name here if you write code in this file
+*@authors Michael, Jaden Add your name here if you write code in this file
 *@brief allows us to talk to the database
 */
 include "../Config/Config.php";
@@ -59,13 +59,11 @@ class Api extends config{
     */
     public function loginUser($UserEmail, $UserPassword){
         if(!filter_var($UserEmail, FILTER_VALIDATE_EMAIL)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDEMAIL));
+            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDEMAIL), "error");
         }
         if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDPASSWORD));
+            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDPASSWORD), "error");
         }
-
-        //continued
 
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('SELECT Username FROM USER WHERE Username = ? AND Password = ?');
@@ -73,7 +71,7 @@ class Api extends config{
         //hash password first using algorithm (TBD) before adding as param for stmt execution
         $success = $stmt->execute(array($UserEmail, $UserPassword));
 
-        if($success && $stmt->rowCount() != 0){
+        if($success && $stmt->fetchColumn() != 0){
             return $this->constructResponseObject("", "success");
         }
         else{
@@ -82,18 +80,18 @@ class Api extends config{
     }
 
     public function registerUser($Username, $email, $pswrd){
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDEMAIL));
+        if(!filter_var($UserEmail, FILTER_VALIDATE_EMAIL)){
+            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDEMAIL), "error");
         }
-        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $pswrd)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDPASSWORD));
+        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
+            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDPASSWORD), "error");
         }
 
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT UserID WHERE Username = ?");
         $success = $stmt->execute($Username);
 
-        if($success && $stmt->rowCount() == 0){
+        if($success && $stmt->fetchColumn() == 0){
             $stmt = $conn->prepare(/**INSERT query*/);
             $success = $stmt->execute($Username, $email, $pswrd);
 
@@ -102,8 +100,16 @@ class Api extends config{
             }
         }
         else{
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::USERNAMETAKEN));
+            return $this->constructResponseObject($this->createError(ERRORTYPES::USERNAMETAKEN), "error");
         }
+    }
+    
+    public function getWines(){
+
+    }
+
+    public function getWineries(){
+
     }
 
     /**
@@ -118,6 +124,23 @@ class Api extends config{
         else if($errortype == ERRORTYPES::WRONGPASSWORD)return "The password for this account is wrong";
         else if($errortype == ERRORTYPES::USERNAMETAKEN)return "Username is unavailable";
     }
+    
+    /**
+    *@brief Creates an error based on the passed in parameter error type
+    *@param $desc description can be a message or an array object or anything as long as it's JSON encodable. Default value is "Error. Post parameters are missing"
+    *@param $status is the status of the response, error or success. Default value is "error"
+    *@return string
+    */
+    private function constructResponseObject($desc = "Error. Post parameters are missing", $status = "error"){
+        $value = array(
+            "status"=> $status,
+            "timestamp" => time(),
+            "data" => $desc
+        );
+        $value = json_encode($value);
+
+        return $value == false ? "" : $value;
+    }
 }
 
 /**
@@ -129,12 +152,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $json = file_get_contents('php://input');
     $USERREQUEST = json_decode($json);
 
-    if($USERREQUEST->type == REQUESTYPE::REGISTER){
-        $apiconfig->registerUser($data->username, $data->email, $data->password);
+    if($USERREQUEST->type == REQUESTYPE::REGISTER->value){
+        echo $apiconfig->registerUser($data->username, $data->email, $data->password);
     }
-    else if($USERREQUEST->type == REQUESTYPE::LOGIN){
-        $res = $apiconfig->loginUser($data->email, $data->password);
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
+        echo $apiconfig->loginUser($data->email, $data->password);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINE->value){
+        //echo $apiconfig->getWines($/**add missing parameters */);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
+        //echo $apiconfig->getWineries($/**add missing parameters */);
     }
     else{
         //add more else if for other types
