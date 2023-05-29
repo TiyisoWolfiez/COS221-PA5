@@ -2,7 +2,7 @@
 /**
 *@file Config.php
 *@class config
-*@authors Michael, Add your name here if you write code in this file
+*@authors Michael, Jaide-Maree Add your name here if you write code in this file
 *@brief allows us to talk to the database
 */
 include "../Config/Config.php";
@@ -16,6 +16,10 @@ enum REQUESTYPE: string
     case LOGIN = 'LOGIN';
     case GET_WINERIES = 'GET_WINERIES';
     case GET_WINE = 'GET_WINE';
+    case GET_APPELLATION = 'GET_APPELLATION';
+    case GET_VARIETAL = 'GET_VARIETAL';
+    case GET_COUNTRY = 'GET_COUNTRY';
+    
     /**Add more cases */
 }
 
@@ -27,12 +31,11 @@ enum ERRORTYPES: int
     case INVALIDEMAIL = 1;//Invalid user email
     case INVALIDPASSWORD = 2;//Invalid user password
     case NULLUSER = 3;//No user exists in the database with the given email
-    case WRONGPASSWORD = 3;//Wrong password
+    case WRONGPASSWORD = 4;//Wrong password
     case USERNAMETAKEN = 5;//Username is unavailable
+    case INCORRECTSORT = 6;//unsupported sort parameter given
     /**Add more cases */
 }
-
-
 
 
 /**
@@ -106,6 +109,116 @@ class Api extends config{
         }
     }
 
+    public function getAppellations(){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT appellation FROM wine GROUP BY appellation");
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return constructResponseObject($data, "success");
+    }
+
+    public function getVarietals(){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT varietal FROM wine GROUP BY varietal");
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return constructResponseObject($data, "success");
+    }
+
+    public function getCountries(){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT country FROM country");
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return constructResponseObject($data, "success");
+    }
+
+    public function getWines($USERREQUEST){
+
+        //SORTS
+        $sort = false;
+        $ORDERBY = "";
+        if(isset($USERREQUEST->sort)){
+            $options = array("price_amount", "pointScore", "alcohol_percentage", "vintage", "year_bottled");
+            if(!in_array($options, $USERREQUEST->sort)){
+                return array("status" => "error","data" => $this->createError(ERRORTYPES::INCORRECTSORT));
+            }
+            else{
+                $ORDERBY = " ORDER BY :order";
+                $sort = true;
+            }  
+        }
+
+        //FILTERS
+        $filterchecks = array('appellation'=>false, 'varietal'=>false, 'colour'=>false, 'carbonation'=>false, 'sweetness'=>false, 'country'=>false);
+        $WHERE_CLAUSES = array();
+        $JOIN = "";
+        if(isset($USERREQUEST->filters)){
+            $filters = $USERREQUEST->filters;
+            
+            for($i = 0; $i < sizeof($filterchecks) - 1; $i++){ //sizeof - 1 to exlude country
+                $current = array_keys($filterchecks)[i];
+                if(isset($filters->$current)){
+                    $WHERE_CLAUSES[] = "$current = :$current";
+                    $filterchecks[i] = true;
+                }
+            }
+
+            if(isset($filters->country)){
+                $WHERE_CLAUSES[] = "region.country = :country";
+                $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
+            }
+        }
+        $WHERE = implode(" AND ", $WHERE_CLAUSES);
+
+        //Statement
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT * FROM WINES $JOIN $WHERE $ORDERBY");
+
+        //bindings
+        if($sort == true){
+            $stmt.bindParam(':order', $USERREQUEST->sort);
+        }
+        for($i = 0; $i < sizeof($filterchecks); $i++){
+            if(array_values($filterchecks)[i] == true){
+                $stmt.bindParam(":" . array_keys($filterchecks)[i], $filters->array_keys($filterchecks)[i]); 
+            }
+        }
+
+        $stmt->execute();
+        $data = json_encode($stmt->fetchAll());
+        return constructResponseObject($data, "success");
+  
+    }
+
+    public function searchWine($name){
+
+    }
+
+    public function getWineries($req_info){
+        // -Can get winery data
+        //     -All 
+        //     -All sorted by location
+        //     -All south african (if user is foreign)
+        //     -All foreign (if user is southAfrican)
+        //     -All sorted by distance away from user
+
+        if(isset($req_info->location)){
+            //ORDER BY distance using lat and long
+        }
+        if($req_info->SouthAfrican == true){
+            //where country NOT SA
+        }
+        else{
+            //where country is SA
+        }
+    }
+    
+
+    public function searchWinery($name){
+
+    }
+
     /**
     *@brief Creates an error based on the passed in parameter error type
     *@param errortype the error type
@@ -117,6 +230,7 @@ class Api extends config{
         else if($errortype == ERRORTYPES::NULLUSER)return "No user exists with this email address";
         else if($errortype == ERRORTYPES::WRONGPASSWORD)return "The password for this account is wrong";
         else if($errortype == ERRORTYPES::USERNAMETAKEN)return "Username is unavailable";
+        else if($errortype == ERRORTYPES::INCORRECTSORT)return "Given sort value is not supported";
     }
 }
 
@@ -136,8 +250,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $res = $apiconfig->loginUser($data->email, $data->password);
         echo $res;
     }
-    else{
-        //add more else if for other types
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINE){
+        $res = $apiconfig->getWines($USERREQUEST);
+        echo $res;
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_APPELLATION){
+        $res = $apiconfig->getAppellations();
+        echo $res;
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_VARIETAL){
+        $res = $apiconfig->getVarietals();
+        echo $res;
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_COUNTRY){
+        $res = $apiconfig->getCountries();
+        echo $res;
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES){
+        $res = $apiconfig->getCountries($USERREQUEST);
+        echo $res;
     }
     
 }
