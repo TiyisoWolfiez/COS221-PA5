@@ -165,6 +165,6 @@ const validateLogin = function(){
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
     }
-    return false;//TODO: once we have a backend, change this to "return true"
+    return false;
 
 };
