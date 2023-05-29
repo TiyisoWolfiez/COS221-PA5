@@ -126,6 +126,29 @@ const validateLogin = function(){
     
     if(getEmail.match(regexEmail)){//email valid
         if(passWordReg.test(getPassword)){//password valid
+            //json to be sent to api
+            var json = {'type': 'LOGIN', 'data': {'email': getEmail, 'password': getPassword}};
+            var req = new XMLHttpRequest;
+
+            req.onreadystatechange = function(){//recieves api response
+                if(req.readyState == 4 && req.status == 200)
+                {
+                    var res = req.responseText;
+                    var jRes = JSON.parse(res);
+
+                    if(jRes.status == 'success'){
+                        var bod = document.getElementsByTagName('body');
+                        bod.innerHTML += '<?php header("Location: index.php");?>';
+                    }
+                    else if(jRes.status == 'error'){
+                        document.querySelector(".error-container").innerHTML = jRes.message;
+                    }
+                }
+            }
+
+            req.open('POST', '../../Backend/Api/Api.php');
+            req.send(JSON.stringify(json));
+            
             return true;
         }
         else{

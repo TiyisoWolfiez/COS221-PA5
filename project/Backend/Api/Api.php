@@ -69,6 +69,8 @@ class Api extends config{
 
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('SELECT Username FROM USER WHERE Username = ? AND Password = ?');
+        
+        //hash password first using algorithm (TBD) before adding as param for stmt execution
         $success = $stmt->execute(array($UserEmail, $UserPassword));
 
         if($success && $stmt->rowCount() != 0){
