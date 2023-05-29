@@ -13,7 +13,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/93211335?v=4",
       "profile": "https://waveyboym.github.io",
       "contributions": [
-        "design"
+        "design",
+        "projectManagement",
+        "maintenance",
+        "infra",
+        "doc",
+        "code",
+        "bug"
       ]
     },
     {
@@ -56,6 +62,18 @@
         "code",
         "content",
         "design",
+        "infra"
+      ]
+    },
+    {
+      "login": "Dindosss",
+      "name": "Dindosss",
+      "avatar_url": "https://avatars.githubusercontent.com/u/116130766?v=4",
+      "profile": "https://github.com/Dindosss",
+      "contributions": [
+        "code",
+        "content",
+        "data",
         "infra"
       ]
     }
