@@ -28,6 +28,7 @@ enum ERRORTYPES: int
     case INVALIDPASSWORD = 2;//Invalid user password
     case NULLUSER = 3;//No user exists in the database with the given email
     case WRONGPASSWORD = 3;//Wrong password
+    case USERNAMETAKEN = 5;//Username is unavailable
     /**Add more cases */
 }
 
@@ -78,8 +79,29 @@ class Api extends config{
         }
     }
 
-    public function registerUser(){
+    public function registerUser($Username, $email, $pswrd){
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDEMAIL));
+        }
+        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $pswrd)){
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::INVALIDPASSWORD));
+        }
 
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT UserID WHERE Username = ?");
+        $success = $stmt->execute($Username);
+
+        if($success && $stmt->rowCount() == 0){
+            $stmt = $conn->prepare(/**INSERT query*/);
+            $success = $stmt->execute($Username, $email, $pswrd);
+
+            if($success){
+                return $this->constructResponseObject("", "success");
+            }
+        }
+        else{
+            return array("status" => "error","data" => $this->createError(ERRORTYPES::USERNAMETAKEN));
+        }
     }
 
     /**
@@ -92,6 +114,7 @@ class Api extends config{
         else if($errortype == ERRORTYPES::INVALIDPASSWORD)return "Invalid password";
         else if($errortype == ERRORTYPES::NULLUSER)return "No user exists with this email address";
         else if($errortype == ERRORTYPES::WRONGPASSWORD)return "The password for this account is wrong";
+        else if($errortype == ERRORTYPES::USERNAMETAKEN)return "Username is unavailable";
     }
 }
 
@@ -105,7 +128,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $USERREQUEST = json_decode($json);
 
     if($USERREQUEST->type == REQUESTYPE::REGISTER){
-        //$apiconfig->registerUser($/**add missing parameters */);
+        $apiconfig->registerUser($data->username, $data->email, $data->password);
     }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN){
         $res = $apiconfig->loginUser($data->email, $data->password);
