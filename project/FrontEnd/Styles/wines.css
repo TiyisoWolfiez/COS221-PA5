@@ -18,6 +18,14 @@
     width: 99vw;
 }
 
+.spinner-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media screen and (min-width:1600px){
     .filter-tab{
         width: 80vw;

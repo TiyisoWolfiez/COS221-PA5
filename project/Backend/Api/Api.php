@@ -298,9 +298,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
     }
-    else if($USERREQUEST->type == REQUESTYPE::GET_WINE->value){
-        //echo $apiconfig->getWines($/**add missing parameters */);
-    }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         //echo $apiconfig->getWineries($/**add missing parameters */);
     }
