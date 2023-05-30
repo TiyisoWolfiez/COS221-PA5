@@ -1,5 +1,5 @@
 const searchFor = function() {
-    var searchbarval = document.getElementById("searchbar");
+    const searchbarval = document.getElementById("searchbar").value;
     switchOnLoader();
 
     if(searchbarval === "")return;
@@ -7,9 +7,6 @@ const searchFor = function() {
     const xhttpObject = new XMLHttpRequest();
     const body = JSON.stringify({
         "type": "GET_WINERIES",
-        "limit": 24,
-        "search":{ "make": searchbarval,},
-        "return": "*",
     });
 
     xhttpObject.onreadystatechange = function() {
