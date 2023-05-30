@@ -75,7 +75,7 @@ class Api extends config{
         $stmt = $conn->prepare('SELECT * FROM user WHERE email = ? AND Password = ?');
         
         $hashedPass = hash("sha256", $UserPassword, false);
-        
+
         $success = $stmt->execute(array($UserEmail, $hashedPass));
 
         if($success && $stmt->rowCount() != 0){
@@ -86,7 +86,7 @@ class Api extends config{
         }
     }
 
-    public function registerUser($Username, $email, $pswrd){
+    public function registerUser($Username, $email, $pswrd, $isSouthAfrican){
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             return $this->constructResponseObject(ERRORTYPES::INVALIDEMAIL->value, "error");
         }
@@ -95,14 +95,20 @@ class Api extends config{
         }
 
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare("SELECT UserID WHERE Username = ?");
-        $success = $stmt->execute($Username);
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?"); //Check if username is taken
+        $success = $stmt->execute(array($Username));
 
         if($success && $stmt->rowCount() == 0){
-            //$stmt = $conn->prepare(/**INSERT query*/); uncomment this line when you have a query ready
-            $success = $stmt->execute(array($Username, $email, $pswrd));
+            $stmt = $conn->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?);"); //Insert user into user table
+
+            $hashedPass = hash('sha256', $pswrd, false);
+            $success = $stmt->execute(array($Username, $email, $hashedPass));
 
             if($success){
+                // INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, 0 FROM user ORDER BY userID DESC LIMIT 1
+                
+                $stmt = $conn->prepare("INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, ? FROM user ORDER BY userID DESC LIMIT 1"); //Insert user into tourist table
+                $success = $stmt->execute(array($isSouthAfrican));
                 return $this->constructResponseObject("", "success");
             }
         }
@@ -287,7 +293,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $USERREQUEST = json_decode($json);
 
     if($USERREQUEST->type == REQUESTYPE::REGISTER->value){
-        echo $apiconfig->registerUser($USERREQUEST->username, $USERREQUEST->email, $USERREQUEST->password);
+        echo $apiconfig->registerUser($USERREQUEST->username, $USERREQUEST->email, $USERREQUEST->password, $USERREQUEST->isSouthAfrican);
     }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
