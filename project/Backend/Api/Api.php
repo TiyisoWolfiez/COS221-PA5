@@ -100,7 +100,7 @@ class Api extends config{
 
         if($success && $stmt->rowCount() == 0){
             //$stmt = $conn->prepare(/**INSERT query*/); uncomment this line when you have a query ready
-            $success = $stmt->execute($Username, $email, $pswrd);
+            $success = $stmt->execute(array($Username, $email, $pswrd));
 
             if($success){
                 return $this->constructResponseObject("", "success");
