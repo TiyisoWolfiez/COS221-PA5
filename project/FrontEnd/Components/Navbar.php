@@ -33,8 +33,8 @@
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" /><!--check if current page is wineries or wines then render this-->
-        <i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;"></i><!--check if current page is wineries or wines then render this-->
+        <input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" id="searchbar" /><!--check if current page is wineries or wines then render this-->
+        <i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;" onclick="searchFor()"></i><!--check if current page is wineries or wines then render this-->
         <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item">
             <a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->
