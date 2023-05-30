@@ -2,7 +2,7 @@
 /**
 *@file Config.php
 *@class config
-*@authors Michael, Jaden Jaide-Maree Add your name here if you write code in this file
+*@authors Michael, Jaden, Jaide-Maree Add your name here if you write code in this file
 *@brief allows us to talk to the database
 */
 include "../Config/Config.php";
@@ -27,15 +27,15 @@ enum REQUESTYPE: string
 /**
 *@brief error types for a more structured way of defining and sending errors back to the client
 */
-enum ERRORTYPES: int
+enum ERRORTYPES: string
 {
-    case INVALIDEMAIL = 1;//Invalid user email
-    case INVALIDPASSWORD = 2;//Invalid user password
-    case NULLUSER = 3;//No user exists in the database with the given email
-    case WRONGPASSWORD = 4;//Wrong password
-    case USERNAMETAKEN = 5;//Username is unavailable
-    case INCORRECTSORT = 6;//unsupported sort parameter given
-    case NONAME = 7;//no name given for search
+    case INVALIDEMAIL = 'Invalid email';//Invalid user email
+    case INVALIDPASSWORD = 'Invalid password';//Invalid user password
+    case NULLUSER = 'No user exists with this email address';//No user exists in the database with the given email
+    case WRONGPASSWORD = 'The password for this account is wrong';//Wrong password
+    case USERNAMETAKEN = 'Username is unavailable';//Username is unavailable
+    case INCORRECTSORT = 'Given sort value is not supported';//unsupported sort parameter given
+    case NONAME = 'Name is a required field';//no name given for search
     /**Add more cases */
 }
 
@@ -47,7 +47,7 @@ class Api extends config{
 
     /**
     *@brief creates a static instance of this class and returns it (PLEASE DON'T MODIFY UNLESS ABSOLUTELY NECESSARY)
-    *@param none
+    *@param $none
     *@return Api
     */
     public static function instance(){
@@ -58,16 +58,16 @@ class Api extends config{
 
     /**
     *@brief handles the logging in of the user to the backend by checking if they exist on the backend, and checking that their password matches
-    *@param UserEmail carries the users email address
-    *@param UserPassword carries the users password
-    *@return void
+    *@param $UserEmail carries the users email address
+    *@param $UserPassword carries the users password
+    *@return string
     */
     public function loginUser($UserEmail, $UserPassword){
         if(!filter_var($UserEmail, FILTER_VALIDATE_EMAIL)){
-            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDEMAIL), "error");
+            return $this->constructResponseObject(ERRORTYPES::INVALIDEMAIL->value, "error");
         }
         if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
-            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDPASSWORD), "error");
+            return $this->constructResponseObject(ERRORTYPES::INVALIDPASSWORD->value, "error");
         }
 
         $conn = $this->connectToDatabase();
@@ -76,28 +76,28 @@ class Api extends config{
         //hash password first using algorithm (TBD) before adding as param for stmt execution
         $success = $stmt->execute(array($UserEmail, $UserPassword));
 
-        if($success && $stmt->fetchColumn() != 0){
+        if($success && $stmt->rowCount() != 0){
             return $this->constructResponseObject("", "success");
         }
         else{
-            return $this->constructResponseObject($this->createError(ERRORTYPES::NULLUSER), "error");
+            return $this->constructResponseObject(ERRORTYPES::NULLUSER->value, "error");
         }
     }
 
     public function registerUser($Username, $email, $pswrd){
-        if(!filter_var($UserEmail, FILTER_VALIDATE_EMAIL)){
-            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDEMAIL), "error");
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            return $this->constructResponseObject(ERRORTYPES::INVALIDEMAIL->value, "error");
         }
-        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
-            return $this->constructResponseObject($this->createError(ERRORTYPES::INVALIDPASSWORD), "error");
+        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $pswrd)){
+            return $this->constructResponseObject(ERRORTYPES::INVALIDPASSWORD->value, "error");
         }
 
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT UserID WHERE Username = ?");
         $success = $stmt->execute($Username);
 
-        if($success && $stmt->fetchColumn() == 0){
-            $stmt = $conn->prepare(/**INSERT query*/);
+        if($success && $stmt->rowCount() == 0){
+            //$stmt = $conn->prepare(/**INSERT query*/); uncomment this line when you have a query ready
             $success = $stmt->execute($Username, $email, $pswrd);
 
             if($success){
@@ -105,7 +105,7 @@ class Api extends config{
             }
         }
         else{
-            return $this->constructResponseObject($this->createError(ERRORTYPES::USERNAMETAKEN), "error");
+            return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
         }
     }
 
@@ -133,7 +133,7 @@ class Api extends config{
         if(isset($USERREQUEST->sort)){
             $options = array("price_amount", "pointScore", "alcohol_percentage", "vintage", "year_bottled");
             if(!in_array($options, $USERREQUEST->sort)){
-                return array("status" => "error","data" => $this->createError(ERRORTYPES::INCORRECTSORT));
+                return $this->constructResponseObject(ERRORTYPES::INCORRECTSORT->value, "error");
             }
             else{
                 $ORDERBY = " ORDER BY :order";
@@ -170,11 +170,11 @@ class Api extends config{
 
         //bindings
         if($sort == true){
-            $stmt.bindParam(':order', $USERREQUEST->sort);
+            $stmt->bindParam(':order', $USERREQUEST->sort);
         }
         for($i = 0; $i < sizeof($filterchecks); $i++){
             if(array_values($filterchecks)[$i] == true){
-                $stmt.bindParam(":" . array_keys($filterchecks)[$i], $filters->array_keys($filterchecks)[$i]); 
+                $stmt->bindParam(":" . array_keys($filterchecks)[$i], $filters->array_keys($filterchecks)[$i]); 
             }
         }
 
@@ -186,9 +186,7 @@ class Api extends config{
 
     public function searchWine($name){
 
-        if(!isset($name)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::NONAME));
-        }
+        if(!isset($name))return $this->constructResponseObject(ERRORTYPES::NONAME->value, "error");
 
         $FIELDS = "wine_name, varietal, carbonation, sweetness, colour, vintage, year_bottled, wine_imageURL, pointScore, currency, price_amount, alcohol_percentage, winery_name, location.address AS address, region.region_name AS region region.country AS country";
         $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery.locationID = location.locationID JOIN region ON region.regionID = location.regionID";
@@ -198,7 +196,7 @@ class Api extends config{
 
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT $FIELDS FROM wine $JOIN WHERE LOWER(wine_name) LIKE :name");
-        $stmt.bindParam(':name', $name);
+        $stmt->bindParam(':name', $name);
 
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
@@ -218,12 +216,12 @@ class Api extends config{
             
             $conn = $this->connectToDatabase();
             $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery.locationID = location.locationID JOIN region ON location.regionID = region.regionID ORDER BY $distance");
-            $stmt.bindParam(':lat1', $req_info->location->latitude);
+            $stmt->bindParam(':lat1', $req_info->location->latitude);
             $lat2 = "location.latitude";
-            $stmt.bindParam(':lat2', $lat2);
-            $stmt.bindParam(':long1', $req_info->location->longitude);
+            $stmt->bindParam(':lat2', $lat2);
+            $stmt->bindParam(':long1', $req_info->location->longitude);
             $long2 = "location.longitude";
-            $stmt.bindParam(':long2', $long2);
+            $stmt->bindParam(':long2', $long2);
 
             $stmt->execute();
             $data = json_encode($stmt->fetchAll());
@@ -249,9 +247,7 @@ class Api extends config{
 
     public function searchWinery($name){
 
-        if(!isset($name)){
-            return array("status" => "error","data" => $this->createError(ERRORTYPES::NONAME));
-        }
+        if(!isset($name))return $this->constructResponseObject(ERRORTYPES::NONAME->value, "error");
 
         $name = strtolower($name);
         $name = "%" . $name . "%";
@@ -259,26 +255,11 @@ class Api extends config{
         $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, longitude, lattitude, location.address AS address, region.region_name AS region, region.country AS country";
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery.locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE LOWER(winery_name) LIKE :name");
-        $stmt.bindParam(':name', $name);
+        $stmt->bindParam(':name', $name);
         
         $stmt->execute();
         $data = json_encode($stmt->fetchAll());
         return $this->constructResponseObject($data, "success");
-    }
-
-    /**
-    *@brief Creates an error based on the passed in parameter error type
-    *@param errortype the error type
-    *@return string
-    */
-    private function createError($errortype){
-        if($errortype == ERRORTYPES::INVALIDEMAIL)return "Invalid email";
-        else if($errortype == ERRORTYPES::INVALIDPASSWORD)return "Invalid password";
-        else if($errortype == ERRORTYPES::NULLUSER)return "No user exists with this email address";
-        else if($errortype == ERRORTYPES::WRONGPASSWORD)return "The password for this account is wrong";
-        else if($errortype == ERRORTYPES::USERNAMETAKEN)return "Username is unavailable";
-        else if($errortype == ERRORTYPES::INCORRECTSORT)return "Given sort value is not supported";
-        else if($errortype == ERRORTYPES::NONAME)return "Name is a required field";
     }
     
     /**
@@ -288,13 +269,8 @@ class Api extends config{
     *@return string
     */
     private function constructResponseObject($desc = "Error. Post parameters are missing", $status = "error"){
-        $value = array(
-            "status"=> $status,
-            "timestamp" => time(),
-            "data" => $desc
-        );
+        $value = array("status"=> $status,"data" => $desc);
         $value = json_encode($value);
-
         return $value == false ? "" : $value;
     }
 }
@@ -309,10 +285,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $USERREQUEST = json_decode($json);
 
     if($USERREQUEST->type == REQUESTYPE::REGISTER->value){
-        echo $apiconfig->registerUser($data->username, $data->email, $data->password);
+        echo $apiconfig->registerUser($USERREQUEST->username, $USERREQUEST->email, $USERREQUEST->password);
     }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
-        echo $apiconfig->loginUser($data->email, $data->password);
+        echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINE->value){
         //echo $apiconfig->getWines($/**add missing parameters */);
@@ -320,25 +296,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         //echo $apiconfig->getWineries($/**add missing parameters */);
     }
-    else if($USERREQUEST->type == REQUESTYPE::GET_WINE){
-        $res = $apiconfig->getWines($USERREQUEST);
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINE->value){
+        echo $apiconfig->getWines($USERREQUEST);
     }
-    else if($USERREQUEST->type == REQUESTYPE::GET_VARIETAL){
-        $res = $apiconfig->getVarietals();
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::GET_VARIETAL->value){
+        echo $apiconfig->getVarietals();
     }
-    else if($USERREQUEST->type == REQUESTYPE::GET_COUNTRY){
-        $res = $apiconfig->getCountries();
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::GET_COUNTRY->value){
+        echo $apiconfig->getCountries();
     }
-    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINERY){
-        $res = $apiconfig->searchWinery($USERREQUEST->$name);
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINERY->value){
+        echo $apiconfig->searchWinery($USERREQUEST->$name);
     }
-    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINE){
-        $res = $apiconfig->searchWine($USERREQUEST->$name);
-        echo $res;
+    else if($USERREQUEST->type == REQUESTYPE::SEARCH_WINE->value){
+        echo $apiconfig->searchWine($USERREQUEST->$name);
     }
     
 }
