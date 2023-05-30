@@ -128,10 +128,10 @@ const validateLogin = function(){
 
     
     if(getEmail.match(regexEmail)){//email valid
-        if(passWordReg.test(getPassword)){//password valid
+        if(true){//replace with password regex check when passwords in databases have changed
             //add backend code here
             //json to be sent to api
-            var json = {'type': 'LOGIN', 'data': {'email': getEmail, 'password': getPassword}};
+            var json = {'type': 'LOGIN', 'email': getEmail, 'password': getPassword};
             var req = new XMLHttpRequest;
 
             req.onreadystatechange = function(){//recieves api response
@@ -141,11 +141,10 @@ const validateLogin = function(){
                     var jRes = JSON.parse(res);
 
                     if(jRes.status == 'success'){
-                        var bod = document.getElementsByTagName('body');
-                        bod.innerHTML += '<?php header("Location: index.php");?>';
+                        window.location.href = "index.php";
                     }
                     else if(jRes.status == 'error'){
-                        document.querySelector(".error-container").innerHTML = jRes.message;
+                        document.querySelector(".error-container").innerHTML = jRes.data;
                     }
                 }
             }
