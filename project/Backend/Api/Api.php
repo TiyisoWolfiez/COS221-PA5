@@ -31,7 +31,7 @@ enum ERRORTYPES: string
 {
     case INVALIDEMAIL = 'Invalid email';//Invalid user email
     case INVALIDPASSWORD = 'Invalid password';//Invalid user password
-    case NULLUSER = 'No user exists with this email address';//No user exists in the database with the given email
+    case NULLUSER = 'incorrect email or password';//incorrect email or password
     case WRONGPASSWORD = 'The password for this account is wrong';//Wrong password
     case USERNAMETAKEN = 'Username is unavailable';//Username is unavailable
     case INCORRECTSORT = 'Given sort value is not supported';//unsupported sort parameter given
@@ -66,15 +66,17 @@ class Api extends config{
         if(!filter_var($UserEmail, FILTER_VALIDATE_EMAIL)){
             return $this->constructResponseObject(ERRORTYPES::INVALIDEMAIL->value, "error");
         }
-        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
+        
+        /*if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $UserPassword)){
             return $this->constructResponseObject(ERRORTYPES::INVALIDPASSWORD->value, "error");
-        }
+        }*/
 
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('SELECT Username FROM USER WHERE Username = ? AND Password = ?');
+        $stmt = $conn->prepare('SELECT * FROM user WHERE email = ? AND Password = ?');
         
-        //hash password first using algorithm (TBD) before adding as param for stmt execution
-        $success = $stmt->execute(array($UserEmail, $UserPassword));
+        $hashedPass = hash("sha256", $UserPassword, false);
+        
+        $success = $stmt->execute(array($UserEmail, $hashedPass));
 
         if($success && $stmt->rowCount() != 0){
             return $this->constructResponseObject("", "success");

@@ -8,7 +8,7 @@ RegEx	Description
 (?=.*[!@#$%^&*])	The string must contain at least one special character, but we are escaping reserved RegEx characters to avoid conflict
 (?=.{8,})	The string must be eight characters or longer
 */
-const passWordReg = new RegExp("^((?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*?><.,;:]))");
+const passWordReg = new RegExp("^((?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*?><.,;:_\s]))");
 const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const nameAndSurnameReg = new RegExp("^((?=.{2,})(?=.*[a-z]))");
 
@@ -128,10 +128,10 @@ const validateLogin = function(){
 
     
     if(getEmail.match(regexEmail)){//email valid
-        if(passWordReg.test(getPassword)){//password valid
+        if(getPassword.match(passWordReg)){//password valid
             //add backend code here
             //json to be sent to api
-            var json = {'type': 'LOGIN', 'data': {'email': getEmail, 'password': getPassword}};
+            var json = {'type': 'LOGIN', 'email': getEmail, 'password': getPassword};
             var req = new XMLHttpRequest;
 
             req.onreadystatechange = function(){//recieves api response
@@ -141,11 +141,10 @@ const validateLogin = function(){
                     var jRes = JSON.parse(res);
 
                     if(jRes.status == 'success'){
-                        var bod = document.getElementsByTagName('body');
-                        bod.innerHTML += '<?php header("Location: index.php");?>';
+                        window.location.href = "index.php";
                     }
                     else if(jRes.status == 'error'){
-                        document.querySelector(".error-container").innerHTML = jRes.message;
+                        document.querySelector(".error-container").innerHTML = jRes.data;
                     }
                 }
             }
