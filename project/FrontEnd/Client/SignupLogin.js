@@ -75,7 +75,16 @@ const toggleSignUpLogin = function(){
     }
 };
 
-
+/**
+ * {
+ *  'type': string,
+ *  'username': string,
+ *  'email': string,
+ *  'password': string,
+ *  'isSouthAfrican': boolean
+ * }
+ * 
+ */
 
 const validateSignUp = function(){
     const getName = document.getElementById("name").value;
