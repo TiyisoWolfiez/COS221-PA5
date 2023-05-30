@@ -16,7 +16,7 @@ const toggleSignUpLogin = function(){
     if(currentSelectionLogin){
         document.querySelector(".signup-login-box").innerHTML = '<form action="#" method="post" onsubmit="return validateSignUp()" class="needs-validation">' +
             '<div class="row align-items-center rounded-right-3">' +
-                '<div class="header-text mb-1">' +
+                '<div class="header-text">' +
                     '<h3>Welcome to Winery SA</h3>' +
                     '<p>Sign up to access the finest wineries</p>' +
                 '</div>' +
@@ -31,6 +31,12 @@ const toggleSignUpLogin = function(){
                 '</div>' +
                 '<div class="input-group mb-2 was-validated">' +
                     '<input type="password"  id="password" class="form-control form-control-lg bg-light fs-6" placeholder="password" required/>' +
+                '</div>' +
+                '<div class="input-group mb-1">' +
+                    '<div class="form-check">'+
+                        '<input class="form-check-input checkbox-input" type="checkbox" value="" id="flexCheckDefault">'+
+                        '<label class="form-check-label" for="flexCheckDefault">I am South African</label>'+
+                    '</div>'+
                 '</div>' +
                 '<div class="input-group mb-2">' +
                     '<input type="submit" class="btn btn-lg w-100 fs-6 login-btn" value="Signup">' +
@@ -92,7 +98,7 @@ const validateSignUp = function(){
                     return false;
                 }
                 else{
-                    document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and have upper and lowercase letters with symbols( eg: %#&)";
+                    document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and contain alphanumeric letters with symbols";
                     document.getElementById("password").value = "";
                 }
             }
@@ -155,7 +161,7 @@ const validateLogin = function(){
             return false;
         }
         else{
-            document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and have upper and lowercase letters with symbols( eg: %#&)";
+            document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and contain alphanumeric letters with symbols";
             document.getElementById("password").value = "";
         }
     }
