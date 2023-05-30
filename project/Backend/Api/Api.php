@@ -74,8 +74,9 @@ class Api extends config{
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('SELECT * FROM user WHERE email = ? AND Password = ?');
         
-        //hash password first using algorithm (TBD) before adding as param for stmt execution
-        $success = $stmt->execute(array($UserEmail, $UserPassword));
+        $hashedPass = hash("sha256", $UserPassword, false);
+        
+        $success = $stmt->execute(array($UserEmail, $hashedPass));
 
         if($success && $stmt->rowCount() != 0){
             return $this->constructResponseObject("", "success");

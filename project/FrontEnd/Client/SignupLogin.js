@@ -8,7 +8,7 @@ RegEx	Description
 (?=.*[!@#$%^&*])	The string must contain at least one special character, but we are escaping reserved RegEx characters to avoid conflict
 (?=.{8,})	The string must be eight characters or longer
 */
-const passWordReg = new RegExp("^((?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*?><.,;:]))");
+const passWordReg = new RegExp("^((?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*?><.,;:_\s]))");
 const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const nameAndSurnameReg = new RegExp("^((?=.{2,})(?=.*[a-z]))");
 
@@ -128,7 +128,7 @@ const validateLogin = function(){
 
     
     if(getEmail.match(regexEmail)){//email valid
-        if(true){//replace with password regex check when passwords in databases have changed
+        if(getPassword.match(passWordReg)){//password valid
             //add backend code here
             //json to be sent to api
             var json = {'type': 'LOGIN', 'email': getEmail, 'password': getPassword};
