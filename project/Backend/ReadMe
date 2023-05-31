@@ -15,7 +15,7 @@ API:
     -Both filtered and sorted 
 -Can get user data
 -Can get review data
--Can return whether login credentials were correct
+-Can return whether login credentials were correct X
 -Can return whether admin key was correct
 -Can return list of all appellations
 -Can return list of all varietals
