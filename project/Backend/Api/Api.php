@@ -21,7 +21,7 @@ enum REQUESTYPE: string
     case GET_COUNTRY = 'GET_COUNTRY';
     case SEARCH_WINERY = 'SEARCH_WINERY';
     case SEARCH_WINE = 'SEARCH_WINE';
-    
+    case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
     /**Add more cases */
 }
 
@@ -126,6 +126,19 @@ class Api extends config{
         }
         else{
             return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
+        }
+    }
+
+    public function deleteUser($Username){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('DELETE FROM user WHERE username = ?');
+        $success = $stmt->execute(array($Username));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
         }
     }
 
@@ -292,8 +305,7 @@ class Api extends config{
             return $this->constructResponseObject($data, "success");
         }
         
-    }
-    
+    }    
 
     public function searchWinery($name){
 
@@ -343,6 +355,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
     }
+    else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
+        echo $apiconfig->deleteUser($USERREQUEST->username);
+    }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         echo $apiconfig->getWineries($USERREQUEST);
     }
@@ -366,5 +381,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo $apiconfig->searchWine($USERREQUEST->name);
         }
     }
-    
 }
