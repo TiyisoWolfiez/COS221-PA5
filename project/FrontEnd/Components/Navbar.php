@@ -1,6 +1,6 @@
 <!-- navbar -->
 <?php
-    //session_start();
+    session_start();
 
     /**
     *@brief This function checks the url of the current page and returns an empty string or "navbar-scroll" which is used to
@@ -60,7 +60,7 @@
             <!--<a class="btn btn-black btn-rounded" href="login.html">Login/Signup</a> -->
             <a href="profile.php"><!--check whether a user is manager and conditionally render-->
                 <div class="btn btn-black btn-rounded">
-                    <i class="fa-regular fa-user pe-2"></i>username
+                    <i class="fa-regular fa-user pe-2"></i><?php echo $_SESSION['username']?>
                 </div><!--will only show for logged in users-->
             </a>
           </li>

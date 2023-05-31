@@ -74,14 +74,14 @@ class Api extends config{
         }*/
 
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('SELECT * FROM user WHERE email = ? AND Password = ?');
+        $stmt = $conn->prepare('SELECT username FROM user WHERE email = ? AND Password = ?');
         
         $hashedPass = hash("sha256", $UserPassword, false);
 
         $success = $stmt->execute(array($UserEmail, $hashedPass));
 
         if($success && $stmt->rowCount() != 0){
-            return $this->constructResponseObject("", "success");
+            return $this->constructResponseObject($stmt->fetchColumn(), "success");
         }
         else{
             return $this->constructResponseObject(ERRORTYPES::NULLUSER->value, "error");

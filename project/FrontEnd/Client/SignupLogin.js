@@ -184,6 +184,8 @@ const validateLogin = function(){
                     var jRes = JSON.parse(res);
 
                     if(jRes.status == 'success'){
+                        makeUsernameSession(jRes.data);
+
                         window.location.href = "index.php";
                     }
                     else if(jRes.status == 'error'){
@@ -209,4 +211,20 @@ const validateLogin = function(){
     }
     return false;
 
+};
+
+
+const makeUsernameSession = function(username){
+    var req = new XMLHttpRequest;
+
+    req.onreadystatechange = function(){//recieves api response
+        if(req.readyState == 4 && req.status == 200)
+        {
+            var res = req.responseText;
+            var jRes = JSON.parse(res);
+        }
+    }
+
+    req.open('POST', '../Components/SessionHandler.php');
+    req.send(username);
 };
