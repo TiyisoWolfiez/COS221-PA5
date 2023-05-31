@@ -12,7 +12,7 @@
     function currentPage(){
         $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
         $url = end($url_array);  
-        return $url == "index.php" ? "" : "navbar-scroll";
+        return $url == "index.php" || $url == "" ? "" : "navbar-scroll";
     }
 
     /*@brief This function checks the url of the current page and returns an empty string or the search bar which is used to

@@ -10,21 +10,18 @@ RegEx	Description
 */
 const passWordReg = new RegExp("^((?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*?><.,;:_\s]))");
 const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const nameAndSurnameReg = new RegExp("^((?=.{2,})(?=.*[a-z]))");
+const usernameReg = new RegExp("^((?=.{2,})(?=.*[a-z]))");
 
 const toggleSignUpLogin = function(){
     if(currentSelectionLogin){
         document.querySelector(".signup-login-box").innerHTML = '<form action="#" method="post" onsubmit="return validateSignUp()" class="needs-validation">' +
             '<div class="row align-items-center rounded-right-3">' +
-                '<div class="header-text">' +
+                '<div class="header-text mb-2">' +
                     '<h3>Welcome to Winery SA</h3>' +
                     '<p>Sign up to access the finest wineries</p>' +
                 '</div>' +
                 '<div class="input-group mb-2 was-validated">' +
-                    '<input type="text"  id="name" class="form-control form-control-lg bg-light fs-6" placeholder="first name" required/>' +
-                '</div>' +
-                '<div class="input-group mb-2 was-validated">' +
-                    '<input type="text"  id="surname" class="form-control form-control-lg bg-light fs-6" placeholder="surname" required/>' +
+                    '<input type="text"  id="username" class="form-control form-control-lg bg-light fs-6" placeholder="username" required/>' +
                 '</div>' +
                 '<div class="input-group mb-2 was-validated">' +
                     '<input type="email"  id="email" class="form-control form-control-lg bg-light fs-6" placeholder="email address" required/>' +
@@ -32,7 +29,7 @@ const toggleSignUpLogin = function(){
                 '<div class="input-group mb-2 was-validated">' +
                     '<input type="password"  id="password" class="form-control form-control-lg bg-light fs-6" placeholder="password" required/>' +
                 '</div>' +
-                '<div class="input-group mb-1">' +
+                '<div class="input-group mb-2">' +
                     '<div class="form-check">'+
                         '<input class="form-check-input checkbox-input" type="checkbox" value="" id="flexCheckDefault">'+
                         '<label class="form-check-label" for="flexCheckDefault">I am South African</label>'+
@@ -88,8 +85,7 @@ const toggleSignUpLogin = function(){
  */
 
 const validateSignUp = function(){
-    const getName = document.getElementById("name").value;
-    const getSurname = document.getElementById("surname").value;
+    const getUserName = document.getElementById("username").value;
     const getEmail = document.getElementById("email").value;
     const getPassword = document.getElementById("password").value;
     const getIsSouthAfrican = document.getElementById("flexCheckDefault").checked;
@@ -102,60 +98,53 @@ const validateSignUp = function(){
         isSouthAfrican = 0;
     }
 
-    if(getName == "" || getSurname == "" || getEmail == "" || getPassword == ""){
+    if(getUserName == "" || getEmail == "" || getPassword == ""){
         document.querySelector(".error-container").innerHTML = "please fill in the form";
         return false;
     }
 
-    if(nameAndSurnameReg.test(getName)){//name is valid
-        if(nameAndSurnameReg.test(getSurname)){//surname is valid
-            if(getEmail.match(regexEmail)){//email valid
-                if(passWordReg.test(getPassword)){//password valid
-                    //add backend code here
-                    //json to be sent to api
-                    var json = {'type': 'REGISTER', 'username':(getName + getSurname),'email': getEmail, 'password': getPassword, 'isSouthAfrican': isSouthAfrican};
-                    var req = new XMLHttpRequest;
+    if(usernameReg.test(getUserName)){//username is valid
+        if(getEmail.match(regexEmail)){//email valid
+            if(passWordReg.test(getPassword)){//password valid
+                //add backend code here
+                //json to be sent to api
+                var json = {'type': 'REGISTER', 'username':(getName + getSurname),'email': getEmail, 'password': getPassword, 'isSouthAfrican': isSouthAfrican};
+                var req = new XMLHttpRequest;
 
-                    req.onreadystatechange = function(){//recieves api response
-                        if(req.readyState == 4 && req.status == 200)
-                        {
-                            var res = req.responseText;
-                            var jRes = JSON.parse(res);
+                req.onreadystatechange = function(){//recieves api response
+                    if(req.readyState == 4 && req.status == 200)
+                    {
+                        var res = req.responseText;
+                        var jRes = JSON.parse(res);
 
-                            if(jRes.status == 'success'){
-                                toggleSignUpLogin();
-                            }
-                            else if(jRes.status == 'error'){
-                                document.querySelector(".error-container").innerHTML = jRes.data;
-                            }
+                        if(jRes.status == 'success'){
+                            toggleSignUpLogin();
+                        }
+                        else if(jRes.status == 'error'){
+                            document.querySelector(".error-container").innerHTML = jRes.data;
                         }
                     }
+                }
 
-                    req.open('POST', '../../Backend/Api/Api.php');
-                    req.send(JSON.stringify(json))
-                    //end backend code here
-                    return false;
-                }
-                else{
-                    document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and contain alphanumeric letters with symbols";
-                    document.getElementById("password").value = "";
-                }
+                req.open('POST', '../../Backend/Api/Api.php');
+                req.send(JSON.stringify(json))
+                //end backend code here
+                return false;
             }
             else{
-                document.querySelector(".error-container").innerHTML = "please fill in a valid email";
-                document.getElementById("email").value = "";
+                document.querySelector(".error-container").innerHTML = "Password should be greater than 8 characters and contain alphanumeric letters with symbols";
                 document.getElementById("password").value = "";
             }
         }
         else{
-            document.querySelector(".error-container").innerHTML = "please fill in a valid surname";
-            document.getElementById("surname").value = "";
+            document.querySelector(".error-container").innerHTML = "please fill in a valid email";
+            document.getElementById("email").value = "";
             document.getElementById("password").value = "";
         }
     }
     else{
-        document.querySelector(".error-container").innerHTML = "please fill in a valid name";
-        document.getElementById("name").value = "";
+        document.querySelector(".error-container").innerHTML = "please fill in a valid username";
+        document.getElementById("username").value = "";
         document.getElementById("password").value = "";
     }
     return false;
