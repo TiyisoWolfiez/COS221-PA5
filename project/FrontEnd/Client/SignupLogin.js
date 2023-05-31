@@ -108,7 +108,7 @@ const validateSignUp = function(){
             if(passWordReg.test(getPassword)){//password valid
                 //add backend code here
                 //json to be sent to api
-                var json = {'type': 'REGISTER', 'username':(getName + getSurname),'email': getEmail, 'password': getPassword, 'isSouthAfrican': isSouthAfrican};
+                var json = {'type': 'REGISTER', 'username': getUserName,'email': getEmail, 'password': getPassword, 'isSouthAfrican': isSouthAfrican};
                 var req = new XMLHttpRequest;
 
                 req.onreadystatechange = function(){//recieves api response
