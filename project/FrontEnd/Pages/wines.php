@@ -14,20 +14,24 @@
 </head>
 <body>
     <?php include "../Components/Navbar.php";?>
-
-    <!-- ------------------------------Beginning-Wines------------------------------- -->
-    
+    <!-- ----------------------------Filter Tab------------------------------------- -->
     <nav style="height: 70px;"></nav><!--buffer for navbar-->
     <nav style="height: 60px;">
-      <div class="ms-auto align-items-center d-flex" style="height: 60px;">
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">
+      <div class="ms-auto align-items-center d-flex filter-tab" style="height: 60px;">
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i class="fa-solid fa-filter pe-2"></i>filters
         </div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">red wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">white wine</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">champagne</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Red</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bone Dry</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">White</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Sparkling</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bordeaux</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Champagne</div>
       </div>
     </nav>
+    <!-- ----------------------------Tab END --------------------------------------- -->
+
+    <!-- ------------------------------Beginning-Wines------------------------------- -->
 
       <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto">
 
@@ -48,6 +52,7 @@
             <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
           </ul>
         </div>
+
 
         <div class="card card-item rounded-2" style="width: 18rem;">
 
@@ -174,10 +179,124 @@
             <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
           </ul>
         </div>
-
     </nav>
+    <!-- </a> -->
+
 
     <!-- --------------------------------End-Wines------------------------------ -->
+    <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">Filter Wines</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="text-dark">Sort by price ranges:</h6>
+            <label for="customRange1" class="form-label text-dark">Min price for wines sold at winery: $2000</label>
+            <input type="range" class="form-range" id="customRange2">
+            <label for="customRange1" class="form-label text-dark">Max price for wines sold at winery: $5000</label>
+            <input type="range" class="form-range" id="customRange1">
+
+            <h6 class="text-dark">Sort by rating:</h6>
+            <!-- <label for="customRange2" class="form-label">Rating</label> -->
+            <input type="range" class="form-range" min="0" max="5" id="customRange2">
+
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>Varietal</option>
+              <option value="1">Chardonnay</option>
+              <option value="2">Cabernet Sauvignon</option>
+            </select>
+            <br>
+
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>Color</option>
+              <option value="1">Red</option>
+              <option value="2">White</option>
+              <option value="3">Rosé</option>
+            </select>
+            <br>
+
+            <div class="filter-modal-buffer"></div>
+            <h6 class="text-dark">Carbonation:</h6>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label text-dark" for="inlineCheckbox1">Sparkling</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label text-dark" for="inlineCheckbox2">Semi-sparkling</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Still</label>
+            </div>
+            <br>
+            <br>
+
+            <div class="filter-modal-buffer"></div>
+            <h6 class="text-dark">Sweetness:</h6>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label text-dark" for="inlineCheckbox1">All</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label text-dark" for="inlineCheckbox2">Bone Dry</label>
+            </div>
+
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Dry</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Medium/Off Dry</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Medium Sweet</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Dessert Sweetness</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Very Sweet</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8">
+              <label class="form-check-label text-dark" for="inlineCheckbox3">Intensely Sweet</label>
+            </div>
+            <br>
+            <br>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>Country</option>
+              <option value="1">Italy</option>
+              <option value="2">South Africa</option>
+              <option value="3">France</option>
+              <option value="4">Germany</option>
+              <option value="5">Spain</option>
+              <option value="6">Portugal</option>
+              <option value="7">Russia</option>
+              <option value="8">Turkey</option>
+            </select>
+
+            <br>
+            <div class="filter-modal-buffer"></div>
+            <br>
+            <h6 class="text-dark enteredLocation">Enter a country of Wine's origin :</h6>
+            <input type="text" class="form-control" id="enteredLocation" placeholder="Enter country here">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn" style="background-color: var(--app-theme-col);">Update filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <?php include "../Components/Footer.php";?>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify18QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>

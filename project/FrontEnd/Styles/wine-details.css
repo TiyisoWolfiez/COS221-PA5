@@ -1,0 +1,84 @@
+/*CHECK IN global.css for what variables are available for use*/
+
+.filter-buttons{
+    transition: transform 0.3s ease-in-out;
+}
+
+.filter-buttons:hover{
+    background: var(--white-1000) !important;
+}
+
+.filter-buttons:active{
+    transform: scale(0.97);
+}
+
+.website-container{
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+    width: 99vw;
+}
+
+@media screen and (min-width:1600px){
+    .filter-tab{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2000px){
+    .filter-tab{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .website-container{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.card-item{
+    box-shadow: 5px 5px 25px 5px var(--black-1000-20);
+    transition: transform 0.4s ease-in-out;
+    margin: 1rem;
+}
+
+.card-item:hover{
+    transform: scale(1.02);
+}
+
+.card-item:active{
+    transform: scale(0.98);
+}
+
+.card-info-container{
+    margin-top: 50px;
+    border-radius: 10px !important;
+    transition: transform 0.5s ease-in-out;
+    box-shadow:  9px 9px 24px #d7d7d777,
+             -9px -9px 24px #e9e9e962;
+}
+
+.card-info-container:hover{
+    transform: scale(1.03);
+}
+
+.card-info-container:active{
+    transform: scale(0.97);
+}
+
+.card-img-top{
+    object-fit: cover;
+    height: 200px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
