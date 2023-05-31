@@ -24,6 +24,7 @@ When type = 'GET_WINE':
   sort (optional) -- contains a string of one of the following: ("price_amount", "pointScore", "alcohol_percentage", "vintage", "year_bottled") the data will be sorted by that attribute
   filters (optional) -- contains a JSON sub object which can include any or all of the keys 'varietal', 'colour', 'carbonation', 'sweetness', 'country' AND should include the value to be filtered by 
       e.g. filters: {"colour": "red", "country": "South Africa"}
+  lastcount (optional) -- the index of the last received wine, will the next wines after that wine in the results
        
 When type = 'GET_VARIETAL':
   returns all available varietals
@@ -36,3 +37,4 @@ When type = 'SEARCH_WINERY':
 
 When type = 'SEARCH_WINE':
   name (required) -- the name of the wine to search for
+  lastcount (optional) -- the index of the last received wine, will the next wines after that wine in the results
