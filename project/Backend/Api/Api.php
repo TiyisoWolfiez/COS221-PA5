@@ -35,6 +35,7 @@ enum ERRORTYPES: string
     case NULLUSER = 'incorrect email or password';//incorrect email or password
     case WRONGPASSWORD = 'The password for this account is wrong';//Wrong password
     case USERNAMETAKEN = 'Username is unavailable';//Username is unavailable
+    case EMAILTAKEN = 'Email is unavailable';//Email is unavailable
     case INCORRECTSORT = 'Given sort value is not supported';//unsupported sort parameter given
     case NONAME = 'Name is a required field';//no name given for search
     /**Add more cases */
@@ -100,18 +101,28 @@ class Api extends config{
         $success = $stmt->execute(array($Username));
 
         if($success && $stmt->rowCount() == 0){
-            $stmt = $conn->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?);"); //Insert user into user table
 
-            $hashedPass = hash('sha256', $pswrd, false);
-            $success = $stmt->execute(array($Username, $email, $hashedPass));
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?"); //Check if email is taken
+            $success = $stmt->execute(array($email));
 
-            if($success){
-                // INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, 0 FROM user ORDER BY userID DESC LIMIT 1
-                
-                $stmt = $conn->prepare("INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, ? FROM user ORDER BY userID DESC LIMIT 1"); //Insert user into tourist table
-                $success = $stmt->execute(array($isSouthAfrican));
-                return $this->constructResponseObject("", "success");
+            if($success && $stmt->rowCount() == 0){
+                $stmt = $conn->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?);"); //Insert user into user table
+
+                $hashedPass = hash('sha256', $pswrd, false);
+                $success = $stmt->execute(array($Username, $email, $hashedPass));
+    
+                if($success){
+                    // INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, 0 FROM user ORDER BY userID DESC LIMIT 1
+                    
+                    $stmt = $conn->prepare("INSERT INTO tourist(userID, isSouthAfrican) SELECT userID, ? FROM user ORDER BY userID DESC LIMIT 1"); //Insert user into tourist table
+                    $success = $stmt->execute(array($isSouthAfrican));
+                    return $this->constructResponseObject("", "success");
+                }
             }
+            else{
+                return $this->constructResponseObject(ERRORTYPES::EMAILTAKEN->value, "error");
+            }            
         }
         else{
             return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
