@@ -76,6 +76,7 @@ const toggleSignUpLogin = function(){
 };
 
 /**
+ * Signup Json:
  * {
  *  'type': string,
  *  'username': string,
@@ -91,6 +92,15 @@ const validateSignUp = function(){
     const getSurname = document.getElementById("surname").value;
     const getEmail = document.getElementById("email").value;
     const getPassword = document.getElementById("password").value;
+    const getIsSouthAfrican = document.getElementById("flexCheckDefault").checked;
+
+    var isSouthAfrican;
+    if(getIsSouthAfrican){
+        isSouthAfrican = 1;
+    }
+    else{
+        isSouthAfrican = 0;
+    }
 
     if(getName == "" || getSurname == "" || getEmail == "" || getPassword == ""){
         document.querySelector(".error-container").innerHTML = "please fill in the form";
@@ -102,7 +112,27 @@ const validateSignUp = function(){
             if(getEmail.match(regexEmail)){//email valid
                 if(passWordReg.test(getPassword)){//password valid
                     //add backend code here
+                    //json to be sent to api
+                    var json = {'type': 'REGISTER', 'username':(getName + getSurname),'email': getEmail, 'password': getPassword, 'isSouthAfrican': isSouthAfrican};
+                    var req = new XMLHttpRequest;
 
+                    req.onreadystatechange = function(){//recieves api response
+                        if(req.readyState == 4 && req.status == 200)
+                        {
+                            var res = req.responseText;
+                            var jRes = JSON.parse(res);
+
+                            if(jRes.status == 'success'){
+                                toggleSignUpLogin();
+                            }
+                            else if(jRes.status == 'error'){
+                                document.querySelector(".error-container").innerHTML = jRes.data;
+                            }
+                        }
+                    }
+
+                    req.open('POST', '../../Backend/Api/Api.php');
+                    req.send(JSON.stringify(json))
                     //end backend code here
                     return false;
                 }
@@ -131,6 +161,15 @@ const validateSignUp = function(){
     return false;
 };
 
+/**
+ * Login Json:
+ * {
+ *  'type': string,
+ *  'email': string,
+ *  'password': string,
+ * }
+ * 
+ */
 
 const validateLogin = function(){
     const getEmail = document.getElementById("email").value;
