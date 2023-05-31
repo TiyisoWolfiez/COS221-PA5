@@ -6,7 +6,7 @@
 *@brief allows us to establish a connection to the database and makes use of a singleton to do so
 */
 
-include "../../../../Env.php";//THIS AN IMPORT FOR ENV VARIABLES, PLEASE UPDATE ACCORDINGLY
+include "../../../Env.php";//THIS AN IMPORT FOR ENV VARIABLES, PLEASE UPDATE ACCORDINGLY
 
 /**
 *@brief allows us to establish a connection to the database and makes use of a singleton to do so
