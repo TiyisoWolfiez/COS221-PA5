@@ -4,10 +4,6 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 A winery website for tourists to view and make use of when trying to browse a selection of wines in South Africa
 
-# Access site
-login/signup: https://winerysa.netlify.app/pages/login \
-home page: https://winerysa.netlify.app/pages/
-
 # Setup
 //to be updated
 
