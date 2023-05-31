@@ -12,7 +12,10 @@
     <title>Winery SA | Profile</title>
 </head>
 <body>
-    <?php include "../Components/Navbar.php";?>
+    <?php 
+      session_start();
+      include "../Components/Navbar.php";
+    ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">
         <div class="card at-a-glance-card">
@@ -20,7 +23,7 @@
             <h5 class="card-title">Name</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-person pe-3" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text">John Doe</h2>
+              <h2 class="card-text"><?php echo $_SESSION['username']?></h2>
             </div>
           </div>
         </div>

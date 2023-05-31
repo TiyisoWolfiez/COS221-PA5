@@ -65,7 +65,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
+            <a class="nav-link mx-2" href="login.php" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
           </li>
         </ul>
       </div>
