@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../Styles/global.css">
     <link rel="stylesheet" href="../Styles/wines.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="../Assets/wine-glass-solid.svg" />
     <title>Winery SA | Wines</title>
 </head>
