@@ -78,6 +78,15 @@
         "data",
         "infra"
       ]
+    },
+    {
+      "login": "Remiku-bit",
+      "name": "Remiku-bit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86027693?v=4",
+      "profile": "https://github.com/Remiku-bit",
+      "contributions": [
+        "research"
+      ]
     }
   ],
   "contributorsPerLine": 7,
