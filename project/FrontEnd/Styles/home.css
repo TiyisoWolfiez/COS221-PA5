@@ -23,6 +23,7 @@
     margin-top: 15vh;
     font-size: 80px;
     font-weight: var(--bold-f);
+    color: var(--gray-1000);
 }
 
 .landing-page-container h3{
