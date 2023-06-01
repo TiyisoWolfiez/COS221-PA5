@@ -6,7 +6,7 @@
     *@brief This function checks the url of the current page and returns an empty string or "navbar-scroll" which is used to
     *different navbar appearances on the home page and other pages. The navbar looks works differently on the pages thanks to this function
     *Please don't delete or modify this function
-    *@param none
+    *@param $none
     *@return string
     */
     function currentPage(){
@@ -57,12 +57,16 @@
             <a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->
           </li>
           <li class="nav-item ms-3 border rounded-2">
-            <!--<a class="btn btn-black btn-rounded" href="login.html">Login/Signup</a> -->
-            <a href="profile.php"><!--check whether a user is manager and conditionally render-->
-                <div class="btn btn-black btn-rounded">
-                    <i class="fa-regular fa-user pe-2"></i><?php echo $_SESSION['username']?>
-                </div><!--will only show for logged in users-->
-            </a>
+            <?php if(isset($_SESSION['username'])){
+              echo '<a href="profile.php"><!--check whether a user is manager and conditionally render-->'.
+                        '<div class="btn btn-black btn-rounded">'.
+                            '<i class="fa-regular fa-user pe-2"></i>'. $_SESSION['username'] .
+                        '</div><!--will only show for logged in users-->'.
+                    '</a>';
+            }
+            else echo '<a class="btn btn-black btn-rounded" href="login.php">Login/Signup</a>';
+
+            ?>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" href="login.php" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->

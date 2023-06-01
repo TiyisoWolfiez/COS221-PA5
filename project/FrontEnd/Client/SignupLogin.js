@@ -72,6 +72,28 @@ const toggleSignUpLogin = function(){
     }
 };
 
+const toggleAdminLogin = function(){
+    document.querySelector(".signup-login-box").innerHTML = '<form action="#" method="post" onsubmit="return loginAdmin()" class="needs-validation">' +
+            '<div class="row align-items-center rounded-right-3">' +
+                '<div class="header-text mb-4">' +
+                    '<h3>Welcome back to Winery SA</h3>' +
+                    '<p>We are glad to see you again</p>' +
+                '</div>' +
+                '<div class="input-group mb-3 was-validated">' +
+                    '<input type="password" id="adminkey" class="form-control form-control-lg bg-light fs-6" placeholder="admin key" required/>' +
+                '</div>' +
+                '<div class="input-group mb-3">' +
+                    '<input type="submit" class="btn btn-lg w-100 fs-6 login-btn" value="Login">' +
+                '</div>' +
+                '<div class="input-group mb-3">' +
+                    '<button class="btn btn-lg btn-light w-100 fs-6 no-account-btn" onclick="toggleSignUpLogin()">I\'m not an admin</button>' +
+                '</div>'+
+                '<p class="text-danger error-container"></p>'+
+            '</div>'+
+        '</form>';
+        currentSelectionLogin = false;
+};
+
 /**
  * Signup Json:
  * {
@@ -227,4 +249,35 @@ const makeUsernameSession = function(username){
 
     req.open('POST', '../Components/SessionHandler.php');
     req.send(username);
+};
+
+const loginAdmin = function(){
+    const adminkey = document.getElementById("adminkey").value;
+
+    if(adminkey == ""){
+        document.querySelector(".error-container").innerHTML = "please fill in the form";
+        return false;
+    }
+
+    //add backend code here
+    //json to be sent to api
+    const req = new XMLHttpRequest;
+
+    req.onreadystatechange = function(){//recieves api response
+        if(req.readyState == 4 && req.status == 200)
+        {
+            const jRes = JSON.parse(req.responseText);
+
+            if(jRes.status == 'success'){
+                makeUsernameSession(jRes.data);
+                window.location.href = "admin.php";
+            }
+            else if(jRes.status == 'error')document.querySelector(".error-container").innerHTML = jRes.data;
+        }
+    }
+
+    req.open('POST', '../../Backend/Api/Api.php');
+    req.send(JSON.stringify({'type': 'LOGIN_ADMIN', 'key': adminkey}));
+    //end backend code here
+    return false;
 };

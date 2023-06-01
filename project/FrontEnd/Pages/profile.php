@@ -14,6 +14,7 @@
 <body>
     <?php 
       session_start();
+      if(!isset($_SESSION['username']))header("Location: index.php");
       include "../Components/Navbar.php";
     ?>
     <nav class="main-admin-container">
@@ -23,7 +24,11 @@
             <h5 class="card-title">Name</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-person pe-3" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text"><?php echo $_SESSION['username']?></h2>
+              <h2 class="card-text">
+                <?php if(isset($_SESSION['username']))echo $_SESSION['username'];
+                      else echo '';
+                ?>
+              </h2>
             </div>
           </div>
         </div>

@@ -19,7 +19,9 @@
         <h3>Guiding you to the finest wines in South Africa</h3>
 
         <h4>scroll down</h4>
-        <i class="fa-solid fa-chevron-down" onclick="document.getElementById('home-page-content').scrollIntoView({behavior: 'smooth'});"></i>
+        <div class="chevron-container">
+          <i class="fa-solid fa-chevron-down" onclick="document.getElementById('home-page-content').scrollIntoView({behavior: 'smooth'});"></i>
+        </div>
     </div>
 
     <div class="home-page-content" id="home-page-content">

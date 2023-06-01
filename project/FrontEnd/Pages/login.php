@@ -35,6 +35,9 @@
                         <div class="input-group mb-3">
                             <button class="btn btn-lg btn-light w-100 fs-6 no-account-btn" onclick="toggleSignUpLogin()">Don't have an account? Signup instead</button>
                         </div>
+                        <div class="input-group mb-3">
+                            <button class="btn btn-lg btn-light w-100 fs-6 no-account-btn" onclick="toggleAdminLogin()">I am an admin</button>
+                        </div>
                         <p class="text-danger error-container"></p>
                     </div>
                 </form>

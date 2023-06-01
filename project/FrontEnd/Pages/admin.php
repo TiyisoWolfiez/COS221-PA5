@@ -12,7 +12,11 @@
     <title>Winery SA | Admin</title>
 </head>
 <body>
-    <?php include "../Components/Navbar.php";?>
+    <?php 
+      session_start();
+      if(!isset($_SESSION['adminkey']))header("Location: index.php");
+      include "../Components/Navbar.php";
+    ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">
         <div class="card at-a-glance-card">

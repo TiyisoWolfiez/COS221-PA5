@@ -19,11 +19,28 @@
 body{
     background: var(--app-theme-col);
     font-family: 'Wix Madefor Display', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box-area{
-    width: 60vw;
+    width: 60vw !important;
     box-shadow: 5px 5px 15px 7px var(--black-1000-20);
+}
+
+@media screen and (min-width:1600px){
+    .box-area{width: 50vw !important;}
+}
+
+@media screen and (min-width:2000px){
+    .box-area{width: 40vw !important;}
+}
+
+@media screen and (min-width:2500px){
+    .box-area{width: 30vw !important;}
 }
 
 .img-class{

@@ -5,6 +5,22 @@
     overflow-y: hidden;
 }
 
+@media screen and (min-width:1600px){
+    .main-admin-container{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2000px){
+    .main-admin-container{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .at-a-glance-cards{
     display: flex;
     justify-content: space-evenly;
@@ -16,6 +32,14 @@
     transition: transform 0.5s ease-in-out;
     box-shadow:  9px 9px 24px #d7d7d777,
              -9px -9px 24px #e9e9e962;
+}
+
+@media screen and (min-width:1600px){
+    .at-a-glance-card{width: calc(60vw / 4);}
+}
+
+@media screen and (min-width:2000px){
+    .at-a-glance-card{width: calc(40vw / 4);}
 }
 
 .at-a-glance-card:hover{
@@ -67,11 +91,19 @@
 }
 
 .list-group{
-    height: 45vh;
+    height: 54vh;
     overflow-y: auto;
     width: 95vw;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media screen and (min-width:1600px){
+    .list-group{width: 75vw;}
+}
+
+@media screen and (min-width:2000px){
+    .list-group{width: 65vw;}
 }
 
 .action-btns{

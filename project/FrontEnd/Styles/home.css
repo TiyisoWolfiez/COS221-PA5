@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 @keyframes zoomIN {
@@ -35,6 +36,10 @@
     margin-top: 20vh;
 }
 
+.chevron-container{
+    height: 50px;
+}
+
 .fa-chevron-down{
     animation: movingChevron 1s infinite;
     cursor: pointer;
@@ -54,6 +59,30 @@
     justify-content: space-evenly;
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+@media screen and (min-width:1600px){
+    .home-page-content{
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2000px){
+    .home-page-content{
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width:2500px){
+    .home-page-content{
+        width: 60vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .card-info-container{

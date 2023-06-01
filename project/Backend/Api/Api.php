@@ -15,6 +15,7 @@ enum REQUESTYPE: string
 {
     case REGISTER = 'REGISTER';
     case LOGIN = 'LOGIN';
+    case LOGIN_ADMIN = 'LOGIN_ADMIN';
     case GET_WINERIES = 'GET_WINERIES';
     case GET_WINE = 'GET_WINE';
     case GET_VARIETAL = 'GET_VARIETAL';
@@ -86,6 +87,10 @@ class Api extends config{
         else{
             return $this->constructResponseObject(ERRORTYPES::NULLUSER->value, "error");
         }
+    }
+
+    public function loginAdmin($AdminKey){
+
     }
 
     public function registerUser($Username, $email, $pswrd, $isSouthAfrican){
@@ -354,6 +359,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::LOGIN_ADMIN->value){
+        echo $apiconfig->loginAdmin($USERREQUEST->key);
     }
     else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
         echo $apiconfig->deleteUser($USERREQUEST->username);
