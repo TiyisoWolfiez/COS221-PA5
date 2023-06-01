@@ -1,6 +1,6 @@
 # COS221-PA5
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 A winery website for tourists to view and make use of when trying to browse a selection of wines in South Africa
 
@@ -24,6 +24,7 @@ A winery website for tourists to view and make use of when trying to browse a se
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/TiyisoWolfiez"><img src="https://avatars.githubusercontent.com/u/110611386?v=4?s=100" width="100px;" alt="TiyisoWolfiez"/><br /><sub><b>TiyisoWolfiez</b></sub></a><br /><a href="https://github.com/waveyboym/COS221-PA5/commits?author=TiyisoWolfiez" title="Code">💻</a> <a href="#content-TiyisoWolfiez" title="Content">🖋</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/u22528492"><img src="https://avatars.githubusercontent.com/u/130374095?v=4?s=100" width="100px;" alt="Jaden Moodley"/><br /><sub><b>Jaden Moodley</b></sub></a><br /><a href="https://github.com/waveyboym/COS221-PA5/commits?author=u22528492" title="Code">💻</a> <a href="#content-u22528492" title="Content">🖋</a> <a href="#design-u22528492" title="Design">🎨</a> <a href="#infra-u22528492" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Dindosss"><img src="https://avatars.githubusercontent.com/u/116130766?v=4?s=100" width="100px;" alt="Dindosss"/><br /><sub><b>Dindosss</b></sub></a><br /><a href="https://github.com/waveyboym/COS221-PA5/commits?author=Dindosss" title="Code">💻</a> <a href="#content-Dindosss" title="Content">🖋</a> <a href="#data-Dindosss" title="Data">🔣</a> <a href="#infra-Dindosss" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Remiku-bit"><img src="https://avatars.githubusercontent.com/u/86027693?v=4?s=100" width="100px;" alt="Remiku-bit"/><br /><sub><b>Remiku-bit</b></sub></a><br /><a href="#research-Remiku-bit" title="Research">🔬</a></td>
     </tr>
   </tbody>
 </table>
