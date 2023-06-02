@@ -5,7 +5,18 @@
 A winery website for tourists to view and make use of when trying to browse a selection of wines in South Africa
 
 # Setup
-//to be updated
+1. Download and install XAMPP
+2. Clone the project files from this repo and place the project folder in "C:\xampp\htdocs"
+3. Start the Apache and MYSQL servers in XAMPP
+4. In your browser navigate to localhost/COS221-PA5
+5. Click on project
+6. Click on FrontEnd
+7. Click on Pages
+8. The index page should show up
+9. The default login details are as follows: \
+```
+//enter here
+```
 
 # Packages and frameworks used
 1. <a href="https://getbootstrap.com/">Bootstrap</a>
@@ -41,6 +52,10 @@ A winery website for tourists to view and make use of when trying to browse a se
 
 ## Week of 22/5 - 27/5
  1. Initial setup and design of backend and continued design of frontend and research
+
+## Week of 28/5 - 4/6
+ 1. Completeion of frontend, conversion of files to php and beginning integration of dynamic data from backennd
+ 2. Testing of website
 
 ## Contributors ✨
 
