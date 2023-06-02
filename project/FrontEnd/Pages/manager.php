@@ -12,7 +12,10 @@
     <title>Winery SA | Manager</title>
 </head>
 <body>
-    <?php include "../Components/Navbar.php";?>
+    <?php 
+      //if(!isset($_SESSION['managerkey']) || !isset($_SESSION['adminkey']))header("Location: index.php");
+      include "../Components/Navbar.php";
+    ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">
         <div class="card at-a-glance-card">

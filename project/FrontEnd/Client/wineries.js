@@ -1,15 +1,11 @@
 let lastServedId = 0;
 
 window.onload = function(){
-    /*const searchbarval = document.getElementById("searchbar").value;
-    if(searchbarval === "")return;
-    switchOnLoader();
-
+    /*
     const xhttpObject = new XMLHttpRequest();
     const body = JSON.stringify({
-        "type": "SEARCH_WINERY",
-        "name": searchbarval,
-        "lastservedid": 0
+        "type": "GET_WINERY",
+        "lastservedid": lastServedId
     });
 
     xhttpObject.onreadystatechange = function() {
@@ -21,7 +17,8 @@ window.onload = function(){
 
     xhttpObject.open("GET", "../../Api/Api.php");
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttpObject.send(body);*/
+    xhttpObject.send(body);
+    */
 }
 
 const searchFor = function() {

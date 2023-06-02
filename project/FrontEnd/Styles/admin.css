@@ -1,5 +1,10 @@
 /*CHECK IN global.css for what variables are available for use*/
 
+body{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
 .main-admin-container{
     height: 100vh;
     overflow-y: hidden;
@@ -91,7 +96,7 @@
 }
 
 .list-group{
-    height: 54vh;
+    height: 50vh;
     overflow-y: auto;
     width: 95vw;
     margin-left: auto;

@@ -1,3 +1,8 @@
+<?php
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +18,7 @@
 </head>
 <body>
     <?php 
-      session_start();
-      if(!isset($_SESSION['adminkey']))header("Location: index.php");
+      //if(!isset($_SESSION['adminkey']))header("Location: index.php");
       include "../Components/Navbar.php";
     ?>
     <nav class="main-admin-container">
@@ -58,13 +62,9 @@
       </nav>
       <nav class="list-of-various-elements">
         <nav class="navigation-tabs-for-list">
-          <div class="btn btn-primary btns-click">view winery</div>
+          <div class="btn btn-primary btns-click">view wineries</div>
           <div class="btn btn-primary btns-click">view managers</div>
-
-          <div class="divider"></div>
-
           <div class="btn btn-primary btns-click">Add winery</div>
-          <div class="btn btn-primary btns-click">Add managers</div>
         </nav>
         <nav class="container-of-data list-group">
           <table class="table">

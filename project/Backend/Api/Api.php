@@ -24,6 +24,7 @@ enum REQUESTYPE: string
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
     case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
+    case GET_WINERY_ADMIN = 'GET_WINERY_ADMIN';
     /**Add more cases */
 }
 
@@ -345,6 +346,20 @@ class Api extends config{
         $data = $stmt->fetchAll();
         return $this->constructResponseObject($data, "success");
     }
+
+    public function getWineriesAdmin(){
+        $adminkey = ""; //adminkey should come from session variable
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($adminkey));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+        if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
+
+        
+    }
     
     /**
     *@brief Creates an error based on the passed in parameter error type
@@ -408,5 +423,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         else{
             echo $apiconfig->searchWine($USERREQUEST->name);
         }
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_WINERY_ADMIN->value){
+    echo $apiconfig->getWineriesAdmin();
     }
 }

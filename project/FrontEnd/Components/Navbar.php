@@ -15,6 +15,17 @@
         return $url == "index.php" || $url == "" ? "" : "navbar-scroll";
     }
 
+    /*@brief This function checks the url of the current page and checks if it's the admin or manager page and returns a boolean
+    *Please don't delete or modify this function
+    *@param $none
+    *@return bool
+    */
+    function renderNavBarLinks(){
+      $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+      $url = end($url_array);  
+      return $url == "admin.php" || "manager.php" ? true : false;
+  }
+
     /*@brief This function checks the url of the current page and returns an empty string or the search bar which is used to
     *to search for wines or wineries
     *Please don't delete or modify this function
@@ -50,12 +61,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <?php echo renderSearchBar();?>
         <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->
-          </li>
+          <?php 
+            if(!renderNavBarLinks()){
+              echo '<li class="nav-item">'.
+                      '<a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->'.
+                    '</li>'.
+                    '<li class="nav-item">'.
+                      '<a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->'.
+                    '</li>';
+            }
+          ?>
           <li class="nav-item ms-3 border rounded-2">
             <?php if(isset($_SESSION['username'])){
               echo '<a href="profile.php"><!--check whether a user is manager and conditionally render-->'.
