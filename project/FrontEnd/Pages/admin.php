@@ -18,8 +18,8 @@
 </head>
 <body>
     <?php 
-      //if(!isset($_SESSION['adminkey']))header("Location: index.php");
       include "../Components/Navbar.php";
+      if(!isset($_SESSION['adminkey']))header("Location: index.php");
     ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">
@@ -28,7 +28,7 @@
             <h5 class="card-title">Total wineries</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-store pe-2" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text">133150</h2>
+              <h2 class="card-text Total-wineries">0</h2>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
             <h5 class="card-title">Total wines</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-wine-glass pe-3" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text">11350</h2>
+              <h2 class="card-text Total-wines">0</h2>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
             <h5 class="card-title">Total tourists</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-person pe-3" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text">115870</h2>
+              <h2 class="card-text Total-tourists">0</h2>
             </div>
           </div>
         </div>
@@ -55,15 +55,15 @@
             <h5 class="card-title">Total managers</h5>
             <div class="card-icon-and-count">
               <i class="fa-solid fa-people-roof pe-3" style="font-size: 1.5rem;"></i>
-              <h2 class="card-text">54955</h2>
+              <h2 class="card-text Total-managers">0</h2>
             </div>
           </div>
         </div>
       </nav>
       <nav class="list-of-various-elements">
         <nav class="navigation-tabs-for-list">
-          <div class="btn btn-primary btns-click">view wineries</div>
-          <div class="btn btn-primary btns-click">view managers</div>
+          <div class="btn btn-primary btns-click" onmouseup="viewWineries()">view wineries</div>
+          <div class="btn btn-primary btns-click" onmouseup="viewManagers()">view managers</div>
           <div class="btn btn-primary btns-click">Add winery</div>
         </nav>
         <nav class="container-of-data list-group">
@@ -76,98 +76,7 @@
                 <th scope="col invisible-row-col">#</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>True Vine Cellar</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>The Golden Vine Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>The Grape Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>As Good as it Gets Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>The Premium Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Daddy's Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td>Taste the Vines.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td>Grapes in Time Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td>Grapes in Time Wine Cellar.</td>
-                <th scope="row action-btns">
-                    <i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>
-                </th>
-                <th scope="row action-btns">
-                  <i class="fa-solid fa-trash action-btn"></i>
-                </th>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </nav>
       </nav>

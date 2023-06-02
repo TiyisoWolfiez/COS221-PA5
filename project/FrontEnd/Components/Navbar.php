@@ -23,7 +23,7 @@
     function renderNavBarLinks(){
       $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
       $url = end($url_array);  
-      return $url == "admin.php" || "manager.php" ? true : false;
+      return $url == "admin.php" || $url == "manager.php" ? true : false;
   }
 
     /*@brief This function checks the url of the current page and returns an empty string or the search bar which is used to
@@ -79,14 +79,15 @@
                         '</div><!--will only show for logged in users-->'.
                     '</a>';
             }
+            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
             else echo '<a class="btn btn-black btn-rounded" href="login.php">Login/Signup</a>';
 
             ?>
           </li>
           <?php
-            if(isset($_SESSION['username'])){
-              echo '<li class="nav-item">
-              <a class="nav-link mx-2" href="login.php" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
+            if(isset($_SESSION['username']) || isset($_SESSION['adminkey'])){
+              echo '<li class="nav-item" onclick="logout()">
+              <a class="nav-link mx-2" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
               </li>';
             }
           
@@ -96,3 +97,16 @@
     </div>
 </nav>
 <!-- navbar -->
+<script>
+  //logout script'.
+  const logout = function(){
+      const xhttpObject = new XMLHttpRequest();
+      xhttpObject.onreadystatechange = function() {
+          if(this.readyState == 4 && this.status == 200)window.location.href = "index.php";
+      };
+      xhttpObject.open("POST", '../../Backend/Api/Api.php');
+      xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttpObject.send(JSON.stringify({"type": "LOGOUT"}));
+  }
+</script>
+

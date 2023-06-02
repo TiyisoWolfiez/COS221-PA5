@@ -13,8 +13,8 @@
 </head>
 <body>
     <?php 
-      //if(!isset($_SESSION['managerkey']) || !isset($_SESSION['adminkey']))header("Location: index.php");
       include "../Components/Navbar.php";
+      if(!isset($_SESSION['managerkey']) || !isset($_SESSION['adminkey']))header("Location: index.php");
     ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">

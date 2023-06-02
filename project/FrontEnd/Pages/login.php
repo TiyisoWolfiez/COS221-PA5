@@ -11,6 +11,10 @@
     <title>Winery SA | login/signup</title>
 </head>
 <body>
+    <?php 
+    session_start();
+    if(isset($_SESSION['adminkey']))header("Location: admin.php");
+    ?>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="row rounded-4 box-area bg-white" >
             <div class="col-md-5 left-box rounded-4">
