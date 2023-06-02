@@ -23,6 +23,7 @@ enum REQUESTYPE: string
     case SEARCH_WINERY = 'SEARCH_WINERY';
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+    case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
     /**Add more cases */
 }
 
@@ -134,13 +135,29 @@ class Api extends config{
         }
     }
 
-    public function deleteUser($Username){
+    public function deleteUser($username){
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('DELETE FROM user WHERE username = ?');
-        $success = $stmt->execute(array($Username));
+        $success = $stmt->execute(array($username));
         
         if($stmt->rowCount() > 0){
             return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+    public function getUserReviews($username){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('SELECT reviewID ,review_description FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
+        $success = $stmt->execute(array($username));
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode($rows);
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject($rows, "success");
         }
         else{
             return $this->constructResponseObject("", "error");
@@ -365,6 +382,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
         echo $apiconfig->deleteUser($USERREQUEST->username);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::GET_USER_REVIEWS->value){
+        echo $apiconfig->getUserReviews($USERREQUEST->username);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         echo $apiconfig->getWineries($USERREQUEST);
