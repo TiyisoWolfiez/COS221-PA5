@@ -215,6 +215,19 @@ class Api extends config{
         }
     }
 
+    public function deleteReview($reviewID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('DELETE FROM review WHERE reviewID = ?');
+        $success = $stmt->execute(array($reviewID));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
     public function getVarietals(){
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT varietal FROM wine GROUP BY varietal");
@@ -507,6 +520,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::UPDATE_REVIEW->value){
         echo $apiconfig->updateReview($USERREQUEST->review, $USERREQUEST->reviewID);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::DELETE_REVIEW->value){
+        echo $apiconfig->deleteReview($USERREQUEST->reviewID);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         echo $apiconfig->getWineries($USERREQUEST);
