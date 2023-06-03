@@ -108,6 +108,19 @@
               <input type="text" class="form-control" id="winery-location-input">
             </div>
             <div class="mb-3">
+              <label for="winery-country-input" class="form-label text-dark">Country of winery</label>
+              <input type="text" class="form-control" id="winery-country-input">
+            </div>
+            <div class="mb-3">
+              <label for="winery-region-input" class="form-label text-dark">Region of winery</label>
+              <input type="text" class="form-control" id="winery-region-input">
+            </div>
+            <div class="mb-3 input-group">
+              <span class="input-group-text text-dark">Longitude and latitude</span>
+              <input type="text" aria-label="longitude" class="form-control" id="longitude">
+              <input type="text" aria-label="latitude" class="form-control"  id="latitude">
+            </div>
+            <div class="mb-3">
               <label for="winery-managerid-input" class="form-label text-dark">Winery manager id</label>
               <input type="text" class="form-control" id="winery-managerid-input">
             </div>

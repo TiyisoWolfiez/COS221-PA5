@@ -72,12 +72,17 @@ const addWinery = function(){
     const wineryImageURL = document.getElementById("winery-imageurl-input").value;
     const wineryWebsiteURL = document.getElementById("winery-websiteurl-input").value;
     const location = document.getElementById("winery-location-input").value;
+    const country = document.getElementById("winery-country-input").value;
+    const region = document.getElementById("winery-region-input").value;
+    const longitude = document.getElementById("longitude").value;
+    const latitude = document.getElementById("latitude").value;
     const wineryManagerID = document.getElementById("winery-managerid-input").value;
     const isverified = document.getElementById("winery-isVerified-input").checked;
     const description = document.getElementById("floatingTextarea2").value;
 
     if(wineryName === "" || wineryImageURL === "" || wineryWebsiteURL === "" || location === ""
-    || isverified === "" || description === ""){
+    || isverified === "" || description === "" || country === "" || region === "" 
+    || longitude === "" || latitude === ""){
         document.querySelector(".form-error-container label").innerHTML = "Form cannot be empty. Only the winery manager id may be empty";
         return;
     }
@@ -100,6 +105,10 @@ const addWinery = function(){
     "&wineryImageURL=" + wineryImageURL +
     "&wineryWebsiteURL=" + wineryWebsiteURL +
     "&location=" + location +
+    "&country=" + country +
+    "&longitude=" + longitude +
+    "&latitude=" + latitude +
+    "&region=" + region +
     "&wineryManagerID=" + (wineryManagerID === "" ? null : wineryManagerID) +
     "&isverified=" + isverified +
     "&description=" + description);

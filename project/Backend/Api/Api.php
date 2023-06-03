@@ -542,7 +542,28 @@ class Api extends config{
 
         if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
 
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        /////////////////////////////
+
+        $stmt = $conn->prepare("SELECT locationID FROM location WHERE longitude LIKE ? AND lattitude LIKE ? AND address LIKE ?;");
+        $success = $stmt->execute(array($data->longitude, $data->latitude, $data->location));
+
+        if($stmt->rowCount() > 0){
+            $result = $stmt->fetchAll();
+            foreach($result as $valuesToOutput){
+                $locationID = $valuesToOutput['wineryID'];
+                break;
+            }
+        }
+        else{
+            
+        }
+
+
+        if($data->wineryManagerID != null)
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_manager, isVerified) VALUES();");
+        else
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, isVerified) VALUES();");
+        
         return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
     }
 
@@ -647,6 +668,10 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
             "wineryImageURL" => $_GET['wineryImageURL'],
             "wineryWebsiteURL" => $_GET['wineryWebsiteURL'],
             "location" => $_GET['location'],
+            "country" => $_GET['country'],
+            "longitude" => $_GET['longitude'],
+            "latitude" => $_GET['latitude'],
+            "region" => $_GET['region'],
             "wineryManagerID" => $_GET['wineryManagerID'],
             "isverified" => $_GET['isverified'],
             "description" => $_GET['description']
