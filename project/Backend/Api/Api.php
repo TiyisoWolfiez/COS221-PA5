@@ -174,7 +174,7 @@ class Api extends config{
 
     public function getUserReviews($username){
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('SELECT reviewID ,review_description FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
+        $stmt = $conn->prepare('SELECT reviewID ,review_description, points  FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
         $success = $stmt->execute(array($username));
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
