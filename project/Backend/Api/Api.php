@@ -531,6 +531,18 @@ class Api extends config{
     }
 
     public function addWineryAdmin($data){
+        session_start();
+        $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($adminkey));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+        if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
+
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
         return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
     }
 

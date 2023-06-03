@@ -86,9 +86,13 @@
           </li>
           <?php
             if(isset($_SESSION['username']) || isset($_SESSION['adminkey'])){
-              echo '<li class="nav-item" onclick="logout()">
-              <a class="nav-link mx-2" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
-              </li>';
+              echo '<li class="nav-item">'.
+                      '<div data-bs-toggle="modal" data-bs-target="#confirmLogout">'.
+                        '<a class="nav-link mx-2" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">'.
+                          '<i class="fa-solid fa-arrow-right-from-bracket pe-2"></i>'.
+                        '</a><!--will only show for logged in users-->'.
+                      '</div>'.
+                    '</li>';
             }
           
           ?>
@@ -96,6 +100,26 @@
       </div>
     </div>
 </nav>
+<!-- delete account confirm -->
+  <!-- Modal -->
+<div class="modal fade" id="confirmLogout" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="text-dark" class="text-dark">Are you sure you want to logout</label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="logout()" data-bs-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- navbar -->
 <script>
   //logout script'.

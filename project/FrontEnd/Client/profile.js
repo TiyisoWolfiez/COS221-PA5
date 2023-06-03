@@ -1,4 +1,5 @@
 var req = new XMLHttpRequest();
+let currentlySelectedReviewID = 0;
 
 req.onreadystatechange = function() {
   if (req.readyState == 4 && req.status == 200) {
@@ -17,7 +18,21 @@ req.onreadystatechange = function() {
         
 
         for (var i in jRes.data) {
-          reviewOutput += '<tr><th scope="row">' + jRes.data[i].reviewID + '</th><td>' + jRes.data[i].review_description + '</td><td>' + starGeneration(jRes.data[i].points) + '</td><th scope="row action-btns"><i class="fa-solid fa-user-pen action-btn"></i></th><th scope="row action-btns"><i class="fa-solid fa-trash action-btn"></i></th></tr>';
+          reviewOutput += '<tr>' +
+                            '<th scope="row">' + jRes.data[i].reviewID + '</th>'+
+                            '<td>' + jRes.data[i].review_description + '</td>'+
+                            '<td>' + starGeneration(jRes.data[i].points) + '</td>'+
+                            '<th scope="row action-btns">'+
+                              '<div data-bs-toggle="modal" data-bs-target="#editReview" onmouseup="setcurrentlySelectedReviewID(\''+ jRes.data[i].reviewID +'\')">' +
+                                '<i class="fa-solid fa-user-pen action-btn"></i>'+
+                              '</div>' +
+                            '</th>'+
+                            '<th scope="row action-btns">'+
+                              '<div data-bs-toggle="modal" data-bs-target="#confirmDeleteReview" onmouseup="setcurrentlySelectedReviewID(\''+ jRes.data[i].reviewID +'\')">' +
+                                '<i class="fa-solid fa-trash action-btn"></i>' +
+                              '</div>' +
+                            '</th>'+
+                          '</tr>';
         }
 
         document.querySelector('tbody').innerHTML = reviewOutput;
@@ -56,3 +71,36 @@ const starGeneration = function(points){
     return '<i class="fa-solid fa-star-half"></i>';
   }
 };
+
+const deleteMyAccount = function(){
+  //the username exists in the username session variable
+  
+  //do stuff
+}
+
+const changeUserName = function(){
+  const newUsername = document.getElementById("username-input").value;
+  
+  //do stuff
+}
+
+const changePassword = function(){
+  const newPassword = document.getElementById("password-input").value;
+  
+  //do stuff
+}
+
+const setcurrentlySelectedReviewID = function(newID){
+  currentlySelectedReviewID = newID;
+}
+
+const editReview = function(){
+  const reviewdescription = document.getElementById("reviewdescription").value;
+  
+  //do stuff with id of the review is set in currentlySelectedReviewID variable
+}
+
+const deleteReview = function(){
+  
+  //do stuff with id of the review is set in currentlySelectedReviewID variable
+}
