@@ -175,14 +175,23 @@ class Api extends config{
 
     public function updateUsername($CurrUsername, $NewUsername){
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('UPDATE user SET username = ? WHERE username = ?');
-        $success = $stmt->execute(array($NewUsername, $CurrUsername));
-        
-        if($stmt->rowCount() > 0){
-            return $this->constructResponseObject("", "success");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?"); //Check if username is taken
+        $success = $stmt->execute(array($NewUsername));
+
+        if($success && $stmt->rowCount() == 0){
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare('UPDATE user SET username = ? WHERE username = ?');
+            $success = $stmt->execute(array($NewUsername, $CurrUsername));
+
+            if($stmt->rowCount() > 0){
+                return $this->constructResponseObject("", "success");
+            }
+            else{
+                return $this->constructResponseObject("", "error");
+            }
         }
         else{
-            return $this->constructResponseObject("", "error");
+            return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
         }
     }
 
