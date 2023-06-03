@@ -28,6 +28,7 @@ enum REQUESTYPE: string
     case GET_WINERY_ADMIN = 'GET_WINERY_ADMIN';
     case GET_MANAGERS_ADMIN = 'GET_MANAGERS_ADMIN';
     case OPEN_WINERY_ADMIN = 'OPEN_WINERY_ADMIN';
+    case ADD_WINERY_ADMIN = 'ADD_WINERY_ADMIN';
     /**Add more cases */
 }
 
@@ -431,6 +432,10 @@ class Api extends config{
         $_SESSION['managerkey'] = $managerID;
         return $this->constructResponseObject("", "success");
     }
+
+    public function addWineryAdmin($data){
+
+    }
     
     /**
     *@brief Creates an error based on the passed in parameter error type
@@ -509,5 +514,16 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::GET_MANAGERS_ADMIN->value){
         echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value);
+    }
+    else if($_GET['type'] == REQUESTYPE::ADD_WINERY_ADMIN->value){
+        echo $apiconfig->addWineryAdmin(array(
+            "wineryName" => $_GET['wineryName'],
+            "wineryImageURL" => $_GET['wineryImageURL'],
+            "wineryWebsiteURL" => $_GET['wineryWebsiteURL'],
+            "location" => $_GET['location'],
+            "wineryManagerID" => $_GET['wineryManagerID'],
+            "isverified" => $_GET['isverified'],
+            "description" => $_GET['description']
+        ));
     }
 }

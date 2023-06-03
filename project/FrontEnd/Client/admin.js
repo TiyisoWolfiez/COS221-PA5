@@ -67,24 +67,44 @@ const viewManagers = function(){
 }
 
 const addWinery = function(){
-    /*
+    const wineryName = document.getElementById("winery-name-input").value;
+    const wineryImageURL = document.getElementById("winery-imageurl-input").value;
+    const wineryWebsiteURL = document.getElementById("winery-websiteurl-input").value;
+    const location = document.getElementById("winery-location-input").value;
+    const wineryManagerID = document.getElementById("winery-managerid-input").value;
+    const isverified = document.getElementById("winery-isVerified-input").checked;
+    const description = document.getElementById("floatingTextarea2").value;
+
+    if(wineryName === "" || wineryImageURL === "" || wineryWebsiteURL === "" || location === ""
+    || isverified === "" || description === ""){
+        document.querySelector(".form-error-container h4").innerHTML = "Form cannot be empty. Only the winery manager id may be empty";
+    }
+
+    switchOnLoader();
+
     const xhttpObject = new XMLHttpRequest();
     const body = JSON.stringify({
         "type": "ADD_WINERY_ADMIN",
-        "lastservedid": 0
+        "wineryName": wineryName,
+        "wineryImageURL": wineryImageURL,
+        "wineryWebsiteURL": wineryWebsiteURL,
+        "location": location,
+        "wineryManagerID": wineryManagerID === "" ? null : wineryManagerID,
+        "isverified": isverified,
+        "description": description,
     });
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
+            document.querySelector(".container-of-data .table tbody").innerHTML = "";
             switchOffLoader();
-            populateOnloadData(this.responseText);
+            populateData(this.responseText);
         }
     };
 
-    xhttpObject.open("GET", "../../Api/Api.php");
+    xhttpObject.open("GET", "../../Backend/Api/Api.php");
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttpObject.send(body);
-    */
 }
 
 const openExternalWineryManagementPage = function(wineryID){
