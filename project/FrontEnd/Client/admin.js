@@ -1,5 +1,6 @@
 let currentlyOpenTab = "wineries";
 let currentlySelectedWinery = "";
+let lastServedID = "";
 
 window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
@@ -161,9 +162,9 @@ const populateData = function(jsonData){
 
     const table = document.querySelector(".container-of-data .table tbody");
 
-    if(res.data.isWineries !== undefined){
+    if(res.data.isWineries !== undefined && res.data.wineries.length > 0){
         for(let i = 0; i < res.data.wineries.length; ++i){
-            table.innerHTML += '<tr>' +
+            table.innerHTML += '<tr class="wineryElement">' +
                                     '<th scope="row">'+ res.data.wineries[i].wineryID +'</th>' + 
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
@@ -174,10 +175,11 @@ const populateData = function(jsonData){
                                     '</th>' +
                                 '</tr>';
         }
+        lastServedID = res.data.wineries[res.data.wineries.length - 1].wineryID;
     }
-    else if(res.data.isWineries !== undefined){
+    else if(res.data.isWineries !== undefined  && res.data.wineries.length > 0){
         for(let i = 0; i < res.data.wineries.length; ++i){
-            table.innerHTML += '<tr>' +
+            table.innerHTML += '<tr class="wineryElement">' +
                                     '<th scope="row">'+ res.data.wineries[i].winery_manager +'</th>' + 
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
@@ -188,6 +190,7 @@ const populateData = function(jsonData){
                                     '</th>' +
                                 '</tr>';
         }
+        lastServedID = res.data.wineries[res.data.wineries.length - 1].winery_manager;
     }
 }
 
@@ -203,4 +206,19 @@ const hasWineryManager = function(data){
     else return '<th scope="row action-btns" onmouseup="openExternalWineryManagementPage(\''+ data +'\')">' +
                     '<i class="fa-solid fa-arrow-up-right-from-square action-btn"></i>' +
                 '</th>';
+}
+
+const loadMoreData = function(){
+    const xhttpObject = new XMLHttpRequest();
+    switchOnLoader();
+    xhttpObject.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            switchOffLoader();
+            populateData(this.responseText);
+        }
+    };
+
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?" + "type=" + ( currentlyOpenTab === "managers" ? "GET_MANAGERS_ADMIN" : "GET_WINERY_ADMIN") + "&last_id=" + lastServedID);
+    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttpObject.send();
 }

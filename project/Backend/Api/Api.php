@@ -465,7 +465,7 @@ class Api extends config{
         return $this->constructResponseObject($data, "success");
     }
 
-    public function getWineriesORManagersAdmin($type){
+    public function getWineriesORManagersAdmin($type, $last_id = 0){
         session_start();
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
@@ -480,10 +480,10 @@ class Api extends config{
         $conn = $this->connectToDataBase();
         $stmt = $conn->prepare(
             $type == REQUESTYPE::GET_WINERY_ADMIN->value ?
-            "SELECT wineryID, winery_name, winery_manager FROM winery LIMIT 20;" :
-            "SELECT wineryID, winery_name, winery_manager FROM winery WHERE winery_manager IS NOT NULL LIMIT 20;"
+            "SELECT wineryID, winery_name, winery_manager FROM winery WHERE wineryID > ? LIMIT 20;" :
+            "SELECT wineryID, winery_name, winery_manager FROM winery WHERE winery_manager > ? LIMIT 20;"
         );
-        $success = $stmt->execute();
+        $success = $stmt->execute(array($last_id));
 
         $result = $stmt->fetchAll();
         $arrayValues = [];
@@ -542,33 +542,121 @@ class Api extends config{
 
         if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
 
-        /////////////////////////////
-
-        $stmt = $conn->prepare("SELECT locationID FROM location WHERE longitude LIKE ? AND lattitude LIKE ? AND address LIKE ?;");
-        $success = $stmt->execute(array($data->longitude, $data->latitude, $data->location));
-
+        /////////////////////////////COUNTRY
+        $stmt = $conn->prepare("SELECT country FROM country WHERE country LIKE ?;");
+        $success = $stmt->execute(array($data->country));
         if($stmt->rowCount() > 0){
             $result = $stmt->fetchAll();
             foreach($result as $valuesToOutput){
-                $locationID = $valuesToOutput['wineryID'];
+                $country = $valuesToOutput['country'];
                 break;
             }
         }
         else{
-            
+            $stmt = $conn->prepare("INSERT INTO country(country) VALUES(?);");
+            $success = $stmt->execute(array($data->country));
+            if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+            $stmt = $conn->prepare("SELECT country FROM country WHERE country LIKE ?;");
+            $success = $stmt->execute(array($data->country));
+            if($stmt->rowCount() > 0){
+                $result = $stmt->fetchAll();
+                foreach($result as $valuesToOutput){
+                    $country = $valuesToOutput['country'];
+                    break;
+                }
+            }
+            else return $this->constructResponseObject("Database connection has failed, try again", "error");
         }
 
+        /////////////////////////REGION
+        $stmt = $conn->prepare("SELECT regionID FROM region WHERE region_name LIKE ?;");
+        $success = $stmt->execute(array($data->region));
+        if($stmt->rowCount() > 0){
+            $result = $stmt->fetchAll();
+            foreach($result as $valuesToOutput){
+                $regionid = $valuesToOutput['regionID'];
+                break;
+            }
+        }
+        else{
+            $stmt = $conn->prepare("INSERT INTO region(region_name, country) VALUES(?, ?);");
+            $success = $stmt->execute(array($data->region, $country));
+            if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
 
-        if($data->wineryManagerID != null)
-            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_manager, isVerified) VALUES();");
-        else
-            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, isVerified) VALUES();");
+            $stmt = $conn->prepare("SELECT regionID FROM region WHERE region_name LIKE ?;");
+            $success = $stmt->execute(array($data->region));
+            if($stmt->rowCount() > 0){
+                $result = $stmt->fetchAll();
+                foreach($result as $valuesToOutput){
+                    $regionid = $valuesToOutput['regionID'];
+                    break;
+                }
+            }
+            else return $this->constructResponseObject("Database connection has failed, try again", "error");
+        }
+
+        /////////////////////////LOCATION
+        $stmt = $conn->prepare("SELECT locationID FROM location WHERE address LIKE ?;");
+        $success = $stmt->execute(array($data->location));
+        if($stmt->rowCount() > 0){
+            $result = $stmt->fetchAll();
+            foreach($result as $valuesToOutput){
+                $locationID = $valuesToOutput['locationID'];
+                break;
+            }
+        }
+        else{
+            $stmt = $conn->prepare("INSERT INTO location(longitude, lattitude, address, regionID) VALUES(?, ?, ?, ?);");
+            $success = $stmt->execute(array($data->longitude, $data->latitude, $data->location, $regionid));
+            if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+            $stmt = $conn->prepare("SELECT locationID FROM location WHERE address LIKE ?;");
+            $success = $stmt->execute(array($data->location));
+            if($stmt->rowCount() > 0){
+                $result = $stmt->fetchAll();
+                foreach($result as $valuesToOutput){
+                    $locationID = $valuesToOutput['locationID'];
+                    break;
+                }
+            }
+            else return $this->constructResponseObject("Database connection has failed, try again", "error");
+        }
         
-        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+        //winery
+
+        if($data->wineryManagerID != null){
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_locationID, winery_manager, isVerified) VALUES(?,?,?,?,?,?,?);");
+            $success = $stmt->execute(array(
+                $data->wineryName, $data->wineryImageURL, $data->description, 
+                $data->wineryWebsiteURL, $locationID, $data->wineryManagerID, $data->isverified));
+        }
+        else{
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_locationID, isVerified) VALUES(?,?,?,?,?,?);");
+            $success = $stmt->execute(array(
+                $data->wineryName, $data->wineryImageURL, $data->description, 
+                $data->wineryWebsiteURL, $locationID, $data->isverified));
+        }
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+        else return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
     }
 
     public function deleteWineryAdmin($id){
-        
+        session_start();
+        $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($adminkey));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+        if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
+
+        $stmt = $conn->prepare("DELETE FROM winery WHERE wineryID = ?;");
+        $success = $stmt->execute(array($id));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
         return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
     }
     
@@ -657,10 +745,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 else if($_SERVER["REQUEST_METHOD"] == "GET"){
     if($_GET['type'] == REQUESTYPE::GET_WINERY_ADMIN->value){
-        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value, isset($_GET['last_id']) ? $_GET['last_id'] : 0);
     }
     else if($_GET['type'] == REQUESTYPE::GET_MANAGERS_ADMIN->value){
-        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value);
+        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value, isset($_GET['last_id']) ? $_GET['last_id'] : 0);
     }
     else if($_GET['type'] == REQUESTYPE::ADD_WINERY_ADMIN->value){
         echo $apiconfig->addWineryAdmin(array(
