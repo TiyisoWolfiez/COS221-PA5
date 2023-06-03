@@ -24,6 +24,9 @@ enum REQUESTYPE: string
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
     case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
+    case INSERT_REVIEW = 'INSERT_REVIEW';
+    case UPDATE_REVIEW = 'UPDATE_REVIEW';
+    case DELETE_REVIEW = 'DELETE_REVIEW'; //To be implemented
     /**Add more cases */
 }
 
@@ -158,6 +161,33 @@ class Api extends config{
         
         if($stmt->rowCount() > 0){
             return $this->constructResponseObject($rows, "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+// Function will need further editing as I am unsure how the wineID info will be procured from client-side
+    public function insertReview($points, $review, $username, $wineID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('INSERT INTO review(points, review_description, reviewer_userID, wineID) SELECT ?, ?, userID, ? FROM  user WHERE username = ?');
+        $success = $stmt->execute(array($points, $review, $wineID, $username));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+    public function updateReview($review, $reviewID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('UPDATE review SET review_description = ? WHERE reviewID = ?');
+        $success = $stmt->execute(array($review, $reviewID));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
         }
         else{
             return $this->constructResponseObject("", "error");
@@ -385,6 +415,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_USER_REVIEWS->value){
         echo $apiconfig->getUserReviews($USERREQUEST->username);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_REVIEW->value){
+        echo $apiconfig->updateReview($USERREQUEST->review, $USERREQUEST->reviewID);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         echo $apiconfig->getWineries($USERREQUEST);
