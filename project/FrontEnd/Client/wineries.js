@@ -94,35 +94,31 @@ const filterBy = function(){
 
 $(document).ready(function(){
 
-    var NotFound = true;
-    var ind = 1;
-    while(NotFound)
-    {
-        var filterbuttons = "#opt" + ind;
-        $(filterbuttons).click(()=>{
-            NotFound= false;
-            flocation = $(filterbuttons).html();
-            console.log(flocation);
-            console.log(ind);
-            var body = {
-                type : 'GET_WINERIES',
-                location : flocation
-            }
-            console.log(location);
-            $.post("../../Api/Api.php",body,function(data,status){
-                if(status == 200)
-                {
-                    placeWineryElements(data);
-                }
-                else console.log("Massive error blud");
-            })
-        })
-        ind++;
-    }
-    for(var ind=1;ind<9;ind++)
-    {
-
-    }
+    $("#opt1").click(()=>{
+        FilterSearch("#opt1")
+    })
+    $("#opt2").click(()=>{
+        FilterSearch("#opt2")
+    })
+    $("#opt3").click(()=>{
+        FilterSearch("#opt3")
+    })
+    $("#opt4").click(()=>{
+        FilterSearch("#opt4")
+    })
+    $("#opt5").click(()=>{
+        FilterSearch("#opt5")
+    })
+    $("#opt6").click(()=>{
+        FilterSearch("#opt6")
+    })
+    $("#opt7").click(()=>{
+        FilterSearch("#opt7")
+    })
+    $("#opt8").click(()=>{
+        FilterSearch("#opt8")
+    })
+        
     
     function FilterCheck(str){     /////Function for filtering takes in the number to know which option it is
         var location = '';
@@ -153,16 +149,25 @@ $(document).ready(function(){
                 location = "Bloemfontein";
                 break;
         } 
-        var body = {
-            method : "filter",
-            loc : location
-        }
-        .$post("../../Api/Api.php",body,function(data,status){
-            if(status == 200)
-            {
-                var result = JSON.parse(data);
-            }
-            else console.log("Massive error blud");
-        })
+
     }
 });
+
+function FilterSearch(name)
+{
+    NotFound= false;
+    flocation = $(name).html();
+    console.log(flocation);
+    var body = {
+        type : 'GET_WINERIES',
+        location : flocation
+    }
+    console.log(flocation);
+    $.post( '../../Backend/Api/Api.php',body,function(data,status){
+        if(status == "success")
+        {
+            placeWineryElements(data);
+        }
+        else console.log("Massive error blud:" + status);
+    })
+}

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../Styles/wines.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"></script>
     <link rel="icon" type="image/svg+xml" href="../Assets/wine-glass-solid.svg" />
     <title>Winery SA | Wines</title>
 </head>
@@ -24,12 +27,12 @@
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i class="fa-solid fa-filter pe-2"></i>filters
         </div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Red</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bone Dry</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">White</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Sparkling</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bordeaux</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Champagne</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >Red</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >Bone Dry</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >White</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >Sparkling</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >Bordeaux</div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" >Champagne</div>
       </div>
     </nav>
     <!-- ----------------------------Tab END --------------------------------------- -->
