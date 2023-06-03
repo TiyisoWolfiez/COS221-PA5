@@ -13,9 +13,10 @@ A winery website for tourists to view and make use of when trying to browse a se
 6. Click on FrontEnd
 7. Click on Pages
 8. The index page should show up
-9. The default login details are as follows: \
+9. The default login details are as follows:
 ```
-//enter here
+email: //enter here
+password: //enter here
 ```
 
 # Packages and frameworks used

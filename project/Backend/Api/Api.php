@@ -24,10 +24,17 @@ enum REQUESTYPE: string
     case SEARCH_WINERY = 'SEARCH_WINERY';
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+    case UPDATE_USERNAME = 'UPDATE_USERNAME';
+    case UPDATE_PASSWORD = 'UPDATE_PASSWORD';
     case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
+    case INSERT_REVIEW = 'INSERT_REVIEW';
+    case UPDATE_REVIEW = 'UPDATE_REVIEW';
+    case DELETE_REVIEW = 'DELETE_REVIEW'; //To be implemented
     case GET_WINERY_ADMIN = 'GET_WINERY_ADMIN';
     case GET_MANAGERS_ADMIN = 'GET_MANAGERS_ADMIN';
     case OPEN_WINERY_ADMIN = 'OPEN_WINERY_ADMIN';
+    case ADD_WINERY_ADMIN = 'ADD_WINERY_ADMIN';
+    case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     /**Add more cases */
 }
 
@@ -38,7 +45,8 @@ enum ERRORTYPES: string
 {
     case INVALIDEMAIL = 'Invalid email';//Invalid user email
     case INVALIDPASSWORD = 'Invalid password';//Invalid user password
-    case NULLUSER = 'incorrect email or password';//incorrect email or password
+    case SAMEPASSWORD = 'Password entered is the same as the one in use';//Password entered is the same as the one in use
+    case NULLUSER = 'Incorrect email or password';//incorrect email or password
     case WRONGPASSWORD = 'The password for this account is wrong';//Wrong password
     case USERNAMETAKEN = 'Username is unavailable';//Username is unavailable
     case EMAILTAKEN = 'Email is unavailable';//Email is unavailable
@@ -169,9 +177,59 @@ class Api extends config{
         }
     }
 
+    public function updateUsername($CurrUsername, $NewUsername){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?"); //Check if username is taken
+        $success = $stmt->execute(array($NewUsername));
+
+        if($success && $stmt->rowCount() == 0){
+            $stmt = $conn->prepare('UPDATE user SET username = ? WHERE username = ?');
+            $success = $stmt->execute(array($NewUsername, $CurrUsername));
+
+            if($stmt->rowCount() > 0){
+                return $this->constructResponseObject("", "success");
+            }
+            else{
+                return $this->constructResponseObject("", "error");
+            }
+        }
+        else{
+            return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
+        }
+    }
+
+    public function updatePassword($username, $newPswrd){
+        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $newPswrd)){
+            return $this->constructResponseObject(ERRORTYPES::INVALIDPASSWORD->value, "error");
+        }
+
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare('SELECT username FROM user WHERE username = ? AND Password = ?');
+            
+            $hashedPass = hash("sha256", $newPswrd, false);
+
+            $success = $stmt->execute(array($username, $hashedPass));
+
+            if($success && $stmt->rowCount() == 0){
+                $stmt = $conn->prepare('UPDATE user SET password = ? WHERE username = ?');
+    
+                $success = $stmt->execute(array($hashedPass, $username));
+    
+                if($stmt->rowCount() > 0){
+                    return $this->constructResponseObject("", "success");
+                }
+                else{
+                    return $this->constructResponseObject("", "error");
+                }
+            }
+            else{
+                return $this->constructResponseObject(ERRORTYPES::SAMEPASSWORD->value, "error");
+            }
+    }
+
     public function getUserReviews($username){
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('SELECT reviewID ,review_description FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
+        $stmt = $conn->prepare('SELECT reviewID ,review_description, points  FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
         $success = $stmt->execute(array($username));
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -179,6 +237,46 @@ class Api extends config{
         
         if($stmt->rowCount() > 0){
             return $this->constructResponseObject($rows, "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+// Function will need further editing as I am unsure how the wineID info will be procured from client-side
+    public function insertReview($points, $review, $username, $wineID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('INSERT INTO review(points, review_description, reviewer_userID, wineID) SELECT ?, ?, userID, ? FROM  user WHERE username = ?');
+        $success = $stmt->execute(array($points, $review, $wineID, $username));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+    public function updateReview($review, $reviewID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('UPDATE review SET review_description = ? WHERE reviewID = ?');
+        $success = $stmt->execute(array($review, $reviewID));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+    public function deleteReview($reviewID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('DELETE FROM review WHERE reviewID = ?');
+        $success = $stmt->execute(array($reviewID));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
         }
         else{
             return $this->constructResponseObject("", "error");
@@ -431,6 +529,48 @@ class Api extends config{
         $_SESSION['managerkey'] = $managerID;
         return $this->constructResponseObject("", "success");
     }
+
+    public function addWineryAdmin($data){
+        session_start();
+        $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($adminkey));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+        if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
+
+        /////////////////////////////
+
+        $stmt = $conn->prepare("SELECT locationID FROM location WHERE longitude LIKE ? AND lattitude LIKE ? AND address LIKE ?;");
+        $success = $stmt->execute(array($data->longitude, $data->latitude, $data->location));
+
+        if($stmt->rowCount() > 0){
+            $result = $stmt->fetchAll();
+            foreach($result as $valuesToOutput){
+                $locationID = $valuesToOutput['wineryID'];
+                break;
+            }
+        }
+        else{
+            
+        }
+
+
+        if($data->wineryManagerID != null)
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_manager, isVerified) VALUES();");
+        else
+            $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, isVerified) VALUES();");
+        
+        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+    }
+
+    public function deleteWineryAdmin($id){
+        
+        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+    }
     
     /**
     *@brief Creates an error based on the passed in parameter error type
@@ -472,8 +612,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
         echo $apiconfig->deleteUser($USERREQUEST->username);
     }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_USERNAME->value){
+        echo $apiconfig->updateUsername($USERREQUEST->CurrUsername, $USERREQUEST->NewUsername);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_PASSWORD->value){
+        echo $apiconfig->updatePassword($USERREQUEST->username, $USERREQUEST->newPswrd);
+    }
     else if($USERREQUEST->type == REQUESTYPE::GET_USER_REVIEWS->value){
         echo $apiconfig->getUserReviews($USERREQUEST->username);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_REVIEW->value){
+        echo $apiconfig->updateReview($USERREQUEST->review, $USERREQUEST->reviewID);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::DELETE_REVIEW->value){
+        echo $apiconfig->deleteReview($USERREQUEST->reviewID);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_WINERIES->value){
         echo $apiconfig->getWineries($USERREQUEST);
@@ -509,5 +661,23 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::GET_MANAGERS_ADMIN->value){
         echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value);
+    }
+    else if($_GET['type'] == REQUESTYPE::ADD_WINERY_ADMIN->value){
+        echo $apiconfig->addWineryAdmin(array(
+            "wineryName" => $_GET['wineryName'],
+            "wineryImageURL" => $_GET['wineryImageURL'],
+            "wineryWebsiteURL" => $_GET['wineryWebsiteURL'],
+            "location" => $_GET['location'],
+            "country" => $_GET['country'],
+            "longitude" => $_GET['longitude'],
+            "latitude" => $_GET['latitude'],
+            "region" => $_GET['region'],
+            "wineryManagerID" => $_GET['wineryManagerID'],
+            "isverified" => $_GET['isverified'],
+            "description" => $_GET['description']
+        ));
+    }
+    else if($_GET['type'] == REQUESTYPE::DELETE_WINERY_ADMIN->value){
+        echo $apiconfig->deleteWineryAdmin($_GET['wineryID']);
     }
 }
