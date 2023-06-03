@@ -94,10 +94,34 @@ const filterBy = function(){
 
 $(document).ready(function(){
 
-    for (let index = 2; index < 10; index++) {
-        $("#inlineCheckbox" + index).change(function(){  ////go through all checkboxes and see if they checked
-            FilterCheck(2);
-        });  
+    var NotFound = true;
+    var ind = 1;
+    while(NotFound)
+    {
+        var filterbuttons = "#opt" + ind;
+        $(filterbuttons).click(()=>{
+            NotFound= false;
+            flocation = $(filterbuttons).html();
+            console.log(flocation);
+            console.log(ind);
+            var body = {
+                type : 'GET_WINERIES',
+                location : flocation
+            }
+            console.log(location);
+            $.post("../../Api/Api.php",body,function(data,status){
+                if(status == 200)
+                {
+                    placeWineryElements(data);
+                }
+                else console.log("Massive error blud");
+            })
+        })
+        ind++;
+    }
+    for(var ind=1;ind<9;ind++)
+    {
+
     }
     
     function FilterCheck(str){     /////Function for filtering takes in the number to know which option it is
