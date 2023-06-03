@@ -35,24 +35,24 @@ req.send();
 //Conversion based on the following method: https://appetiteforwine.blog/2016/02/29/how-to-rate-wine/#:~:text=Over%20the%20years%2C%20I%27ve,-94%20%3D%204.5%20Stars%2FHearts
 const starGeneration = function(points){
   if (points >= 95) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
   } else if (points >= 92) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>';
   } else if (points >= 88) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
   } else if (points >= 85) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>';
   } else if (points >= 82) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
   } else if (points >= 80) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>';
   } else if (points >= 77) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
   } else if (points >= 74) {
-    return '<td><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i></td>';
+    return '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>';
   } else if (points >= 71) {
-    return '<td><i class="fa-solid fa-star"></i></td>';
+    return '<i class="fa-solid fa-star"></i>';
   } else {
-    return '<td><i class="fa-solid fa-star-half"></i></td>';
+    return '<i class="fa-solid fa-star-half"></i>';
   }
 };
