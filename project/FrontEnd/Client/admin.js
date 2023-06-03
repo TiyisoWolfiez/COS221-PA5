@@ -1,4 +1,5 @@
 let currentlyOpenTab = "wineries";
+let currentlySelectedWinery = "";
 
 window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
@@ -77,22 +78,13 @@ const addWinery = function(){
 
     if(wineryName === "" || wineryImageURL === "" || wineryWebsiteURL === "" || location === ""
     || isverified === "" || description === ""){
-        document.querySelector(".form-error-container h4").innerHTML = "Form cannot be empty. Only the winery manager id may be empty";
+        document.querySelector(".form-error-container label").innerHTML = "Form cannot be empty. Only the winery manager id may be empty";
+        return;
     }
 
     switchOnLoader();
 
     const xhttpObject = new XMLHttpRequest();
-    const body = JSON.stringify({
-        "type": "ADD_WINERY_ADMIN",
-        "wineryName": wineryName,
-        "wineryImageURL": wineryImageURL,
-        "wineryWebsiteURL": wineryWebsiteURL,
-        "location": location,
-        "wineryManagerID": wineryManagerID === "" ? null : wineryManagerID,
-        "isverified": isverified,
-        "description": description,
-    });
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
@@ -102,9 +94,17 @@ const addWinery = function(){
         }
     };
 
-    xhttpObject.open("GET", "../../Backend/Api/Api.php");
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?" +
+    "type=ADD_WINERY_ADMIN"+
+    "&wineryName=" + wineryName +
+    "&wineryImageURL=" + wineryImageURL +
+    "&wineryWebsiteURL=" + wineryWebsiteURL +
+    "&location=" + location +
+    "&wineryManagerID=" + (wineryManagerID === "" ? null : wineryManagerID) +
+    "&isverified=" + isverified +
+    "&description=" + description);
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttpObject.send(body);
+    xhttpObject.send();
 }
 
 const openExternalWineryManagementPage = function(wineryID){
@@ -126,24 +126,20 @@ const openExternalWineryManagementPage = function(wineryID){
 }
 
 const deleteWinery = function(){
-    /*
     const xhttpObject = new XMLHttpRequest();
-    const body = JSON.stringify({
-        "type": "DELETE_WINERY_ADMIN",
-        "wineryID": wineryID
-    });
+    switchOnLoader();
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
+            document.querySelector(".container-of-data .table tbody").innerHTML = "";
             switchOffLoader();
-            populateOnloadData(this.responseText);
+            populateData(this.responseText);
         }
     };
 
-    xhttpObject.open("GET", "../../Backend/Api/Api.php");
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=DELETE_WINERY_ADMIN&wineryID=" + currentlySelectedWinery);
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttpObject.send(body);
-    */
+    xhttpObject.send();
 }
 
 const populateData = function(jsonData){
@@ -163,7 +159,9 @@ const populateData = function(jsonData){
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
                                     '<th scope="row action-btns">' +
-                                    '<i class="fa-solid fa-trash action-btn"></i>' +
+                                        '<div data-bs-toggle="modal" data-bs-target="#confirmDelete" onmouseup="setWineryId(\''+ res.data.wineries[i].wineryID +'\')">' +
+                                            '<i class="fa-solid fa-trash action-btn"></i>' +
+                                        '</div>' +
                                     '</th>' +
                                 '</tr>';
         }
@@ -175,12 +173,18 @@ const populateData = function(jsonData){
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
                                     '<th scope="row action-btns">' +
-                                    '<i class="fa-solid fa-trash action-btn"></i>' +
+                                        '<div data-bs-toggle="modal" data-bs-target="#confirmDelete" onmouseup="setWineryId(\''+ res.data.wineries[i].wineryID +'\')">' +
+                                            '<i class="fa-solid fa-trash action-btn"></i>' +
+                                        '</div>' +
                                     '</th>' +
                                 '</tr>';
         }
     }
 }
+
+const setWineryId = function(val){
+    currentlySelectedWinery = val;
+} 
 
 const hasWineryManager = function(data){
     if(data === null || data === undefined)

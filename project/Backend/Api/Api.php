@@ -29,6 +29,7 @@ enum REQUESTYPE: string
     case GET_MANAGERS_ADMIN = 'GET_MANAGERS_ADMIN';
     case OPEN_WINERY_ADMIN = 'OPEN_WINERY_ADMIN';
     case ADD_WINERY_ADMIN = 'ADD_WINERY_ADMIN';
+    case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     /**Add more cases */
 }
 
@@ -434,7 +435,12 @@ class Api extends config{
     }
 
     public function addWineryAdmin($data){
+        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+    }
 
+    public function deleteWineryAdmin($id){
+        
+        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
     }
     
     /**
@@ -525,5 +531,8 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
             "isverified" => $_GET['isverified'],
             "description" => $_GET['description']
         ));
+    }
+    else if($_GET['type'] == REQUESTYPE::DELETE_WINERY_ADMIN->value){
+        echo $apiconfig->deleteWineryAdmin($_GET['wineryID']);
     }
 }
