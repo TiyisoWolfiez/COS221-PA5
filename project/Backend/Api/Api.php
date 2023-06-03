@@ -24,6 +24,7 @@ enum REQUESTYPE: string
     case SEARCH_WINERY = 'SEARCH_WINERY';
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+    case UPDATE_USERNAME = 'UPDATE_USERNAME';
     case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
     case INSERT_REVIEW = 'INSERT_REVIEW';
     case UPDATE_REVIEW = 'UPDATE_REVIEW';
@@ -163,6 +164,19 @@ class Api extends config{
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('DELETE FROM user WHERE username = ?');
         $success = $stmt->execute(array($username));
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+    public function updateUsername($CurrUsername, $NewUsername){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('UPDATE user SET username = ? WHERE username = ?');
+        $success = $stmt->execute(array($NewUsername, $CurrUsername));
         
         if($stmt->rowCount() > 0){
             return $this->constructResponseObject("", "success");
@@ -514,6 +528,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
         echo $apiconfig->deleteUser($USERREQUEST->username);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_USERNAME->value){
+        echo $apiconfig->updateUsername($USERREQUEST->CurrUsername, $USERREQUEST->NewUsername);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_USER_REVIEWS->value){
         echo $apiconfig->getUserReviews($USERREQUEST->username);
