@@ -13,7 +13,10 @@
     <title>Winery SA | Wines</title>
 </head>
 <body>
-    <?php include "../Components/Navbar.php";?>
+    <?php 
+    include "../Components/Navbar.php";
+    if(isset($_SESSION['adminkey']))header("Location: admin.php");
+    ?>
     <!-- ----------------------------Filter Tab------------------------------------- -->
     <nav style="height: 70px;"></nav><!--buffer for navbar-->
     <nav style="height: 60px;">

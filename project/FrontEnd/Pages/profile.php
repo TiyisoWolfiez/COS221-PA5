@@ -13,9 +13,9 @@
 </head>
 <body>
     <?php 
-      session_start();
-      if(!isset($_SESSION['username']))header("Location: index.php");
       include "../Components/Navbar.php";
+      if(!isset($_SESSION['username']))header("Location: index.php");
+      if(isset($_SESSION['adminkey']))header("Location: admin.php");
     ?>
     <nav class="main-admin-container">
       <nav class="at-a-glance-cards">

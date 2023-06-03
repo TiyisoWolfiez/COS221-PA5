@@ -269,10 +269,10 @@ const loginAdmin = function(){
     req.onreadystatechange = function(){//recieves api response
         if(req.readyState == 4 && req.status == 200)
         {
+            console.log(req.responseText);
             const jRes = JSON.parse(req.responseText);
 
-            if(jRes.status == 'success'){
-                makeUsernameSession(jRes.data);
+            if(jRes.status === 'success'){
                 window.location.href = "admin.php";
             }
             else if(jRes.status == 'error')document.querySelector(".error-container").innerHTML = jRes.data;
@@ -284,3 +284,4 @@ const loginAdmin = function(){
     //end backend code here
     return false;
 };
+

@@ -16,6 +16,7 @@ enum REQUESTYPE: string
     case REGISTER = 'REGISTER';
     case LOGIN = 'LOGIN';
     case LOGIN_ADMIN = 'LOGIN_ADMIN';
+    case LOGOUT = "LOGOUT";
     case GET_WINERIES = 'GET_WINERIES';
     case GET_WINE = 'GET_WINE';
     case GET_VARIETAL = 'GET_VARIETAL';
@@ -27,6 +28,9 @@ enum REQUESTYPE: string
     case INSERT_REVIEW = 'INSERT_REVIEW';
     case UPDATE_REVIEW = 'UPDATE_REVIEW';
     case DELETE_REVIEW = 'DELETE_REVIEW'; //To be implemented
+    case GET_WINERY_ADMIN = 'GET_WINERY_ADMIN';
+    case GET_MANAGERS_ADMIN = 'GET_MANAGERS_ADMIN';
+    case OPEN_WINERY_ADMIN = 'OPEN_WINERY_ADMIN';
     /**Add more cases */
 }
 
@@ -94,7 +98,24 @@ class Api extends config{
     }
 
     public function loginAdmin($AdminKey){
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($AdminKey));
 
+        if($success && $stmt->rowCount() > 0){
+            session_start();
+            $_SESSION["adminkey"] = $AdminKey;
+            return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("Database connection has failed or no admin exists", "error");
+        }
+    }
+
+    public function logout(){
+        session_start();
+        session_unset();
+        session_destroy();
     }
 
     public function registerUser($Username, $email, $pswrd, $isSouthAfrican){
@@ -375,6 +396,71 @@ class Api extends config{
         $data = $stmt->fetchAll();
         return $this->constructResponseObject($data, "success");
     }
+
+    public function getWineriesORManagersAdmin($type){
+        session_start();
+        $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $success = $stmt->execute(array($adminkey));
+
+        if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
+
+        if($stmt->rowCount() == 0)return $this->constructResponseObject("No admin exists with your key", "error");
+
+        $conn = $this->connectToDataBase();
+        $stmt = $conn->prepare(
+            $type == REQUESTYPE::GET_WINERY_ADMIN->value ?
+            "SELECT wineryID, winery_name, winery_manager FROM winery LIMIT 20;" :
+            "SELECT wineryID, winery_name, winery_manager FROM winery WHERE winery_manager IS NOT NULL LIMIT 20;"
+        );
+        $success = $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        $arrayValues = [];
+        //use return data over here
+        foreach($result as $valuesToOutput){
+            $WineryObject = new stdClass();
+            if(isset($valuesToOutput['wineryID']))$WineryObject->wineryID = $valuesToOutput['wineryID'];
+            if(isset($valuesToOutput['winery_name']))$WineryObject->winery_name = $valuesToOutput['winery_name'];
+            if(isset($valuesToOutput['winery_manager']))$WineryObject->winery_manager = $valuesToOutput['winery_manager'];
+            array_push($arrayValues, $WineryObject);
+        }
+
+        $stmt = $conn->prepare('SELECT count(*) as total from winery');
+        $stmt->execute();
+        $wineryCount = $stmt->fetchColumn();
+
+        $stmt = $conn->prepare('SELECT count(*) as total from wine');
+        $stmt->execute();
+        $wineCount = $stmt->fetchColumn();
+
+        $stmt = $conn->prepare('SELECT count(*) as total from winery_manager');
+        $stmt->execute();
+        $managersCount = $stmt->fetchColumn();
+
+        $stmt = $conn->prepare('SELECT count(*) as total from tourist');
+        $stmt->execute();
+        $touristCount = $stmt->fetchColumn();
+
+        $data = array(
+            "wineryCount" => $wineryCount, 
+            "wineCount" => $wineCount, 
+            "managersCount"=> $managersCount, 
+            "touristCount" => $touristCount,
+            "isWineries" => $type == REQUESTYPE::GET_WINERY_ADMIN->value ? true : false,
+            "wineries" => $arrayValues
+        );
+
+        return $this->constructResponseObject($data, "success");
+    }
+
+    public function openManagersPage($managerID){
+        session_start();
+        $_SESSION['managerkey'] = $managerID;
+        return $this->constructResponseObject("", "success");
+    }
     
     /**
     *@brief Creates an error based on the passed in parameter error type
@@ -410,6 +496,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::LOGIN_ADMIN->value){
         echo $apiconfig->loginAdmin($USERREQUEST->key);
     }
+    else if($USERREQUEST->type == REQUESTYPE::LOGOUT->value){
+        $apiconfig->logout();
+    }
     else if($USERREQUEST->type == REQUESTYPE::DELETE_ACCOUNT->value){
         echo $apiconfig->deleteUser($USERREQUEST->username);
     }
@@ -441,5 +530,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         else{
             echo $apiconfig->searchWine($USERREQUEST->name);
         }
+    }
+    else if($USERREQUEST->type == REQUESTYPE::OPEN_WINERY_ADMIN->value){
+        echo $apiconfig->openManagersPage($USERREQUEST->managerID);
+    }
+    else echo $json;
+}
+else if($_SERVER["REQUEST_METHOD"] == "GET"){
+    if($_GET['type'] == REQUESTYPE::GET_WINERY_ADMIN->value){
+        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+    }
+    else if($_GET['type'] == REQUESTYPE::GET_MANAGERS_ADMIN->value){
+        echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value);
     }
 }

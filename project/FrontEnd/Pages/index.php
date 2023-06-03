@@ -13,7 +13,10 @@
     <title>Winery SA | Home</title>
 </head>
 <body>
-    <?php include "../Components/Navbar.php";?>
+    <?php
+     include "../Components/Navbar.php";
+     if(isset($_SESSION['adminkey']))header("Location: admin.php");
+     ?>
     <div class="landing-page-container">
         <h1>Welcome to <br> Winery SA <i class="fa-solid fa-wine-glass pe-3" style="font-size: 5rem;"></i></h1>
         <h3>Guiding you to the finest wines in South Africa</h3>

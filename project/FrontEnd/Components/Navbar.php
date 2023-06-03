@@ -15,6 +15,17 @@
         return $url == "index.php" || $url == "" ? "" : "navbar-scroll";
     }
 
+    /*@brief This function checks the url of the current page and checks if it's the admin or manager page and returns a boolean
+    *Please don't delete or modify this function
+    *@param $none
+    *@return bool
+    */
+    function renderNavBarLinks(){
+      $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+      $url = end($url_array);  
+      return $url == "admin.php" || $url == "manager.php" ? true : false;
+  }
+
     /*@brief This function checks the url of the current page and returns an empty string or the search bar which is used to
     *to search for wines or wineries
     *Please don't delete or modify this function
@@ -50,12 +61,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <?php echo renderSearchBar();?>
         <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->
-          </li>
+          <?php 
+            if(!renderNavBarLinks()){
+              echo '<li class="nav-item">'.
+                      '<a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->'.
+                    '</li>'.
+                    '<li class="nav-item">'.
+                      '<a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->'.
+                    '</li>';
+            }
+          ?>
           <li class="nav-item ms-3 border rounded-2">
             <?php if(isset($_SESSION['username'])){
               echo '<a href="profile.php"><!--check whether a user is manager and conditionally render-->'.
@@ -64,14 +79,15 @@
                         '</div><!--will only show for logged in users-->'.
                     '</a>';
             }
+            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
             else echo '<a class="btn btn-black btn-rounded" href="login.php">Login/Signup</a>';
 
             ?>
           </li>
           <?php
-            if(isset($_SESSION['username'])){
-              echo '<li class="nav-item">
-              <a class="nav-link mx-2" href="login.php" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
+            if(isset($_SESSION['username']) || isset($_SESSION['adminkey'])){
+              echo '<li class="nav-item" onclick="logout()">
+              <a class="nav-link mx-2" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket pe-2"></i></a><!--will only show for logged in users-->
               </li>';
             }
           
@@ -81,3 +97,16 @@
     </div>
 </nav>
 <!-- navbar -->
+<script>
+  //logout script'.
+  const logout = function(){
+      const xhttpObject = new XMLHttpRequest();
+      xhttpObject.onreadystatechange = function() {
+          if(this.readyState == 4 && this.status == 200)window.location.href = "index.php";
+      };
+      xhttpObject.open("POST", '../../Backend/Api/Api.php');
+      xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttpObject.send(JSON.stringify({"type": "LOGOUT"}));
+  }
+</script>
+

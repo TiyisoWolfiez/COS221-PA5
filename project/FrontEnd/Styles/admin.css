@@ -1,5 +1,10 @@
 /*CHECK IN global.css for what variables are available for use*/
 
+body{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
 .main-admin-container{
     height: 100vh;
     overflow-y: hidden;
@@ -91,7 +96,7 @@
 }
 
 .list-group{
-    height: 54vh;
+    height: 50vh;
     overflow-y: auto;
     width: 95vw;
     margin-left: auto;
@@ -125,4 +130,18 @@
 
 .invisible-row-col{
     opacity: 0 !important;
+}
+
+.spinner-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    background:rgba(0, 0, 0, 0.308);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
 }
