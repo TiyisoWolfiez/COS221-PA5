@@ -25,6 +25,7 @@ enum REQUESTYPE: string
     case SEARCH_WINE = 'SEARCH_WINE';
     case DELETE_ACCOUNT = 'DELETE_ACCOUNT';
     case UPDATE_USERNAME = 'UPDATE_USERNAME';
+    case UPDATE_PASSWORD = 'UPDATE_PASSWORD';
     case GET_USER_REVIEWS = 'GET_USER_REVIEWS';
     case INSERT_REVIEW = 'INSERT_REVIEW';
     case UPDATE_REVIEW = 'UPDATE_REVIEW';
@@ -42,7 +43,8 @@ enum ERRORTYPES: string
 {
     case INVALIDEMAIL = 'Invalid email';//Invalid user email
     case INVALIDPASSWORD = 'Invalid password';//Invalid user password
-    case NULLUSER = 'incorrect email or password';//incorrect email or password
+    case SAMEPASSWORD = 'Password entered is the same as the one in use';//Password entered is the same as the one in use
+    case NULLUSER = 'Incorrect email or password';//incorrect email or password
     case WRONGPASSWORD = 'The password for this account is wrong';//Wrong password
     case USERNAMETAKEN = 'Username is unavailable';//Username is unavailable
     case EMAILTAKEN = 'Email is unavailable';//Email is unavailable
@@ -179,7 +181,6 @@ class Api extends config{
         $success = $stmt->execute(array($NewUsername));
 
         if($success && $stmt->rowCount() == 0){
-            $conn = $this->connectToDatabase();
             $stmt = $conn->prepare('UPDATE user SET username = ? WHERE username = ?');
             $success = $stmt->execute(array($NewUsername, $CurrUsername));
 
@@ -193,6 +194,35 @@ class Api extends config{
         else{
             return $this->constructResponseObject(ERRORTYPES::USERNAMETAKEN->value, "error");
         }
+    }
+
+    public function updatePassword($username, $newPswrd){
+        if(!preg_match("/^(?=.*[A-Za-z])[0-9A-Za-z!@#$%^&*?><.,;:]{8,}$/", $newPswrd)){
+            return $this->constructResponseObject(ERRORTYPES::INVALIDPASSWORD->value, "error");
+        }
+
+            $conn = $this->connectToDatabase();
+            $stmt = $conn->prepare('SELECT username FROM user WHERE username = ? AND Password = ?');
+            
+            $hashedPass = hash("sha256", $newPswrd, false);
+
+            $success = $stmt->execute(array($username, $hashedPass));
+
+            if($success && $stmt->rowCount() == 0){
+                $stmt = $conn->prepare('UPDATE user SET password = ? WHERE username = ?');
+    
+                $success = $stmt->execute(array($hashedPass, $username));
+    
+                if($stmt->rowCount() > 0){
+                    return $this->constructResponseObject("", "success");
+                }
+                else{
+                    return $this->constructResponseObject("", "error");
+                }
+            }
+            else{
+                return $this->constructResponseObject(ERRORTYPES::SAMEPASSWORD->value, "error");
+            }
     }
 
     public function getUserReviews($username){
@@ -540,6 +570,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else if($USERREQUEST->type == REQUESTYPE::UPDATE_USERNAME->value){
         echo $apiconfig->updateUsername($USERREQUEST->CurrUsername, $USERREQUEST->NewUsername);
+    }
+    else if($USERREQUEST->type == REQUESTYPE::UPDATE_PASSWORD->value){
+        echo $apiconfig->updatePassword($USERREQUEST->username, $USERREQUEST->newPswrd);
     }
     else if($USERREQUEST->type == REQUESTYPE::GET_USER_REVIEWS->value){
         echo $apiconfig->getUserReviews($USERREQUEST->username);
