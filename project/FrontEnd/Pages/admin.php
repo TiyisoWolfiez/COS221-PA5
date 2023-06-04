@@ -1,8 +1,3 @@
-<?php
-    
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +8,7 @@
     <link rel="stylesheet" href="../Styles/global.css">
     <link rel="stylesheet" href="../Styles/admin.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <link rel="icon" type="image/svg+xml" href="../Assets/wine-glass-solid.svg" />
     <title>Winery SA | Admin</title>
 </head>
@@ -67,7 +63,7 @@
           <div class="btn btn-primary btns-click" data-bs-toggle="modal" data-bs-target="#addwinery">Add winery</div>
         </nav>
         <nav class="container-of-data list-group">
-          <table class="table">
+          <table class="table mb-3">
             <thead>
               <tr>
                 <th scope="col">id</th>
@@ -76,8 +72,9 @@
                 <th scope="col invisible-row-col">#</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody class=""></tbody>
           </table>
+          <button class="btn btn-primary btns-click" style="width: 150px; margin-left: auto; margin-right: auto;" onmouseup="loadMoreData()">Load More</button>
         </nav>
       </nav>
     </nav>
@@ -166,6 +163,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+  
   <script src="../Client/admin.js"></script>
 </body>
 </html>

@@ -16,6 +16,10 @@
     height: calc(100vh - 130px);
     overflow-y: scroll;
     width: 99vw;
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, 18rem);
+    flex-wrap: wrap;
 }
 
 .spinner-container{
@@ -72,6 +76,7 @@
     box-shadow: 5px 5px 25px 5px var(--black-1000-20);
     transition: transform 0.4s ease-in-out;
     margin: 1rem;
+    cursor: pointer;
 }
 
 .card-item:hover{
@@ -99,4 +104,23 @@
 
 .filter-modal-buffer{
     margin-top: 30px;
+}
+
+.spinner-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    background:rgba(0, 0, 0, 0.308);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+}
+
+.description-text{
+    height: 70px;
+    overflow: hidden;
 }

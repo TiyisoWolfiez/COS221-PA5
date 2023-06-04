@@ -1,19 +1,15 @@
-const searchFor = function() {
-    const searchbarval = document.getElementById("searchbar").value;
-    switchOnLoader();
+let lastServedID = "";
+let searchval = "";
 
-    if(searchbarval === "")return;
-
+window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
-    const body = JSON.stringify({
-        "type": "GET_WINES",
-    });
+    switchOnLoader();
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200)placeWineElements(this.responseText);
     };
 
-    xhttpObject.open("GET", "../../Api/Api.php");
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=GET_WINE&lastcount=0");
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttpObject.send(body);
 }

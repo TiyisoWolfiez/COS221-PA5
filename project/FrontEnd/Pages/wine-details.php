@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../Styles/global.css">
     <link rel="stylesheet" href="../Styles/wine-details.css">
     <script src="https://kit.fontawesome.com/d271141ba3.js" crossorigin="anonymous"></script>
@@ -13,99 +13,19 @@
     <title>Winery SA | Wines</title>
 </head>
 <body>
-    <?php 
+    <?php
     include "../Components/Navbar.php";
     if(isset($_SESSION['adminkey']))header("Location: admin.php");
     ?>
     <!-- ----------------------------Filter Tab------------------------------------- -->
-    <nav style="height: 70px;"></nav><!--buffer for navbar-->
-    <nav style="height: 60px;">
-      <div class="ms-auto align-items-center d-flex filter-tab" style="height: 60px;">
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="fa-solid fa-filter pe-2"></i>filters
-        </div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Red</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bone Dry</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">White</div>
-        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Sparkling</div>
-      </div>
-    </nav>
     <!-- ----------------------------Tab END --------------------------------------- -->
 
     <!-- ------------------------------Beginning-Wine-Details------------------------------- -->
 
-      <!-- <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto"> -->
-
-      <div class="card mb-3 card-info-container" style="width: 100%; height: 540px; max-height: 1000px; overflow: auto;">
-            <div class="row g-0">
-              <div class="col-md-4" style="height: fit-content">
-                <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=large&IMAGEID=266700" alt="...">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">RW Chenin Blanc</h5>
-                  <p class="card-text">The Under Oaks Chenin Blanc 2016 is a bright and shiny wine, with has a pale straw-yellow colour. The wine is well balanced, full flavoured and displays strong notes of guava and tropical fruit salad on the nose and palate. It has a good acidity and a long fruity aftertaste.  Although it is very full-bodied this Chenin Blanc is soft on the palate and a pleasure to drink.</p>
-                  <li class="card-text"><i class="fa fa-cutlery "></i>Enjoy now with seafood, smoked salmon, roast chicken and pork. Contains Sulphites, Milk.</li>
-                  <br>
-                  <li class="card-text"><strong>Winery:</strong> Robertson Winery</li>
-                  <li class="card-text"><strong>Winemaker:</strong> Jacques Roux</li>
-                  <li class="card-text"><strong>Wine of Origin:</strong> Robertson</li>
-                  <li class="card-text"><strong>Analysis:</strong> Alc: 12.10%  RS: 8.4  pH: 3.05  TA: 6.3</li>
-                  <li class="card-text"><strong>Type:</strong> Rose&nbsp;  <strong>Style:</strong> Off Dry&nbsp;  <strong>Body:</strong> Full&nbsp;  <strong>Taste:</strong> Fruity •</li>
-                  <li class="card-text"><strong>Pack:</strong> Bottle&nbsp;   <strong>Size:</strong> 750ml&nbsp;   <strong>Closure:</strong> Screwcap</li><br>
-                  <br>
-                  <li class="card-text">
-                      <i class="fa-solid fa-award"></i>AWARDS<br>
-                      <span class="subtext">2022 Top 10 Producer Award - Gold</span><br>
-                      <span class="subtext">2022 Ultra Value Wine Award - Silver</span><br>
-                      <span class="subtext">2022 Veritas Award - Bronze</span>
-                </li>
-                <li class="card-text"><strong>Ageing:</strong> 1 - 2 years</li>
-
-                  <br>
-                    <li class="card-text"><i class = "fas fa-map-marker-alt"></i>Robertson</li><br>
-
-                  <!-- ----------------------------Beginning Review------------------------------------- -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reviewModal">
-                      Add Review
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="reviewModalLabel">Write a Review</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form>
-                            <div class="form-group">
-                              <label for="reviewText">Review:</label>
-                              <textarea class="form-control" id="reviewText" rows="3" required></textarea>
-                            </div>
-                            <div class="form-group">
-                              <label for="pointScore">Point Score (50-100):</label>
-                              <input type="number" class="form-control" id="pointScore" min="50" max="100" required>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary">Submit</button>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- ----------------------------End Review--------------------------------- -->
-                    <a href="#" class="btn btn-primary"><i class="fa-regular fa-envelope"></i>Send Email</a>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-              </div>
-            </div>
-        </div>
+    <div id="add_wine" style="margin-bottom: 20px">
+    </div>
     <!-- --------------------------------End-Wine-Details------------------------------ -->
+
 
     <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -221,10 +141,10 @@
     </div>
 
     <?php include "../Components/Footer.php";?>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify18QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify18QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-xxxxxxxxxxxxxxxxxxxx" crossorigin="anonymous"></script> -->
+  <script src="../Client/wine-details.js" type="text/javascript"></script>
 </body>
 </html>

@@ -35,7 +35,9 @@ body{
 
 .navbar-scroll{
     background: var(--app-theme-col);
+    color: var( --white-1000) !important;
 }
+
 
 .filter-buttons{
     transition: transform 0.3s ease-in-out;
