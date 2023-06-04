@@ -17,15 +17,17 @@
      include "../Components/Navbar.php";
      if(isset($_SESSION['adminkey']))header("Location: admin.php");
      ?>
-    <div class="landing-page-container">
-        <h1>Welcome to <br> Winery SA <i class="fa-solid fa-wine-glass pe-3" style="font-size: 5rem;"></i></h1>
-        <h3>Guiding you to the finest wines in South Africa</h3>
-
-        <h4>scroll down</h4>
-        <div class="chevron-container">
-          <i class="fa-solid fa-chevron-down" onclick="document.getElementById('home-page-content').scrollIntoView({behavior: 'smooth'});"></i>
-        </div>
-    </div>
+     <div class="landing-page-bg">
+       <div class="landing-page-container">
+           <h1>Welcome to <br> Winery SA <i class="fa-solid fa-wine-glass pe-3" style="font-size: 5rem;"></i></h1>
+           <h3>Guiding you to the finest wines in South Africa</h3>
+   
+           <h4>scroll down</h4>
+           <div class="chevron-container">
+             <i class="fa-solid fa-chevron-down" onclick="document.getElementById('home-page-content').scrollIntoView({behavior: 'smooth'});"></i>
+           </div>
+       </div>
+     </div>
 
     <div class="home-page-content" id="home-page-content">
         <div class="card mb-3 card-info-container" style="max-width: 540px; height: 200px; max-height: 200px; overflow: hidden;">
@@ -86,10 +88,35 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
   <script>
     const navEl = document.querySelector(".navbar-noscroll");
+    const titleIcon = document.querySelector(".title-icon");
+    const titleText = document.querySelector(".title-text");
+    const titleWines = document.querySelector(".title-wines");
+    const titleWineries = document.querySelector(".title-wineries");
+
+    const titleUsername = document.querySelector(".title-username");
+    const titleLogout = document.querySelector(".title-logout");
 
     window.addEventListener("scroll", () => {
-        if(window.scrollY > 300)navEl.classList.add("navbar-scroll");
-        else navEl.classList.remove("navbar-scroll");
+        if(window.scrollY > 300){
+          navEl.classList.add("navbar-scroll");
+          titleIcon.style.color = "#414141";
+          titleText.style.color = "#414141";
+          titleWines.style.color = "#414141";
+          titleWineries.style.color = "#414141";
+
+          titleUsername.style.color = "#414141";
+          if(titleLogout)titleLogout.style.color = "#414141";
+        }
+        else{ 
+          navEl.classList.remove("navbar-scroll");
+          titleIcon.style.color = "white";
+          titleText.style.color = "white";
+          titleWines.style.color = "white";
+          titleWineries.style.color = "white";
+
+          titleUsername.style.color = "white";
+          if(titleLogout)titleLogout.style.color = "white";
+        }
     });
   </script>
 </body>

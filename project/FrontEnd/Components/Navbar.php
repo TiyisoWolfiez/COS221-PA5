@@ -40,12 +40,18 @@
             '<i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;" onclick="searchFor()"></i>' //<!--check if current page is wineries or wines then render this-->
             : "";
     }
+
+    function colour(){
+      $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+      $url = end($url_array);  
+      return $url == "index.php" || $url == "wineries-details.php" ? "" : "color: #414141;";
+    }
 ?>
 <nav class="navbar navbar-noscroll <?php echo currentPage()?> navbar-expand-lg fixed-top navbar-light">
     <div class="container">
       <a class="navbar-brand d-flex" href="index.php">
-        <i class="fa-solid fa-wine-glass pe-3" style="color: #414141; font-size: 2rem;"></i>
-        <h3 class="me-5" style="color: #414141;">Winery SA</h3>
+        <i class="fa-solid fa-wine-glass pe-3 title-icon" style="<?php echo colour()?> font-size: 2rem;"></i>
+        <h3 class="me-5 title-text" style="<?php echo colour()?>">Winery SA</h3>
     </a>
       <button
         class="navbar-toggler"
@@ -64,23 +70,23 @@
           <?php 
             if(!renderNavBarLinks()){
               echo '<li class="nav-item">'.
-                      '<a class="nav-link mx-2" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->'.
+                      '<a class="nav-link mx-2 title-wines" href="wines.php"><i class="fa-solid fa-wine-bottle pe-2"></i>wines</a><!--check whether a user is manager and conditionally render-->'.
                     '</li>'.
                     '<li class="nav-item">'.
-                      '<a class="nav-link mx-2" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->'.
+                      '<a class="nav-link mx-2 title-wineries" href="wineries.php"><i class="fa-solid fa-store pe-2"></i>wineries</a><!--check whether a user is manager and conditionally render-->'.
                     '</li>';
             }
           ?>
           <li class="nav-item ms-3 border rounded-2">
             <?php if(isset($_SESSION['username'])){
               echo '<a href="profile.php"><!--check whether a user is manager and conditionally render-->'.
-                        '<div class="btn btn-black btn-rounded">'.
+                        '<div class="btn btn-black btn-rounded title-username">'.
                             '<i class="fa-regular fa-user pe-2"></i>'. $_SESSION['username'] .
                         '</div><!--will only show for logged in users-->'.
                     '</a>';
             }
-            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
-            else echo '<a class="btn btn-black btn-rounded" href="login.php">Login/Signup</a>';
+            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded title-username" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
+            else echo '<a class="btn btn-black btn-rounded title-username" href="login.php">Login/Signup</a>';
 
             ?>
           </li>
@@ -88,7 +94,7 @@
             if(isset($_SESSION['username']) || isset($_SESSION['adminkey'])){
               echo '<li class="nav-item">'.
                       '<div data-bs-toggle="modal" data-bs-target="#confirmLogout">'.
-                        '<a class="nav-link mx-2" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">'.
+                        '<a class="nav-link mx-2 title-logout" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">'.
                           '<i class="fa-solid fa-arrow-right-from-bracket pe-2"></i>'.
                         '</a><!--will only show for logged in users-->'.
                       '</div>'.

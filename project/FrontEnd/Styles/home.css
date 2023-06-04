@@ -1,6 +1,6 @@
 /*CHECK IN global.css for what variables are available for use*/
 
-.landing-page-container{
+.landing-page-bg{
     background-image: url("../Assets/landing-page\ img.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -8,10 +8,17 @@
     width: 100vw;
     height: 100vh;
     animation: zoomIN 5s;
+}
+
+.landing-page-container{
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.616);
+    backdrop-filter: blur(3px);
 }
 
 @keyframes zoomIN {
@@ -23,7 +30,6 @@
     margin-top: 15vh;
     font-size: 80px;
     font-weight: var(--bold-f);
-    color: var(--gray-1000);
 }
 
 .landing-page-container h3{
@@ -107,4 +113,8 @@
     height: 200px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+.title-icon, .title-text, .title-wines, .title-wineries, .title-username, .title-logout{
+    color: white;
 }

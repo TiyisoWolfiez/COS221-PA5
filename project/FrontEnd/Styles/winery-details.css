@@ -11,6 +11,7 @@
     width: 99vw;
     height: 70vh;
     overflow: hidden;
+    filter: blur(3px);
 }
 
 .winery-image{
@@ -51,3 +52,6 @@
     margin-left: 10vw;
 }
 
+.title-icon, .title-text, .title-wines, .title-wineries, .title-username, .title-logout{
+    color: white;
+}
