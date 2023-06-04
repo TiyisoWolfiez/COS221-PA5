@@ -35,9 +35,8 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <h5 class="card-title"><strong>Connected</strong></h5>
+                  <p class="card-text">Our company's well-established connections with top wineries worldwide will reassure you. Second only to our exceptional service quality.</p>
                 </div>
               </div>
             </div>
@@ -49,9 +48,8 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <h5 class="card-title"><strong>Quality</strong></h5>
+                  <p class="card-text">We ensure our selection reflects the current accuracy of wine reviews and trends, unveiling undiscovered wines and wineries for your exploration.</p>
                 </div>
               </div>
             </div>
@@ -63,9 +61,8 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <h5 class="card-title"><strong>Variety</strong></h5>
+                  <p class="card-text">With our extensive network of connections, we effortlessly link you to an exquisite array of wines encompassing diverse types and flavors.</p>
                 </div>
               </div>
             </div>
@@ -77,9 +74,8 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <h5 class="card-title"><strong>Trustworthy</strong></h5>
+                  <p class="card-text">We diligently verify all wineries, their associated wines, and managers, ensuring your utmost security and peace of mind.<br><br><br><i>Rest assured, you are in safe hands.</i></p>
                 </div>
               </div>
             </div>
