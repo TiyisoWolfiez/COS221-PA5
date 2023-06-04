@@ -407,6 +407,23 @@ class Api extends config{
         return $this->constructResponseObject($data, "success", $lastcount + $pagesize);
     }
 
+    public function openWine($id){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery_locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE region.country LIKE 'South Africa' AND winery.wineryID = ?");
+        $stmt->execute(array($id));
+        $data = $stmt->fetchAll();
+
+        //get all reviews related to this wine
+        $stmt = $conn->prepare('SELECT count(*) AS total FROM review WHERE wineID = ?');
+        $stmt->execute(array($id));
+        $reviewsCount = $stmt->fetchColumn();
+
+        session_start();
+        $_SESSION["WineData"] = $data;
+        $_SESSION["ReviewsCount"] = $reviewsCount;
+        return $this->constructResponseObject("", "success");
+    }
+
     public function getWineries($req_info){
 
         if(isset($req_info->location)){
@@ -796,9 +813,12 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
         echo $apiconfig->getWinery($_GET['id']);
     }
     else if($_GET['type'] == REQUESTYPE::GET_WINE->value){
-        echo $apiconfig->getWines(array());
+        echo $apiconfig->getWines(isset($_GET['lastcount']) ? array("lastcount" => $_GET['lastcount']) : array());
     }
     else if($_GET['type'] == REQUESTYPE::SEARCH_WINE->value){
-        echo $apiconfig->searchWine($_GET['name']);
+        echo $apiconfig->searchWine($_GET['name'], isset($_GET['lastcount']) ? $_GET['lastcount'] : 0);
+    }
+    else if($_GET['type'] == REQUESTYPE::OPEN_WINE->value){
+        echo $apiconfig->openWine($_GET['id']);
     }
 }

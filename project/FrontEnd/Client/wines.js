@@ -64,18 +64,14 @@ const placeWineElements = function(res){
                                         '<p class="card-text">'+ jsonRes.data[i].winery_name +'</p>'+
                                         '</div>'+
                                         '<ul class="list-group list-group-flush">'+
-                                        '<li class="list-group-item"> <i class="fa-solid fa-circle-notch"></i> '+ jsonRes.data[i].varietal +'</li>'+
-                                        '<li class="list-group-item"> <i class="fa-solid fa-palette"></i> '+ jsonRes.data[i].colour  +' </li>'+
-                                        '<li class="list-group-item"> <i class="fa-solid fa-cubes-stacked"></i> '+ jsonRes.data[i].carbonation +' •  '+ jsonRes.data[i].sweetness +' </li>'+
-                                        '<li class="list-group-item"><i class="fa-regular fa-calendar"></i> '+ jsonRes.data[i].year_bottled +'</li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-circle-notch"></i> &nbsp;'+ jsonRes.data[i].varietal +'</li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-palette"></i> &nbsp;'+ jsonRes.data[i].colour  +' </li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-cubes-stacked"></i> &nbsp;'+ jsonRes.data[i].carbonation +' •  &nbsp;'+ jsonRes.data[i].sweetness +' </li>'+
+                                        '<li class="list-group-item"><i class="fa-regular fa-calendar"></i> &nbsp; year bottled: '+ jsonRes.data[i].year_bottled +'</li>'+
                                         '</ul>'+
                                     '</div>';
     }
     lastServedID = jsonRes.lastcount;
-}
-
-const filterBy = function(){
-
 }
 
 const loadMoreData = function(){
@@ -88,13 +84,27 @@ const loadMoreData = function(){
         }
     };
 
-    const url = "";
-
-    xhttpObject.open("GET", "../../Backend/Api/Api.php?" + "type=" + ( currentlyOpenTab === "managers" ? "GET_MANAGERS_ADMIN" : "GET_WINERY_ADMIN") + "&last_id=" + lastServedID);
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?" + "type=SEARCH_WINE&lastcount=" + lastServedID + "&name=" + searchval);
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttpObject.send();
 }
 
 const openWine = function(){
+    const xhttpObject = new XMLHttpRequest();
+    switchOnLoader();
+
+    xhttpObject.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            switchOffLoader();
+            window.location.href = "wine-details.php";
+        }
+    };
+
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=OPEN_WINE&id=" + wineID);
+    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttpObject.send();
+}
+
+const filterBy = function(){
 
 }

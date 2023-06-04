@@ -36,7 +36,7 @@
 
     <!-- ------------------------------Beginning-Wines------------------------------- -->
     <nav class="overflow-y-auto content-container">
-      <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-visible">
+      <nav class="website-container overflow-y-visible">
 
       </nav>
       <nav class="load-more-btn-container">

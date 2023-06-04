@@ -16,6 +16,10 @@
     height: calc(100vh - 130px);
     overflow-y: scroll;
     width: 99vw;
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, 18rem);
+    flex-wrap: wrap;
 }
 
 .spinner-container{

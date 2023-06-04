@@ -33,7 +33,7 @@
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons">Bloemfontein</div>
       </div>
     </nav>
-    <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto"></nav>
+    <nav class="website-container overflow-y-auto"></nav>
 
     <!-- filter tab -->
     <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

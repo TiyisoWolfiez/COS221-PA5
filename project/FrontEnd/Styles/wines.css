@@ -21,6 +21,10 @@
 .website-container{
     width: 98vw;
     overflow-x: hidden;
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, 18rem);
+    flex-wrap: wrap;
 }
 
 .load-more-btn-container{
