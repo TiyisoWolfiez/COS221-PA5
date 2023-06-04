@@ -107,7 +107,7 @@ class Api extends config{
 
     public function loginAdmin($AdminKey){
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($AdminKey));
 
         if($success && $stmt->rowCount() > 0){
@@ -535,7 +535,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -600,7 +600,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -711,7 +711,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");

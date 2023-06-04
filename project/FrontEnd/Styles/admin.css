@@ -97,7 +97,7 @@ body{
 
 .list-group{
     height: 50vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 95vw;
     margin-left: auto;
     margin-right: auto;

@@ -14,7 +14,7 @@
 
 .website-container{
     height: calc(100vh - 130px);
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 99vw;
 }
 
