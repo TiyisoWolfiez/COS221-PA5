@@ -72,6 +72,19 @@ const placeWineElements = function(res){
                                     '</div>';
     }
     lastServedID = jsonRes.lastcount;
+    // On Click
+    const divs = document.querySelectorAll('.card');
+    // Add click event listener to each div
+    divs.forEach(div => {
+        div.addEventListener('click', () => {
+            // Get the title element within the div
+            const titleElement = div.querySelector('.card-title');
+            // Get the text of the title element
+            const titleText = titleElement.textContent;
+            localStorage.setItem('winery_name', titleText);
+            window.location.href = "wine-details.php";
+        });
+    });
 }
 
 const loadMoreData = function(){
