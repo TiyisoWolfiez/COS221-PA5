@@ -1,5 +1,6 @@
 var req = new XMLHttpRequest();
 let currentlySelectedReviewID = 0;
+var username;
 
 req.onreadystatechange = function() {
   if (req.readyState == 4 && req.status == 200) {
@@ -7,7 +8,7 @@ req.onreadystatechange = function() {
 
     var req2 = new XMLHttpRequest(); // Use a different variable name for the inner XMLHttpRequest
 
-    var username = res;
+    username = res;
     var json = { 'type': 'GET_USER_REVIEWS', 'username': username };
 
     req2.onreadystatechange = function() {
@@ -81,7 +82,27 @@ const deleteMyAccount = function(){
 const changeUserName = function(){
   const newUsername = document.getElementById("username-input").value;
   
-  //do stuff
+  req = new XMLHttpRequest
+  json = {"type": "UPDATE_USERNAME", "CurrUsername": username, "NewUsername": newUsername};
+
+  req.onreadystatechange = function() {
+    if (req.readyState == 4 && req.status == 200) {
+      var res = req.responseText;
+      var jRes = JSON.parse(res);
+
+      if(jRes.status == 'success'){
+        makeUsernameSession(newUsername);
+
+        location.reload();
+      }
+      else if(jRes.status == 'error'){
+          console.log(res);
+      }
+    }
+  }
+
+  req.open('POST', '../../Backend/Api/Api.php');
+  req.send(JSON.stringify(json));
 }
 
 const changePassword = function(){
@@ -104,3 +125,19 @@ const deleteReview = function(){
   
   //do stuff with id of the review is set in currentlySelectedReviewID variable
 }
+
+const makeUsernameSession = function(username){
+  req = new XMLHttpRequest;
+
+  req.onreadystatechange = function(){//recieves api response
+      if(req.readyState == 4 && req.status == 200)
+      {
+          var res = req.responseText;
+          var jRes = JSON.parse(res);
+          console.log(jRes.username);
+      }
+  }
+
+  req.open('POST', '../Components/SessionHandler.php');
+  req.send(username);
+};
