@@ -108,7 +108,25 @@ const changeUserName = function(){
 const changePassword = function(){
   const newPassword = document.getElementById("password-input").value;
   
-  //do stuff
+  req = new XMLHttpRequest
+  json = {"type": "UPDATE_PASSWORD", "username": username, "newPswrd": newPassword};
+
+  req.onreadystatechange = function() {
+    if (req.readyState == 4 && req.status == 200) {
+      var res = req.responseText;
+      var jRes = JSON.parse(res);
+
+      if(jRes.status == 'success'){
+        
+      }
+      else if(jRes.status == 'error'){
+          console.log(res);
+      }
+    }
+  }
+
+  req.open('POST', '../../Backend/Api/Api.php');
+  req.send(JSON.stringify(json));
 }
 
 const setcurrentlySelectedReviewID = function(newID){
