@@ -12,10 +12,22 @@
     transform: scale(0.97);
 }
 
-.website-container{
+.content-container{
     height: calc(100vh - 130px);
-    overflow-y: scroll;
     width: 99vw;
+    overflow-x: hidden;
+}
+
+.website-container{
+    width: 98vw;
+    overflow-x: hidden;
+}
+
+.load-more-btn-container{
+    width: 98vw;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .spinner-container{
@@ -114,3 +126,16 @@
     transform: scale(1.05);
   }
   
+  .spinner-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    background:rgba(0, 0, 0, 0.308);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+}

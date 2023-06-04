@@ -36,6 +36,7 @@ enum REQUESTYPE: string
     case ADD_WINERY_ADMIN = 'ADD_WINERY_ADMIN';
     case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     case OPEN_WINERY = 'OPEN_WINERY';
+    case OPEN_WINE = 'OPEN_WINE';
     /**Add more cases */
 }
 
@@ -793,5 +794,11 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::OPEN_WINERY->value){
         echo $apiconfig->getWinery($_GET['id']);
+    }
+    else if($_GET['type'] == REQUESTYPE::GET_WINE->value){
+        echo $apiconfig->getWines(array());
+    }
+    else if($_GET['type'] == REQUESTYPE::SEARCH_WINE->value){
+        echo $apiconfig->searchWine($_GET['name']);
     }
 }

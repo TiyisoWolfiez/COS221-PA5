@@ -35,153 +35,13 @@
     <!-- ----------------------------Tab END --------------------------------------- -->
 
     <!-- ------------------------------Beginning-Wines------------------------------- -->
+    <nav class="overflow-y-auto content-container">
+      <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-visible">
 
-      <nav class="website-container d-flex justify-content-evenly flex-wrap align-items-center overflow-y-auto">
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=large&IMAGEID=266700" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">RW Chenin Blanc</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">White • Off Dry • Full • Fragrant •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Robertson Winery</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=large&IMAGEID=270525" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">NAMYSTO Rose 2021</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Rose • Fruity •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Quoin Rock</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=270869" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Stellenzicht Acheulean Red 2018</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Red •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Stellenzicht Vineyards</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=269514" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Raka Five Maidens 2018</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">White • Dry • Full •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Raka Wines</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=271080" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Groote Post Unwooded Chardonnay 2022</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">White • Dry • Medium • Fruity •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Groote Post Vineyards</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=270940" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Mellasat Chardonnay 2019</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">White • Dry • Medium • Herbaceous •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Mellasat Vineyards</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=269312" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Dekker's Valley Shiraz 2018</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Red • Dry • Full • Fruity •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Mellasat Vineyards</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
-
-        <div class="card card-item rounded-2" style="width: 18rem;">
-
-          <div class="img-container">
-            <img class="card-img-top" src="https://images.wine.co.za/GetWineImage.ashx?ImageSize=medium&IMAGEID=256907" alt="Card image cap">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Kleine Zalze Methode Cap Classique Brut NV</h5>
-            <p class="card-text">An appealing light straw colour. Light with lovely ripe, attractive rounded fruit. Fresh floral nose and an exciting acid balance.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cap_Classique • Off Dry •</li>
-            <!-- <li class="list-group-item">60% Pinot Noir, 40% Chardonnay Alc: 12.10  RS: 8.4  pH: 3.05  TA: 6.3</li> -->
-            <!-- <li class="list-group-item"><i class = "fas fa-map-marker-alt"></i>Robertson</li> -->
-            <li class="list-group-item"><i class="fa fa-home "></i> Kleine Zalze Wines</li>
-            <!-- <li class="list-group-item"><i class="fa fa-cutlery "></i> Salads and seafood.</li> -->
-          </ul>
-        </div>
+      </nav>
+      <nav class="load-more-btn-container">
+        <button class="btn btns-click mb-3" style="width: 150px;background-color: var(--app-theme-col);" onmouseup="loadMoreData()">Load More</button>
+      </nav>
     </nav>
     <!-- </a> -->
 
@@ -302,8 +162,8 @@
     </div>
 
     <?php include "../Components/Footer.php";?>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify18QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-  <script src="../Client/wines.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <script src="../Client/wines.js"></script>
 </body>
 </html>

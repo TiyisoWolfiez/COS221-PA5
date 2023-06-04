@@ -1,3 +1,5 @@
+console.log("hello");
+
 window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
     switchOnLoader();
