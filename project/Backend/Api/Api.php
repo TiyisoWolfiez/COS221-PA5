@@ -330,6 +330,7 @@ class Api extends config{
         //FILTERS
         $filterchecks = array('varietal'=>0, 'colour'=>0, 'carbonation'=>0, 'sweetness'=>0, 'country'=>0);
         $country = false;
+        $regionset = false;
         $WHERE_CLAUSES = array();
         $JOIN = "JOIN winery ON wine.wineryID = winery.wineryID JOIN location ON winery_locationID = location.locationID JOIN region ON region.regionID = location.regionID";
             
@@ -347,6 +348,11 @@ class Api extends config{
             if(isset($filters->country)){
                 $WHERE_CLAUSES[] = "region.country = :country";
                 $country = true;
+            }
+
+            if(isset($filters->region)){
+                $WHERE_CLAUSES[] = "region.region_name = :region";
+                $regionset = true;
             }
         }
         if(sizeof($WHERE_CLAUSES) != 0){
@@ -373,6 +379,9 @@ class Api extends config{
         }
         if($country == true){
             $stmt->bindParam(":country", $filters->country); 
+        }
+        if($regionset){
+            $stmt->bindParam(":region", $filters->region); 
         }
 
         $stmt->execute();
