@@ -1,0 +1,52 @@
+/*CHECK IN global.css for what variables are available for use*/
+
+.elements-container{
+    width: 99vw;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+}
+
+.img-container{
+    width: 99vw;
+    height: 70vh;
+    overflow: hidden;
+}
+
+.winery-image{
+    display: inline;
+    min-width: 100%;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.website-container{
+    height: 30vh;
+    z-index: 30;
+    width: 99vw;
+    display: flex;
+    margin-top: 3vh;
+    justify-content: space-evenly;
+}
+
+.card{
+    box-shadow:  9px 9px 24px #d7d7d777,
+             -9px -9px 24px #e9e9e962;
+    transition: transform 0.5s ease-in-out;
+}
+
+.card:hover{
+    transform: scale(1.03);
+}
+
+.card-icon-and-count{
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+
+.winery-name{
+    margin-top: -15vh;
+    margin-left: 10vw;
+}
+

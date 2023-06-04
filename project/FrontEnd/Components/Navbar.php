@@ -12,7 +12,7 @@
     function currentPage(){
         $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
         $url = end($url_array);  
-        return $url == "index.php" || $url == "" ? "" : "navbar-scroll";
+        return $url == "index.php" || $url == "" || $url == "wineries-details.php" ? "" : "navbar-scroll";
     }
 
     /*@brief This function checks the url of the current page and checks if it's the admin or manager page and returns a boolean
