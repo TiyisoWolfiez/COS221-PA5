@@ -35,6 +35,7 @@ enum REQUESTYPE: string
     case OPEN_WINERY_ADMIN = 'OPEN_WINERY_ADMIN';
     case ADD_WINERY_ADMIN = 'ADD_WINERY_ADMIN';
     case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
+    case OPEN_WINERY = 'OPEN_WINERY';
     /**Add more cases */
 }
 
@@ -465,6 +466,22 @@ class Api extends config{
         return $this->constructResponseObject($data, "success");
     }
 
+    public function getWinery($id){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery_locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE region.country LIKE 'South Africa' AND winery.wineryID = ?");
+        $stmt->execute(array($id));
+        $data = $stmt->fetchAll();
+
+        $stmt = $conn->prepare('SELECT count(*) AS total FROM wine WHERE wineryID = ?');
+        $stmt->execute(array($id));
+        $wineCount = $stmt->fetchColumn();
+
+        session_start();
+        $_SESSION["WineryData"] = $data;
+        $_SESSION["WinesCount"] = $wineCount;
+        return $this->constructResponseObject("", "success");
+    }
+
     public function getWineriesORManagersAdmin($type, $last_id = 0){
         session_start();
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
@@ -767,5 +784,14 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::DELETE_WINERY_ADMIN->value){
         echo $apiconfig->deleteWineryAdmin($_GET['wineryID']);
+    }
+    else if($_GET['type'] == REQUESTYPE::GET_WINERIES->value){
+        echo $apiconfig->getWineries(array());
+    }
+    else if($_GET['type'] == REQUESTYPE::SEARCH_WINERY->value){
+        echo $apiconfig->searchWinery($_GET['name']);
+    }
+    else if($_GET['type'] == REQUESTYPE::OPEN_WINERY->value){
+        echo $apiconfig->getWinery($_GET['id']);
     }
 }

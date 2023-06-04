@@ -16,25 +16,30 @@
 <?php 
     include "../Components/Navbar.php";
     if(isset($_SESSION['adminkey']))header("Location: admin.php");
+    if(!isset($_SESSION["WineryData"]))header("Location: wineries.php");
+    if(isset($_SESSION["WineryData"]))$WineryData = $_SESSION["WineryData"];
     ?>
     <div class="elements-container">
         <div class="img-container">
-            <img src="https://wine81.com/pictures/wine/wineries/1/345/winery_345_pic3_345.jpg" class="winery-image"/>
+            <img src="<?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_imageURL'];?>" class="winery-image"/>
         </div>
-        <h1 class="winery-name">Morgenhof Estate <small class="text-body-secondary">verified</small></h1>
+        <h1 class="winery-name"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_name'];?> 
+            <small class="text-body-secondary">
+            <?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['isVerified'] == 1 ? "verified" : "not verified";?> 
+            </small></h1>
         <div class="website-container mb-3">
             <div class="card w-50">
                 <div class="card-body">
                     <h5 class="card-title">Winery description</h5>
-                    <p class="card-text">Historic winery in Stellenbosch, offering elegant wines and a picturesque setting.</p>
+                    <p class="card-text"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['description'];?></p>
                 </div>
             </div>
 
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">website url</li>
-                    <li class="list-group-item">location address</li>
-                    <li class="list-group-item">region</li>
+                    <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_websiteURL'];?></li>
+                    <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['11'];?></li>
+                    <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['region_name'];?></li>
                 </ul>
             </div>
 
@@ -43,7 +48,7 @@
                     <h3 class="card-title">Wines count</h3>
                     <div class="card-icon-and-count">
                         <i class="fa-solid fa-wine-glass pe-3" style="font-size: 1.5rem;"></i>
-                        <h2 class="card-text Total-wines">0</h2>
+                        <h2 class="card-text Total-wines"><?php if(isset($_SESSION["WinesCount"]))echo $_SESSION["WinesCount"];?></h2>
                     </div>
                 </div>
             </div>
@@ -52,7 +57,6 @@
     <?php include "../Components/Footer.php";?>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-    <script src="../Client/wineries.js"></script>
     <script>
     const navEl = document.querySelector(".navbar-noscroll");
 

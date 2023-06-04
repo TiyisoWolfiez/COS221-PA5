@@ -4,7 +4,7 @@
     width: 99vw;
     overflow: hidden;
     position: relative;
-    height: 100vh;
+    height: 95vh;
 }
 
 .img-container{
@@ -25,7 +25,7 @@
     z-index: 30;
     width: 99vw;
     display: flex;
-    margin-top: 3vh;
+    margin-top: 5vh;
     justify-content: space-evenly;
 }
 
@@ -33,6 +33,7 @@
     box-shadow:  9px 9px 24px #d7d7d777,
              -9px -9px 24px #e9e9e962;
     transition: transform 0.5s ease-in-out;
+    height: 150px !important;
 }
 
 .card:hover{
