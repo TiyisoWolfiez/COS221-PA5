@@ -74,9 +74,31 @@ const starGeneration = function(points){
 };
 
 const deleteMyAccount = function(){
-  //the username exists in the username session variable
-  
-  //do stuff
+  req = new XMLHttpRequest
+  json = {"type": "DELETE_ACCOUNT", "username": username};
+
+  req.onreadystatechange = function() {
+    if (req.readyState == 4 && req.status == 200) {
+      var res = req.responseText;
+      var jRes = JSON.parse(res);
+
+      if(jRes.status == 'success'){
+        req = new XMLHttpRequest
+        json = {"type": "LOGOUT"};
+
+        req.open('POST', '../../Backend/Api/Api.php');
+        req.send(JSON.stringify(json));
+
+        window.location.href = "index.php";
+      }
+      else if(jRes.status == 'error'){
+          console.log(res);
+      }
+    }
+  }
+
+  req.open('POST', '../../Backend/Api/Api.php');
+  req.send(JSON.stringify(json));
 }
 
 const changeUserName = function(){
