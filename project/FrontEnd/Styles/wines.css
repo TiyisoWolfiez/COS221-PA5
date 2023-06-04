@@ -84,6 +84,7 @@
     box-shadow: 5px 5px 25px 5px var(--black-1000-20);
     transition: transform 0.4s ease-in-out;
     margin: 1rem;
+    cursor: pointer;
 }
 
 .card-item:hover{

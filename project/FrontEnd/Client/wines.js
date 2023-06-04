@@ -64,10 +64,10 @@ const placeWineElements = function(res){
                                         '<p class="card-text">'+ jsonRes.data[i].winery_name +'</p>'+
                                         '</div>'+
                                         '<ul class="list-group list-group-flush">'+
-                                        '<li class="list-group-item"> • '+ jsonRes.data[i].varietal +'</li>'+
-                                        '<li class="list-group-item"> • '+ jsonRes.data[i].colour  +' </li>'+
-                                        '<li class="list-group-item"> • '+ jsonRes.data[i].carbonation +' •  '+ jsonRes.data[i].sweetness +' </li>'+
-                                        '<li class="list-group-item"><i class="fa fa-home "></i> '+ jsonRes.data[i].year_bottled +'</li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-circle-notch"></i> '+ jsonRes.data[i].varietal +'</li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-palette"></i> '+ jsonRes.data[i].colour  +' </li>'+
+                                        '<li class="list-group-item"> <i class="fa-solid fa-cubes-stacked"></i> '+ jsonRes.data[i].carbonation +' •  '+ jsonRes.data[i].sweetness +' </li>'+
+                                        '<li class="list-group-item"><i class="fa-regular fa-calendar"></i> '+ jsonRes.data[i].year_bottled +'</li>'+
                                         '</ul>'+
                                     '</div>';
     }

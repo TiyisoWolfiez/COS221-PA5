@@ -40,7 +40,7 @@
 
       </nav>
       <nav class="load-more-btn-container">
-        <button class="btn btns-click mb-3" style="width: 150px;background-color: var(--app-theme-col);" onmouseup="loadMoreData()">Load More</button>
+        <button class="btn btns-click mb-3 text-light" style="width: 150px;background-color: var(--app-theme-col);" onmouseup="loadMoreData()">Load More</button>
       </nav>
     </nav>
     <!-- </a> -->
