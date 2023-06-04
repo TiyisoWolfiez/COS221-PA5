@@ -1,5 +1,3 @@
-console.log("hello");
-
 window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
     switchOnLoader();
@@ -78,15 +76,15 @@ const placeWineryElements = function(res){
                                 '<p class="card-text description-text">'+ jsonRes.data[i].description +'</p>' +
                                 '</div>' +
                                 '<ul class="list-group list-group-flush">' +
-                                '<li class="list-group-item">Location: '+ jsonRes.data[i].address +'</li>' +
-                                '<li class="list-group-item">Manager: '+ jsonRes.data[i].winery_manager +'</li>' +
-                                '<li class="list-group-item">Status: '+ isVerified(jsonRes.data[i].isVerified) +'</li>' +
+                                '<li class="list-group-item">Location: &nbsp;'+ jsonRes.data[i].address +'</li>' +
+                                '<li class="list-group-item">Region: &nbsp;'+ jsonRes.data[i].region_name +'</li>' +
+                                '<li class="list-group-item">Verification status: &nbsp;'+ isVerified(jsonRes.data[i].isVerified) +'</li>' +
                                 '</ul>' +
                             '</div>';
     }
 }
 
-const isVerified = function(verfiedState){return verfiedState == 1 ? "verified" : "not verified"}
+const isVerified = function(verfiedState){return verfiedState == 1 ? '<i class="fa-solid fa-circle-check"></i>' : "N/A"}
 
 const filterBy = function(){
 

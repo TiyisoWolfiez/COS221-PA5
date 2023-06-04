@@ -19,14 +19,17 @@
     if(!isset($_SESSION["WineryData"]))header("Location: wineries.php");
     if(isset($_SESSION["WineryData"]))$WineryData = $_SESSION["WineryData"];
     ?>
-    <div class="elements-container">
+    <div class="elements-container mb-3">
         <div class="img-container">
             <img src="<?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_imageURL'];?>" class="winery-image"/>
+            <div class="img-cover">
+                <h1 class="winery-name"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_name'];?> 
+                    <small class="text-body-secondary" style="color: var(--app-theme-col) !important;">
+                    <?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['isVerified'] == 1 ? "verified" : "not verified";?> 
+                    </small>
+                </h1>
+            </div>
         </div>
-        <h1 class="winery-name"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_name'];?> 
-            <small class="text-body-secondary">
-            <?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['isVerified'] == 1 ? "verified" : "not verified";?> 
-            </small></h1>
         <div class="website-container mb-3">
             <div class="card w-50">
                 <div class="card-body">
@@ -37,7 +40,11 @@
 
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_websiteURL'];?></li>
+                    <li class="list-group-item">
+                        <a href="<?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_websiteURL'];?>" class="text-decoration-underline">
+                            <?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_websiteURL'];?>
+                        </a>
+                    </li>
                     <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['11'];?></li>
                     <li class="list-group-item"><?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['region_name'];?></li>
                 </ul>
@@ -52,6 +59,39 @@
                     </div>
                 </div>
             </div>
+        
+        </div>
+        <div class="wines-container list-group">
+            <h2 class="text-center mb-3 text-dark">All wines asocciated with <?php if(isset($_SESSION["WineryData"]))echo $WineryData[0]['winery_name'];?> </h2>
+            <table class="table mb-3">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Wine Name</th>
+                    <th scope="col"><i class="fa-solid fa-circle-notch"></i> &nbsp; varietal</th>
+                    <th scope="col"><i class="fa-solid fa-cubes-stacked"></i> &nbsp; carbonation and &nbsp; sweetness </th>
+                    <th scope="col"><i class="fa-regular fa-calendar"></i> &nbsp; year_bottled </th>
+                </tr>
+                </thead>
+                <tbody class="">
+                    <?php 
+                    if(isset($_SESSION["Wines"])){
+                        $wines = $_SESSION["Wines"];
+                        foreach($wines as $obj){
+                            echo '<tr class="wineryElement">'.
+                                '<th scope="row">'. $obj["wineID"] .'</th>'.
+                                '<td>'. $obj["wine_name"] .'</td>'.
+                                '<td>'. $obj["varietal"] .'</td>'.
+                                '<td>'. $obj["carbonation"] .' • '. $obj["sweetness"] .'</td>'.
+                                '<td>'. $obj["year_bottled"] .'</td>'.
+                            '</tr>';
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <button class="btn btn-primary btns-click mb-3" style="width: 150px; margin-left: auto; margin-right: auto;" onmouseup="loadMoreData()">Load More</button>
+            
         </div>
     </div>
     <?php include "../Components/Footer.php";?>
@@ -89,6 +129,44 @@
           if(titleLogout)titleLogout.style.color = "white";
         }
     });
+
+    const loadMoreData = function(){
+        const xhttpObject = new XMLHttpRequest();
+        switchOnLoader();
+        xhttpObject.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200){
+                const res = JSON.parse(this.responseText);
+                switchOffLoader();
+                const table = document.querySelector(".wines-container .table tbody");
+                table.innerHTML = "";
+
+                for(let i = 0; i < res.data.length; ++i){
+                    table.innerHTML += '<tr class="wineryElement">' +
+                                            '<th scope="row">'+ res.data[i].wineID + '</th>' +
+                                            '<td>'+ res.data[i].wine_name + '</td>'+
+                                            '<td>'+ res.data[i].varietal +'</td>'+
+                                            '<td>'+ res.data[i].carbonation +' • ' + res.data[i].sweetness +'</td>'+
+                                            '<td>'+ res.data[i].year_bottled +'</td>'+
+                                        '</tr>';
+                }
+            }
+        };
+
+        xhttpObject.open("GET", "../../Backend/Api/Api.php?" + "type=LOAD_MORE_WINES");
+        xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpObject.send();
+    }
+
+    const switchOnLoader = function(){
+        const websiteContainer = document.querySelector(".elements-container");
+        websiteContainer.innerHTML += '<div class="spinner-container">' +
+                                        '<div class="spinner-grow text-success" role="status">' +
+                                            '<span class="sr-only">Loading...</span>' +
+                                        '</div>' +
+                                    '</div>';
+    }
+
+    const switchOffLoader = function(){document.querySelector(".spinner-container").remove();}
   </script>
 </body>
 </html>

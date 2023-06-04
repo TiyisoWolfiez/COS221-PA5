@@ -2,16 +2,28 @@
 
 .elements-container{
     width: 99vw;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
-    height: 95vh;
 }
 
 .img-container{
     width: 99vw;
     height: 70vh;
     overflow: hidden;
-    filter: blur(3px);
+    position:relative;
+}
+
+.img-cover{
+    width: 99vw;
+    height: 75vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.616);
+    backdrop-filter: blur(3px);
+    top: 0;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 .winery-image{
@@ -26,7 +38,7 @@
     z-index: 30;
     width: 99vw;
     display: flex;
-    margin-top: 5vh;
+    margin-top: -5vh;
     justify-content: space-evenly;
 }
 
@@ -48,10 +60,51 @@
 }
 
 .winery-name{
-    margin-top: -15vh;
-    margin-left: 10vw;
+    margin-bottom: 15vh;
+    color: white;
+    margin-left: 5vw;
 }
 
 .title-icon, .title-text, .title-wines, .title-wineries, .title-username, .title-logout{
     color: white;
+}
+
+.wines-container{
+    height: 50vh;
+    overflow-y: scroll;
+    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btns-click{
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: var(--app-theme-col) !important;
+    border-radius: 10px !important;
+    border: none !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.btns-click:hover{
+    opacity: 0.9;
+}
+
+.btns-click:active{
+    transform: scale(0.99);
+}
+
+.spinner-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    background:rgba(0, 0, 0, 0.308);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
 }

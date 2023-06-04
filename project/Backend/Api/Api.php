@@ -37,6 +37,7 @@ enum REQUESTYPE: string
     case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     case OPEN_WINERY = 'OPEN_WINERY';
     case OPEN_WINE = 'OPEN_WINE';
+    case LOAD_MORE_WINES = 'LOAD_MORE_WINES';
     /**Add more cases */
 }
 
@@ -503,10 +504,30 @@ class Api extends config{
         $stmt->execute(array($id));
         $wineCount = $stmt->fetchColumn();
 
+        $stmt = $conn->prepare('SELECT * FROM wine WHERE wineryID = ? LIMIT 10');
+        $stmt->execute(array($id));
+        $wines = $stmt->fetchAll();
+
         session_start();
+        $_SESSION["WineryID"] = $id;
         $_SESSION["WineryData"] = $data;
         $_SESSION["WinesCount"] = $wineCount;
+        $_SESSION["Wines"] = $wines;
+        $_SESSION["Limit"] = 10;
         return $this->constructResponseObject("", "success");
+    }
+
+    public function loadMoreWines(){
+        session_start();
+        $conn = $this->connectToDatabase();
+        $val = $_SESSION["Limit"];
+        $_SESSION["Limit"] = $val + 10;
+        $stmt = $conn->prepare('SELECT * FROM wine WHERE wineryID = ? LIMIT ' . $val + 10);
+        $stmt->execute(array($_SESSION["WineryID"]));
+        $wines = $stmt->fetchAll();
+
+        $_SESSION["Wines"] = $wines;
+        return $this->constructResponseObject($wines, "success");
     }
 
     public function getWineriesORManagersAdmin($type, $last_id = 0){
@@ -829,5 +850,8 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::OPEN_WINE->value){
         echo $apiconfig->openWine($_GET['id']);
+    }
+    else if($_GET['type'] == REQUESTYPE::LOAD_MORE_WINES->value){
+        echo $apiconfig->loadMoreWines();
     }
 }
