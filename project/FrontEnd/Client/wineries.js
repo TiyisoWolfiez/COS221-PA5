@@ -158,14 +158,21 @@ function FilterSearch(name)
     console.log(flocation);
     var body = {
         type : 'GET_WINERIES',
-        location : flocation
+        filters : {
+            region : flocation
+        }
     }
     console.log(flocation);
-    $.post( '../../Backend/Api/Api.php',body,function(data,status){
-        if(status == "success")
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange= function(){
+        if(this.readyState == 4 && this.status == 200)
         {
-            placeWineryElements(data);
+            document.querySelector(".website-container").innerHTML = "";
+            console.log("Before data populated")
+            placeWineryElements(this.responseText);
         }
-        else console.log("Massive error blud:" + status);
-    })
+    }
+
+    xhr.open("POST","../../Backend/Api/Api.php");
+    xhr.send(JSON.stringify(body));
 }

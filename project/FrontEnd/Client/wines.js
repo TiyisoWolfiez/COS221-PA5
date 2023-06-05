@@ -18,19 +18,20 @@ $(document).ready(function(){
     var FilterBC = 'div.ms-3.btn.btn-light.btn-rounded.rounded-4.border.border-dark-subtle.filter-buttons';
     $(FilterBC).click(function(){
         console.log("Insideee");
-        var flocation = $(this).html();
-        console.log(flocation);
+        var typeWine = $(this).html();
+        console.log(typeWine);
         var body = {
             type : 'GET_WINES',
             location : flocation
         }
-        $.post( '../../Backend/Api/Api.php',body,function(data,status){
-            if(status == "success")
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState== 4 && this.status == 200)
             {
-                placeWineElements(data);
+                document.querySelector(".website-container").innerHTML = "";
             }
-            else console.log("Massive error blud:" + status);
-        })
+        }
     })
 })
 
