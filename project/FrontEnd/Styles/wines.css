@@ -125,11 +125,11 @@
     font-size: 16px;
     padding: 10px 20px;
     transition: transform 0.3s ease-in-out;
-  }
+}
   
-  .add button:hover {
-    transform: scale(1.05);
-  }
+.add button:hover {
+transform: scale(1.05);
+}
   
   .spinner-container{
     width: 100vw;

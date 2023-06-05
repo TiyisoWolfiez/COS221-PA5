@@ -45,12 +45,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <h6 class="text-dark">Price ranges</h6>
-            <label for="customRange1" class="form-label text-dark">Min price for wines sold at winery: $2000</label>
-            <input type="range" class="form-range" id="customRange2">
-            <label for="customRange1" class="form-label text-dark">Max price for wines sold at winery: $5000</label>
-            <input type="range" class="form-range" id="customRange1">
-
             <div class="filter-modal-buffer"></div>
             <h6 class="text-dark">Locations</h6>
             <div class="form-check form-check-inline">
@@ -94,8 +88,8 @@
             <input type="text" class="form-control" id="enteredLocation" placeholder="Enter location here">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn" style="background-color: var(--app-theme-col);">Update filters</button>
+            <button type="button" class="btn btn-secondary btns-click-gray" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btns-click" style="background-color: var(--app-theme-col);">Update filters</button>
           </div>
         </div>
       </div>

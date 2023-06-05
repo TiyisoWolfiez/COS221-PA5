@@ -1,6 +1,7 @@
 let currentlyOpenTab = "wineries";
 let currentlySelectedWinery = "";
 let lastServedID = "";
+let lastcount = 1;
 
 window.onload = function(){
     const xhttpObject = new XMLHttpRequest();
@@ -38,6 +39,7 @@ const viewWineries = function(){
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
             document.querySelector(".container-of-data .table tbody").innerHTML = "";
+            lastcount = 1;
             switchOffLoader();
             currentlyOpenTab = "wineries";
             populateData(this.responseText);
@@ -57,6 +59,7 @@ const viewManagers = function(){
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
             document.querySelector(".container-of-data .table tbody").innerHTML = "";
+            lastcount = 0;
             switchOffLoader();
             currentlyOpenTab = "managers";
             populateData(this.responseText);
@@ -94,27 +97,36 @@ const addWinery = function(){
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            document.querySelector(".container-of-data .table tbody").innerHTML = "";
             switchOffLoader();
-            populateData(this.responseText);
+            if(currentlyOpenTab === "wineries"){
+                currentlyOpenTab = "managers";
+                viewWineries();
+            }
+            else{
+                currentlyOpenTab = "wineries";
+                viewManagers();
+            }
         }
     };
 
-    xhttpObject.open("GET", "../../Backend/Api/Api.php?" +
-    "type=ADD_WINERY_ADMIN"+
-    "&wineryName=" + wineryName +
-    "&wineryImageURL=" + wineryImageURL +
-    "&wineryWebsiteURL=" + wineryWebsiteURL +
-    "&location=" + location +
-    "&country=" + country +
-    "&longitude=" + longitude +
-    "&latitude=" + latitude +
-    "&region=" + region +
-    "&wineryManagerID=" + (wineryManagerID === "" ? null : wineryManagerID) +
-    "&isverified=" + isverified +
-    "&description=" + description);
+    const body = JSON.stringify({
+        "type": "ADD_WINERY_ADMIN",
+        "wineryName": wineryName ,
+        "wineryImageURL": wineryImageURL ,
+        "wineryWebsiteURL": wineryWebsiteURL ,
+        "location": location ,
+        "country": country ,
+        "longitude": longitude ,
+        "latitude": latitude ,
+        "region": region ,
+        "wineryManagerID": (wineryManagerID === "" ? null : wineryManagerID) ,
+        "isverified": isverified ,
+        "description": description
+    });
+
+    xhttpObject.open("POST", "../../Backend/Api/Api.php");
     xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttpObject.send();
+    xhttpObject.send(body);
 }
 
 const openExternalWineryManagementPage = function(wineryID){
@@ -141,9 +153,15 @@ const deleteWinery = function(){
 
     xhttpObject.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            document.querySelector(".container-of-data .table tbody").innerHTML = "";
             switchOffLoader();
-            populateData(this.responseText);
+            if(currentlyOpenTab === "wineries"){
+                currentlyOpenTab = "managers";
+                viewWineries();
+            }
+            else{
+                currentlyOpenTab = "wineries";
+                viewManagers();
+            }
         }
     };
 
@@ -163,9 +181,9 @@ const populateData = function(jsonData){
     const table = document.querySelector(".container-of-data .table tbody");
 
     if(res.data.isWineries !== undefined && res.data.wineries.length > 0){
-        for(let i = 0; i < res.data.wineries.length; ++i){
+        for(let i = 0; i < res.data.wineries.length; ++i, ++lastcount){
             table.innerHTML += '<tr class="wineryElement">' +
-                                    '<th scope="row">'+ res.data.wineries[i].wineryID +'</th>' + 
+                                    '<th scope="row">'+ lastcount +'</th>' + 
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
                                     '<th scope="row action-btns">' +
@@ -178,9 +196,9 @@ const populateData = function(jsonData){
         lastServedID = res.data.wineries[res.data.wineries.length - 1].wineryID;
     }
     else if(res.data.isWineries !== undefined  && res.data.wineries.length > 0){
-        for(let i = 0; i < res.data.wineries.length; ++i){
+        for(let i = 0; i < res.data.wineries.length; ++i, ++lastcount){
             table.innerHTML += '<tr class="wineryElement">' +
-                                    '<th scope="row">'+ res.data.wineries[i].winery_manager +'</th>' + 
+                                    '<th scope="row">'+ lastcount +'</th>' + 
                                     '<td>'+ res.data.wineries[i].winery_name +'</td>' +
                                     hasWineryManager(res.data.wineries[i].winery_manager) + 
                                     '<th scope="row action-btns">' +

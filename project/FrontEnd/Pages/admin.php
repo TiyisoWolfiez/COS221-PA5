@@ -59,7 +59,7 @@
       <nav class="list-of-various-elements">
         <nav class="navigation-tabs-for-list">
           <div class="btn btn-primary btns-click" onmouseup="viewWineries()">view wineries</div>
-          <div class="btn btn-primary btns-click" onmouseup="viewManagers()">view managers</div>
+          <div class="btn btn-primary btns-click" onmouseup="viewManagers()">view managers wineries</div>
           <div class="btn btn-primary btns-click" data-bs-toggle="modal" data-bs-target="#addwinery">Add winery</div>
         </nav>
         <nav class="container-of-data list-group">
@@ -134,8 +134,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="addWinery()" data-bs-dismiss="modal">Create new winery</button>
+            <button type="button" class="btn btn-secondary btns-click-gray" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btns-click" style="background-color: var(--app-theme-col);" onmouseup="addWinery()" data-bs-dismiss="modal">Create new winery</button>
           </div>
         </div>
       </div>
@@ -154,8 +154,8 @@
             <label for="text-dark" class="text-dark">Are you sure you want to delete this winery</label>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="deleteWinery()" data-bs-dismiss="modal">Yes</button>
+            <button type="button" class="btn btn-secondary btns-click-gray" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary btns-click" style="background-color: var(--app-theme-col);" onmouseup="deleteWinery()" data-bs-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>

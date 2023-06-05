@@ -614,7 +614,8 @@ class Api extends config{
         return $this->constructResponseObject("", "success");
     }
 
-    public function addWineryAdmin($data){
+    public function addWineryAdmin($wineryName, $wineryImageURL, $wineryWebsiteURL, 
+        $location, $country, $longitude, $latitude, $region, $wineryManagerID, $isverified, $description){
         session_start();
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
@@ -628,7 +629,7 @@ class Api extends config{
 
         /////////////////////////////COUNTRY
         $stmt = $conn->prepare("SELECT country FROM country WHERE country LIKE ?;");
-        $success = $stmt->execute(array($data->country));
+        $success = $stmt->execute(array($country));
         if($stmt->rowCount() > 0){
             $result = $stmt->fetchAll();
             foreach($result as $valuesToOutput){
@@ -638,15 +639,15 @@ class Api extends config{
         }
         else{
             $stmt = $conn->prepare("INSERT INTO country(country) VALUES(?);");
-            $success = $stmt->execute(array($data->country));
+            $success = $stmt->execute(array($country));
             if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
 
             $stmt = $conn->prepare("SELECT country FROM country WHERE country LIKE ?;");
-            $success = $stmt->execute(array($data->country));
+            $success = $stmt->execute(array($country));
             if($stmt->rowCount() > 0){
                 $result = $stmt->fetchAll();
                 foreach($result as $valuesToOutput){
-                    $country = $valuesToOutput['country'];
+                    $countryName = $valuesToOutput['country'];
                     break;
                 }
             }
@@ -655,7 +656,7 @@ class Api extends config{
 
         /////////////////////////REGION
         $stmt = $conn->prepare("SELECT regionID FROM region WHERE region_name LIKE ?;");
-        $success = $stmt->execute(array($data->region));
+        $success = $stmt->execute(array($region));
         if($stmt->rowCount() > 0){
             $result = $stmt->fetchAll();
             foreach($result as $valuesToOutput){
@@ -665,11 +666,11 @@ class Api extends config{
         }
         else{
             $stmt = $conn->prepare("INSERT INTO region(region_name, country) VALUES(?, ?);");
-            $success = $stmt->execute(array($data->region, $country));
+            $success = $stmt->execute(array($region, $countryName));
             if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
 
             $stmt = $conn->prepare("SELECT regionID FROM region WHERE region_name LIKE ?;");
-            $success = $stmt->execute(array($data->region));
+            $success = $stmt->execute(array($region));
             if($stmt->rowCount() > 0){
                 $result = $stmt->fetchAll();
                 foreach($result as $valuesToOutput){
@@ -682,7 +683,7 @@ class Api extends config{
 
         /////////////////////////LOCATION
         $stmt = $conn->prepare("SELECT locationID FROM location WHERE address LIKE ?;");
-        $success = $stmt->execute(array($data->location));
+        $success = $stmt->execute(array($location));
         if($stmt->rowCount() > 0){
             $result = $stmt->fetchAll();
             foreach($result as $valuesToOutput){
@@ -692,11 +693,11 @@ class Api extends config{
         }
         else{
             $stmt = $conn->prepare("INSERT INTO location(longitude, lattitude, address, regionID) VALUES(?, ?, ?, ?);");
-            $success = $stmt->execute(array($data->longitude, $data->latitude, $data->location, $regionid));
+            $success = $stmt->execute(array($longitude, $latitude, $location, $regionid));
             if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
 
             $stmt = $conn->prepare("SELECT locationID FROM location WHERE address LIKE ?;");
-            $success = $stmt->execute(array($data->location));
+            $success = $stmt->execute(array($location));
             if($stmt->rowCount() > 0){
                 $result = $stmt->fetchAll();
                 foreach($result as $valuesToOutput){
@@ -709,20 +710,20 @@ class Api extends config{
         
         //winery
 
-        if($data->wineryManagerID != null){
+        if($wineryManagerID != null){
             $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_locationID, winery_manager, isVerified) VALUES(?,?,?,?,?,?,?);");
             $success = $stmt->execute(array(
-                $data->wineryName, $data->wineryImageURL, $data->description, 
-                $data->wineryWebsiteURL, $locationID, $data->wineryManagerID, $data->isverified));
+                $wineryName, $wineryImageURL, $description, 
+                $wineryWebsiteURL, $locationID, $wineryManagerID, $isverified == true ? 1 : 0));
         }
         else{
             $stmt = $conn->prepare("INSERT INTO winery(winery_name, winery_imageURL, description, winery_websiteURL, winery_locationID, isVerified) VALUES(?,?,?,?,?,?);");
             $success = $stmt->execute(array(
-                $data->wineryName, $data->wineryImageURL, $data->description, 
-                $data->wineryWebsiteURL, $locationID, $data->isverified));
+                $wineryName, $wineryImageURL, $description, 
+                $wineryWebsiteURL, $locationID, 0));
         }
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
-        else return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+        else return $this->constructResponseObject("Added new winery", "success");
     }
 
     public function deleteWineryAdmin($id){
@@ -741,7 +742,7 @@ class Api extends config{
         $success = $stmt->execute(array($id));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
-        return $this->getWineriesORManagersAdmin(REQUESTYPE::GET_WINERY_ADMIN->value);
+        return $this->constructResponseObject("deleted winery", "success");
     }
     
     /**
@@ -828,6 +829,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else if($USERREQUEST->type == REQUESTYPE::OPEN_WINERY_ADMIN->value){
         echo $apiconfig->openManagersPage($USERREQUEST->managerID);
     }
+    else if($USERREQUEST->type == REQUESTYPE::ADD_WINERY_ADMIN->value){
+        echo $apiconfig->addWineryAdmin($USERREQUEST->wineryName, $USERREQUEST->wineryImageURL,
+            $USERREQUEST->wineryWebsiteURL, $USERREQUEST->location, $USERREQUEST->country,
+            $USERREQUEST->longitude, $USERREQUEST->latitude, $USERREQUEST->region,
+            $USERREQUEST->wineryManagerID, $USERREQUEST->isverified, $USERREQUEST->description
+        );
+    }
     else echo $json;
 }
 else if($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -836,21 +844,6 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::GET_MANAGERS_ADMIN->value){
         echo $apiconfig->getWineriesORManagersAdmin(REQUESTYPE::GET_MANAGERS_ADMIN->value, isset($_GET['last_id']) ? $_GET['last_id'] : 0);
-    }
-    else if($_GET['type'] == REQUESTYPE::ADD_WINERY_ADMIN->value){
-        echo $apiconfig->addWineryAdmin(array(
-            "wineryName" => $_GET['wineryName'],
-            "wineryImageURL" => $_GET['wineryImageURL'],
-            "wineryWebsiteURL" => $_GET['wineryWebsiteURL'],
-            "location" => $_GET['location'],
-            "country" => $_GET['country'],
-            "longitude" => $_GET['longitude'],
-            "latitude" => $_GET['latitude'],
-            "region" => $_GET['region'],
-            "wineryManagerID" => $_GET['wineryManagerID'],
-            "isverified" => $_GET['isverified'],
-            "description" => $_GET['description']
-        ));
     }
     else if($_GET['type'] == REQUESTYPE::DELETE_WINERY_ADMIN->value){
         echo $apiconfig->deleteWineryAdmin($_GET['wineryID']);

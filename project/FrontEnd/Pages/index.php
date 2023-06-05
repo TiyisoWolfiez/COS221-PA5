@@ -43,7 +43,7 @@
               </div>
             </div>
         </div>
-        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+        <div class="card mb-3 card-info-container" style="max-width: 540px; height: 200px; max-height: 200px; overflow: hidden;">
             <div class="row g-0">
               <div class="col-md-4">
                 <img class="card-img-top" src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="...">
@@ -56,7 +56,7 @@
               </div>
             </div>
         </div>
-        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+        <div class="card mb-3 card-info-container" style="max-width: 540px; height: 200px; max-height: 200px; overflow: hidden;">
             <div class="row g-0">
               <div class="col-md-4">
                 <img class="card-img-top" src="https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="...">
@@ -69,7 +69,7 @@
               </div>
             </div>
         </div>
-        <div class="card mb-3 card-info-container" style="max-width: 540px;">
+        <div class="card mb-3 card-info-container" style="max-width: 540px; height: 200px; max-height: 200px; overflow: hidden;">
             <div class="row g-0">
               <div class="col-md-4">
                 <img class="card-img-top" src="https://images.unsplash.com/photo-1491924778227-f225b115dd5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="...">

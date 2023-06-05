@@ -88,7 +88,7 @@
                         '</div><!--will only show for logged in users-->'.
                     '</a>';
             }
-            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded title-username" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
+            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded title-username" href="admin.php">Admin</a>';
             else echo '<a class="btn btn-black btn-rounded title-username" href="login.php">Login/Signup</a>';
 
             ?>
@@ -122,8 +122,8 @@
         <label for="text-dark" class="text-dark">Are you sure you want to logout</label>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="logout()" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary btns-click-gray" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary btns-click" style="background-color: var(--app-theme-col);" onmouseup="logout()" data-bs-dismiss="modal">Yes</button>
       </div>
     </div>
   </div>

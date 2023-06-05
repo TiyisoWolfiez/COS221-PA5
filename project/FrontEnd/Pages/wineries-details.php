@@ -77,14 +77,16 @@
                     <?php 
                     if(isset($_SESSION["Wines"])){
                         $wines = $_SESSION["Wines"];
+                        $count = 1;
                         foreach($wines as $obj){
                             echo '<tr class="wineryElement">'.
-                                '<th scope="row">'. $obj["wineID"] .'</th>'.
+                                '<th scope="row">'. $count .'</th>'.
                                 '<td>'. $obj["wine_name"] .'</td>'.
                                 '<td>'. $obj["varietal"] .'</td>'.
                                 '<td>'. $obj["carbonation"] .' • '. $obj["sweetness"] .'</td>'.
                                 '<td>'. $obj["year_bottled"] .'</td>'.
                             '</tr>';
+                            $count += 1;
                         }
                     }
                     ?>
@@ -142,7 +144,7 @@
 
                 for(let i = 0; i < res.data.length; ++i){
                     table.innerHTML += '<tr class="wineryElement">' +
-                                            '<th scope="row">'+ res.data[i].wineID + '</th>' +
+                                            '<th scope="row">'+ (i + 1) + '</th>' +
                                             '<td>'+ res.data[i].wine_name + '</td>'+
                                             '<td>'+ res.data[i].varietal +'</td>'+
                                             '<td>'+ res.data[i].carbonation +' • ' + res.data[i].sweetness +'</td>'+

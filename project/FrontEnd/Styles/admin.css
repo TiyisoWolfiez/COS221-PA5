@@ -65,7 +65,7 @@ body{
     justify-content: center;
 }
 
-.btns-click{
+.btns-click, .btns-click-gray{
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
@@ -75,11 +75,15 @@ body{
     transition: transform 0.3s ease-in-out;
 }
 
-.btns-click:hover{
+.btns-click-gray{
+    background-color: var(--gray-1000) !important;
+}
+
+.btns-click:hover, .btns-click-gray:hover{
     opacity: 0.9;
 }
 
-.btns-click:active{
+.btns-click:active, .btns-click-gray:hover{
     transform: scale(0.99);
 }
 
