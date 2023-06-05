@@ -18,24 +18,6 @@ window.onload = function(){
     xhttpObject.send();
 }
 
-const loadDefault = function(){
-    document.getElementById("searchbar").value = "";
-    const xhttpObject = new XMLHttpRequest();
-    switchOnLoader();
-
-    xhttpObject.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200){
-            switchOffLoader();
-            document.querySelector(".website-container").innerHTML = "";
-            placeWineElements(this.responseText);
-        }
-    };
-
-    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=GET_WINE&lastcount=0");
-    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttpObject.send();
-}
-
 const searchFor = function() {
     const searchbarval = document.getElementById("searchbar").value;
     searchval = searchbarval;
@@ -90,6 +72,19 @@ const placeWineElements = function(res){
                                     '</div>';
     }
     lastServedID = jsonRes.lastcount;
+    // On Click
+    const divs = document.querySelectorAll('.card');
+    // Add click event listener to each div
+    divs.forEach(div => {
+        div.addEventListener('click', () => {
+            // Get the title element within the div
+            const titleElement = div.querySelector('.card-title');
+            // Get the text of the title element
+            const titleText = titleElement.textContent;
+            localStorage.setItem('winery_name', titleText);
+            window.location.href = "wine-details.php";
+        });
+    });
 }
 
 const loadMoreData = function(){
@@ -123,34 +118,6 @@ const openWine = function(){
     xhttpObject.send();
 }
 
-const checkValue = function(){
-    console.log("here")
-    const searchbarval = document.getElementById("searchbar").value;
-    if(searchbarval === "")document.querySelector(".cancel-search-btn").hidden = true;
-    else document.querySelector(".cancel-search-btn").hidden = false;
-}
-
 const filterBy = function(){
 
 }
-
-$(document).ready(function(){
-    var FilterBC = 'div.ms-3.btn.btn-light.btn-rounded.rounded-4.border.border-dark-subtle.filter-buttons';
-    $(FilterBC).click(function(){
-        console.log("Insideee");
-        var typeWine = $(this).html();
-        console.log(typeWine);
-        var body = {
-            type : 'GET_WINES',
-            location : flocation
-        }
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function()
-        {
-            if(this.readyState== 4 && this.status == 200)
-            {
-                document.querySelector(".website-container").innerHTML = "";
-            }
-        }
-    })
-})
