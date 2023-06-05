@@ -37,7 +37,7 @@ enum REQUESTYPE: string
     case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     case OPEN_WINERY = 'OPEN_WINERY';
     case OPEN_WINE = 'OPEN_WINE';
-    case GET_WINE_REVIEWS = 'GET_WINE_REVIEWS';
+    case LOAD_MORE_WINES = 'LOAD_MORE_WINES';
     /**Add more cases */
 }
 
@@ -107,7 +107,7 @@ class Api extends config{
 
     public function loginAdmin($AdminKey){
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($AdminKey));
 
         if($success && $stmt->rowCount() > 0){
@@ -535,7 +535,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -600,7 +600,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -711,7 +711,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
+        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -853,8 +853,5 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::LOAD_MORE_WINES->value){
         echo $apiconfig->loadMoreWines();
-    } 
-    else if($_GET['type'] == REQUESTYPE::GET_WINE_REVIEWS->value){
-        echo $apiconfig->getWineReviews($_GET['wineID']);
     }
 }
