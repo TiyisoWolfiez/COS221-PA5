@@ -135,7 +135,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btns-click" style="background-color: var(--app-theme-col);" onmouseup="addWinery()" data-bs-dismiss="modal">Create new winery</button>
+            <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="addWinery()" data-bs-dismiss="modal">Create new winery</button>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-primary btns-click" style="background-color: var(--app-theme-col);" onmouseup="deleteWinery()" data-bs-dismiss="modal">Yes</button>
+            <button type="button" class="btn btn-primary" style="background-color: var(--app-theme-col);" onmouseup="deleteWinery()" data-bs-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>

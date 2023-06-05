@@ -38,7 +38,6 @@ enum REQUESTYPE: string
     case OPEN_WINERY = 'OPEN_WINERY';
     case OPEN_WINE = 'OPEN_WINE';
     case LOAD_MORE_WINES = 'LOAD_MORE_WINES';
-    case GET_WINE_REVIEWS = 'GET_WINE_REVIEWS';
     /**Add more cases */
 }
 
@@ -108,7 +107,7 @@ class Api extends config{
 
     public function loginAdmin($AdminKey){
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
         $success = $stmt->execute(array($AdminKey));
 
         if($success && $stmt->rowCount() > 0){
@@ -235,23 +234,6 @@ class Api extends config{
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare('SELECT reviewID ,review_description, points  FROM review JOIN user ON userID = reviewer_userID WHERE username = ?');
         $success = $stmt->execute(array($username));
-
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $json = json_encode($rows);
-        
-        if($stmt->rowCount() > 0){
-            return $this->constructResponseObject($rows, "success");
-        }
-        else{
-            return $this->constructResponseObject("", "error");
-        }
-    }
-
-    // * Get Wine Reviews
-    public function getWineReviews($wineID){
-        $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare('SELECT reviewID ,review_description, points, username FROM review JOIN user ON userID = reviewer_userID WHERE wineID = ?');
-        $success = $stmt->execute(array($wineID));
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $json = json_encode($rows);
@@ -522,10 +504,30 @@ class Api extends config{
         $stmt->execute(array($id));
         $wineCount = $stmt->fetchColumn();
 
+        $stmt = $conn->prepare('SELECT * FROM wine WHERE wineryID = ? LIMIT 10');
+        $stmt->execute(array($id));
+        $wines = $stmt->fetchAll();
+
         session_start();
+        $_SESSION["WineryID"] = $id;
         $_SESSION["WineryData"] = $data;
         $_SESSION["WinesCount"] = $wineCount;
+        $_SESSION["Wines"] = $wines;
+        $_SESSION["Limit"] = 10;
         return $this->constructResponseObject("", "success");
+    }
+
+    public function loadMoreWines(){
+        session_start();
+        $conn = $this->connectToDatabase();
+        $val = $_SESSION["Limit"];
+        $_SESSION["Limit"] = $val + 10;
+        $stmt = $conn->prepare('SELECT * FROM wine WHERE wineryID = ? LIMIT ' . $val + 10);
+        $stmt->execute(array($_SESSION["WineryID"]));
+        $wines = $stmt->fetchAll();
+
+        $_SESSION["Wines"] = $wines;
+        return $this->constructResponseObject($wines, "success");
     }
 
     public function getWineriesORManagersAdmin($type, $last_id = 0){
@@ -533,7 +535,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -598,7 +600,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -709,7 +711,7 @@ class Api extends config{
         $adminkey = $_SESSION["adminkey"]; //adminkey should come from session variable
 
         $conn = $this->connectToDataBase();
-        $stmt = $conn->prepare("SELECT adminkey FROM admin WHERE adminkey = ?;");
+        $stmt = $conn->prepare("SELECT userID FROM winery_manager WHERE userID = ?;");
         $success = $stmt->execute(array($adminkey));
 
         if(!$success)return $this->constructResponseObject("Database connection has failed, try again", "error");
@@ -750,9 +752,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($USERREQUEST->type == REQUESTYPE::REGISTER->value){
         echo $apiconfig->registerUser($USERREQUEST->username, $USERREQUEST->email, $USERREQUEST->password, $USERREQUEST->isSouthAfrican);
-    }
-    else if($USERREQUEST->type === REQUESTYPE::INSERT_REVIEW->value) {
-        echo $apiconfig->insertReview($USERREQUEST->points, $USERREQUEST->review, $USERREQUEST->username, $USERREQUEST->wineID);
     }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
@@ -854,8 +853,5 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::LOAD_MORE_WINES->value){
         echo $apiconfig->loadMoreWines();
-    }
-    else if($_GET['type'] == REQUESTYPE::GET_WINE_REVIEWS->value){
-        echo $apiconfig->getWineReviews($_GET['wineID']);
     }
 }

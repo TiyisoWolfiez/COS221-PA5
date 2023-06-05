@@ -85,7 +85,7 @@
                         '</div><!--will only show for logged in users-->'.
                     '</a>';
             }
-            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded title-username" href="admin.php">Admin</a>';
+            else if(isset($_SESSION['adminkey'])) echo '<a class="btn btn-black btn-rounded title-username" href="admin.php">Admin '. $_SESSION['adminkey']. '</a>';
             else echo '<a class="btn btn-black btn-rounded title-username" href="login.php">Login/Signup</a>';
 
             ?>
