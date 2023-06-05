@@ -502,7 +502,7 @@ class Api extends config{
         $name = strtolower($name);
         $name = "%" . $name . "%";
 
-        $FIELDS = "winery_name, winery_imageURL, description, winery_websiteURL, longitude, latitude, location.address AS address, region.region_name AS region, region.country AS country";
+        $FIELDS = "wineryID, winery_name, winery_imageURL, isVerified, description, winery_websiteURL, longitude, latitude, location.address AS address, region.region_name AS region, region.country AS country";
         $conn = $this->connectToDatabase();
         $stmt = $conn->prepare("SELECT $FIELDS FROM winery JOIN location ON winery_locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE LOWER(winery_name) LIKE :name");
         $stmt->bindParam(':name', $name);
@@ -514,7 +514,7 @@ class Api extends config{
 
     public function getWinery($id){
         $conn = $this->connectToDatabase();
-        $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery_locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE region.country LIKE 'South Africa' AND winery.wineryID = ?");
+        $stmt = $conn->prepare("SELECT * FROM winery JOIN location ON winery_locationID = location.locationID JOIN region ON location.regionID = region.regionID WHERE winery.wineryID = ?");
         $stmt->execute(array($id));
         $data = $stmt->fetchAll();
 
@@ -532,6 +532,7 @@ class Api extends config{
         $_SESSION["WinesCount"] = $wineCount;
         $_SESSION["Wines"] = $wines;
         $_SESSION["Limit"] = 10;
+
         return $this->constructResponseObject("", "success");
     }
 

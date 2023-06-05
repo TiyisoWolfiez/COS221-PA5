@@ -18,6 +18,24 @@ window.onload = function(){
     xhttpObject.send();
 }
 
+const loadDefault = function(){
+    document.getElementById("searchbar").value = "";
+    const xhttpObject = new XMLHttpRequest();
+    switchOnLoader();
+
+    xhttpObject.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            switchOffLoader();
+            document.querySelector(".website-container").innerHTML = "";
+            placeWineElements(this.responseText);
+        }
+    };
+
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=GET_WINE&lastcount=0");
+    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttpObject.send();
+}
+
 const searchFor = function() {
     const searchbarval = document.getElementById("searchbar").value;
     searchval = searchbarval;
@@ -105,9 +123,17 @@ const openWine = function(){
     xhttpObject.send();
 }
 
+const checkValue = function(){
+    console.log("here")
+    const searchbarval = document.getElementById("searchbar").value;
+    if(searchbarval === "")document.querySelector(".cancel-search-btn").hidden = true;
+    else document.querySelector(".cancel-search-btn").hidden = false;
+}
+
 const filterBy = function(){
 
 }
+
 $(document).ready(function(){
     var FilterBC = 'div.ms-3.btn.btn-light.btn-rounded.rounded-4.border.border-dark-subtle.filter-buttons';
     $(FilterBC).click(function(){

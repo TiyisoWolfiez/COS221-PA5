@@ -23,6 +23,7 @@
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i class="fa-solid fa-filter pe-2"></i>filters
         </div>
+        <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" onmouseup="getAllLocations()">All locations</div>
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" id="opt1">Cape Town</div>
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons"id="opt2">Port Elizabeth</div>
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" id="opt3">Durban</div>
@@ -33,7 +34,7 @@
         <div class="ms-3 btn btn-light btn-rounded rounded-4 border border-dark-subtle filter-buttons" id="opt8">Bloemfontein</div>
       </div>
     </nav>
-    <nav class="website-container overflow-y-auto"></nav>
+    <nav class="website-container overflow-y-auto  mb-3 pt-3 pb-3"></nav>
 
     <!-- filter tab -->
     <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

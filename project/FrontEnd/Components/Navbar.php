@@ -36,7 +36,10 @@
         $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
         $url = end($url_array);  
         return $url == "wines.php" || $url == "wineries.php" ? 
-            '<input type="search" class="form-control w-25" placeholder="Search for wineries" aria-label="Search" id="searchbar" />'. //<!--check if current page is wineries or wines then render this-->
+            '<input type="search" class="form-control w-50" placeholder="Search for wineries" aria-label="Search" id="searchbar" />'. //<!--check if current page is wineries or wines then render this-->
+            ' <button type="button" class="btn bg-transparent cancel-search-btn" style="margin-left: -40px; z-index: 100;" onclick="loadDefault()">'.
+              '<i class="fa fa-times"></i>'.
+            '</button>'.
             '<i class="fa-solid fa-magnifying-glass ms-2" style="color: #414141; font-size: 1.5rem;" onclick="searchFor()"></i>' //<!--check if current page is wineries or wines then render this-->
             : "";
     }

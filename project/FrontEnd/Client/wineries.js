@@ -15,6 +15,24 @@ window.onload = function(){
     xhttpObject.send();
 }
 
+const loadDefault = function(){
+    document.getElementById("searchbar").value = "";
+    const xhttpObject = new XMLHttpRequest();
+    switchOnLoader();
+
+    xhttpObject.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            switchOffLoader();
+            document.querySelector(".website-container").innerHTML = "";
+            placeWineryElements(this.responseText);
+        }
+    };
+
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=GET_WINERIES");
+    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttpObject.send();
+}
+
 const searchFor = function() {
     const searchbarval = document.getElementById("searchbar").value;
     switchOnLoader();
@@ -86,6 +104,12 @@ const placeWineryElements = function(res){
 
 const isVerified = function(verfiedState){return verfiedState == 1 ? '<i class="fa-solid fa-circle-check"></i>' : "N/A"}
 
+const checkValue = function(){
+    const searchbarval = document.getElementById("searchbar").value;
+    if(searchbarval === "")document.querySelector(".cancel-search-btn").hidden = true;
+    else document.querySelector(".cancel-search-btn").hidden = false;
+}
+
 const filterBy = function(){
 
 }
@@ -153,6 +177,8 @@ $(document).ready(function(){
 
 function FilterSearch(name)
 {
+    switchOnLoader();
+
     NotFound= false;
     flocation = $(name).html();
     console.log(flocation);
@@ -167,6 +193,7 @@ function FilterSearch(name)
     xhr.onreadystatechange= function(){
         if(this.readyState == 4 && this.status == 200)
         {
+            switchOffLoader();
             document.querySelector(".website-container").innerHTML = "";
             console.log("Before data populated")
             placeWineryElements(this.responseText);
@@ -175,4 +202,21 @@ function FilterSearch(name)
 
     xhr.open("POST","../../Backend/Api/Api.php");
     xhr.send(JSON.stringify(body));
+}
+
+const getAllLocations = function(){
+    switchOnLoader();
+
+    const xhttpObject = new XMLHttpRequest();
+    xhttpObject.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            switchOffLoader();
+            document.querySelector(".website-container").innerHTML = "";
+            placeWineryElements(this.responseText);
+        }
+    };
+
+    xhttpObject.open("GET", "../../Backend/Api/Api.php?type=SEARCH_WINERY&name=");
+    xhttpObject.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttpObject.send();
 }

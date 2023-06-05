@@ -39,7 +39,7 @@
 
     <!-- ------------------------------Beginning-Wines------------------------------- -->
     <nav class="overflow-y-auto content-container">
-      <nav class="website-container overflow-y-visible">
+      <nav class="website-container overflow-y-visible mb-3 pt-3 pb-3">
 
       </nav>
       <nav class="load-more-btn-container">
