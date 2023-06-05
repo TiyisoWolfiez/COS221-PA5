@@ -37,6 +37,7 @@ enum REQUESTYPE: string
     case DELETE_WINERY_ADMIN = 'DELETE_WINERY_ADMIN';
     case OPEN_WINERY = 'OPEN_WINERY';
     case OPEN_WINE = 'OPEN_WINE';
+    case GET_WINE_REVIEWS = 'GET_WINE_REVIEWS';
     /**Add more cases */
 }
 
