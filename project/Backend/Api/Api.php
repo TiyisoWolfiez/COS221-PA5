@@ -38,6 +38,7 @@ enum REQUESTYPE: string
     case OPEN_WINERY = 'OPEN_WINERY';
     case OPEN_WINE = 'OPEN_WINE';
     case LOAD_MORE_WINES = 'LOAD_MORE_WINES';
+    case GET_WINE_REVIEWS = 'GET_WINE_REVIEWS';
     /**Add more cases */
 }
 
@@ -280,6 +281,23 @@ class Api extends config{
         
         if($stmt->rowCount() > 0){
             return $this->constructResponseObject("", "success");
+        }
+        else{
+            return $this->constructResponseObject("", "error");
+        }
+    }
+
+     // * Get Wine Reviews
+     public function getWineReviews($wineID){
+        $conn = $this->connectToDatabase();
+        $stmt = $conn->prepare('SELECT reviewID ,review_description, points, username FROM review JOIN user ON userID = reviewer_userID WHERE wineID = ?');
+        $success = $stmt->execute(array($wineID));
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode($rows);
+        
+        if($stmt->rowCount() > 0){
+            return $this->constructResponseObject($rows, "success");
         }
         else{
             return $this->constructResponseObject("", "error");
@@ -753,6 +771,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($USERREQUEST->type == REQUESTYPE::REGISTER->value){
         echo $apiconfig->registerUser($USERREQUEST->username, $USERREQUEST->email, $USERREQUEST->password, $USERREQUEST->isSouthAfrican);
     }
+    else if($USERREQUEST->type === REQUESTYPE::INSERT_REVIEW->value) {
+        echo $apiconfig->insertReview($USERREQUEST->points, $USERREQUEST->review, $USERREQUEST->username, $USERREQUEST->wineID);
+    }
     else if($USERREQUEST->type == REQUESTYPE::LOGIN->value){
         echo $apiconfig->loginUser($USERREQUEST->email, $USERREQUEST->password);
     }
@@ -853,5 +874,8 @@ else if($_SERVER["REQUEST_METHOD"] == "GET"){
     }
     else if($_GET['type'] == REQUESTYPE::LOAD_MORE_WINES->value){
         echo $apiconfig->loadMoreWines();
+    }
+    else if($_GET['type'] == REQUESTYPE::GET_WINE_REVIEWS->value){
+        echo $apiconfig->getWineReviews($_GET['wineID']);
     }
 }
